@@ -1,0 +1,66 @@
+<!--Student Registration Information.
+student can check their register course unit and new commers can select their course combinations.
+-->
+<script type="text/javascript" src="./Ajax/sp_cu_reg.js"></script>
+
+<?php
+/////////////////////////////////////////////////////////////////////////////////
+//..... New student can choose their course combinations..........
+/////////////////////////////////////////////////////////////////////////////////
+
+////login.php//////
+
+$stno=$_SESSION['user_id'];
+$rustno=$_SESSION['ru_st_user_id'];
+
+include'./admin/config.php';
+
+///////////////////////////////////////////////////////////////
+//....check student new commer or not....................
+//////////////////////////////////////////////////////////
+
+
+$con_combin=mysql_connect($host,$user,$pass) or die("Unable to connect Database");
+mysql_select_db($db);
+//echo $con_combin;
+
+
+$checkcmbi="select * from  subject_combination where id='hs$stno'";
+//echo $checkcmbi;
+$chkedcmbi=mysql_query($checkcmbi);
+echo $chkedcmbi;
+
+/////////////////////////////////////////////////////// if student new commer...........
+
+/*if(mysql_num_rows($chkedcmbi)==0)
+{
+
+//mysql_close($con_combin);
+///get student scream.............................
+
+
+$quesrem="select occupation from $rmsdb.fohssmis where user='$rustno'";
+//echo$quesrem;
+$qusrem=mysql_query($quesrem);
+echo $qusrem;
+
+while($qsrem=mysql_fetch_array($qusrem)){
+$srem=$qsrem['occupation'];
+echo$srem;
+}
+
+
+
+include'./connection/connection.php';
+//...........................		
+				
+//....................get closing date of call combinations.....................
+
+
+$quecmbcldt="select * from call_combination where status='1'";
+$qucmbcldt=mysql_query($quecmbcldt);
+while($qcmbcldt=mysql_fetch_array($qucmbcldt)){
+$cmbacc_yaer=$qcmbcldt['acc_year'];
+$cmbend=$qcmbcldt['closing_date'];
+$cmbst=$qcmbcldt['status'];
+}

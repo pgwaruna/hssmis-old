@@ -1,0 +1,230 @@
+body{
+margin: 0;
+padding: 0;
+background: #d7aadb;
+font: 70% georgia, "Times New Roman", arial, sans-serif;
+color: #8c189d;
+}
+
+a:link, a:active, a:visited{
+color: #8c189d;
+text-decoration: none;
+border-bottom: 1px dashed #8c189d;
+
+}
+a:hover{
+color: #000;
+border-bottom-style: solid;
+}
+
+/* Containing centering entire layout */
+#a{
+width: 770px;
+margin: 0 auto;
+background: #ffffff;
+border: 1px solid #8c189d;
+}
+
+#b{
+width: 750px;
+margin: 0 auto;
+background: #ffffff;
+border: 0px solid #000000;
+}
+
+#c{
+width: 850px;
+margin: 0 auto;
+background: #ffffff;
+border: 0px solid #000000;
+}
+
+
+/* scrolling div*/
+#m{
+height: 550px;
+width: 755px;
+overflow: auto;
+border: 1px solid #8c189d;
+background-color: #ffffff;
+padding: 3px;
+}
+
+/* Container holding TopNav and its background */
+#topnavbg{
+height: 29px;
+background: #ddd url('../images/topbg.gif');
+}
+
+/* TopNav menu */
+#topnav ul{
+margin: 0;
+padding: 6px 5px 0;
+list-style-type: none;
+}
+
+#topnav li{
+float: right;
+margin: 0 1px;
+border-top: none;
+border: 1px solid #666;
+}
+
+#topnav a, #topnav a:visited, #topnav a:active{
+color: #666;
+display: block;
+background: #fff;
+padding: 2px 5px;
+border-bottom: none;
+text-decoration: none;
+font: 10px verdana, tahoma, sans-serif;
+}
+
+#topnav a:hover{
+background: #8c189d;
+}
+
+/* Container holding header image */
+#header{
+height: 100px;
+background: #fff url('../images/header.gif');
+}
+
+/* NavBar menu */
+#nav ul{
+margin: 0;
+height: 24px;
+padding: 5px 5px 0;
+list-style-type: none;
+border-bottom: 1px solid #000;
+background: #ddd url('../images/navbg.gif');
+}
+
+#nav li{
+float: left;
+margin: 0 1px;
+border-bottom: none;
+border: 1px solid #666;
+}
+
+#nav a, #nav a:visited, #nav a:active{
+color: #666;
+display: block;
+background: #fff;
+padding: 2px 5px;
+border-bottom: none;
+text-decoration: none;
+font: 10px verdana, tahoma, sans-serif;
+}
+
+#nav a:hover{
+background: #e1e1e1;
+}
+
+/* Container holding left column */
+#Lcolumn{
+float: left;
+width: 545px;
+padding-bottom: 10px;
+}
+
+/* All <h1> tags in left column */
+#Lcolumn h1{
+clear: both;
+color: #7a7aa6;
+margin: 20px 20px 5px;
+font: 1.5em arial, sans-serif;
+}
+
+/* All <p> tags in left column */
+#Lcolumn p{
+margin: 0 20px;
+}
+
+#Lcolumn .datecomment{
+color: #b4b4cd;
+margin: 15px 15px 0;
+font: 1em verdana, sans-serif;
+border-top: 1px solid #e1e1e1;
+}
+
+/* Container holding right column */
+#Rcolumn{
+float: left;
+width: 220px;
+padding-bottom: 10px;
+}
+
+/* All <h3> tags in right column */
+#Rcolumn h3{
+color: #eee;
+margin-top: 15px;
+text-indent: 10px;
+background:#8c189d; 
+/*background: url('../images/titlebg.jpg');*/
+font: 1.2em/25px "Times New Roman", arial, sans-serif;
+}
+
+/* Floats any image neatly to the left */
+.imgleft{
+float: left;
+margin-right: 10px;
+}
+
+/* Replaces all list styles in the right column with a star image */
+#Rcolumn li{
+padding: 0 10px;
+list-style-image: url('../images/bullet.gif');
+}
+
+/* All <p> tags in right column */
+#Rcolumn p{
+padding: 0 5px 0;
+color: #999;
+}
+
+/* Footer and copyright text */
+#footer{
+clear: both;
+text-align: center;
+border-top : 1px solid #000;
+font: 11px/58px verdana, sans-serif;
+background: #ddd url('../images/footer.gif');
+}
+
+
+td{
+   border-color: silver;
+	font-size: 13px;
+	font-style: normal;
+	
+}
+
+th{
+background:#8c189d;
+color: #ffffff;
+}
+
+#listtable td{
+   border-color: silver;
+	font-size: 10px;
+	border-color: #993366;
+	font-style: normal;
+
+}
+hr{
+color:#A550B2;
+width:95%;
+}
+
+table.bgc{
+background:#edd4dc;
+}
+
+tr.trbgc{
+background:#edd4dc;
+}
+
+tr.selectbg{
+background:#d2a6d9;
+}

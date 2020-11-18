@@ -1,0 +1,110 @@
+<?php
+
+
+
+if($_SESSION['role_id']=="6"){
+echo"<table border='0' align='center' bgcolor='#edd4dc'><tr>";
+echo"<th  colspan='2' align='center'>Your Mentor's Details</th></tr>";
+
+$stno=$_SESSION['user_id'];
+$quegtmet="select mentor_id from student where id=$stno";
+
+$qugtmet=mysql_query($quegtmet);
+if(mysql_num_rows($qugtmet)!=0){
+   
+
+	while($qgemnt=mysql_fetch_array($qugtmet)){
+		$mentid=$qgemnt['mentor_id'];
+						}
+	
+		if($mentid!=0){
+			$piname=$mentid.".jpg";
+			$picppath="./images/mentor/$piname";
+			
+			echo"<tr><td colspan='2' align='center'>";
+				if(file_exists($picppath)){
+					echo"<img src=$picppath></center>";
+								}
+				else{
+				echo "<img src=./images/mentor/no_picture.png class='stretch' alt='' width=100px height=110px>";
+								}
+			echo"</td></tr>";
+				$quegtmtdt="select * from mentor where mentor_id=$mentid";
+				$qugtmtdt=mysql_query($quegtmtdt);
+				while($qgtmtdt=mysql_fetch_array($qugtmtdt)){
+					$title=$qgtmtdt['title'];
+					$lname=$qgtmtdt['lname'];
+					$initials=$qgtmtdt['initials'];
+					$designation=$qgtmtdt['designation'];
+					$department=$qgtmtdt['department'];
+					$email=$qgtmtdt['email'];
+					$Internal_no=$qgtmtdt['Internal_no'];
+					$residence=$qgtmtdt['residence'];
+					$mobile=$qgtmtdt['mobile'];	
+										}
+
+			echo"<tr><td>Name</td><td>:&nbsp;$title&nbsp; $initials $lname</td></tr>";	
+			echo"<td>Designation</td><td>:&nbsp;$designation</td></tr>";
+			echo"<td>Department</td><td>:&nbsp;$department</td></tr>";
+			echo"<td>E-mail</td><td>:&nbsp;<a href='mailto:$email'>$email</a></td></tr>";
+			echo"<td>Internal TP No</td><td>:&nbsp;$Internal_no</td></tr>";
+			echo"<td>Residence</td><td>:&nbsp;$residence</td></tr>";
+			echo"<td>Mobile</td><td>:&nbsp;$mobile</td></tr>";
+			echo"</table>";
+							}
+				
+		else{
+			echo"<tr><td colspan='2' align='center'>Sorry ! Your
+mentor has not yet been assigned or defined by the system. Please contact Dean's
+Office.</td></tr></table>";
+				}
+		}
+else{
+echo"<tr><td colspan='2' align='center'>Sorry ! Your mentor is not diefine by system.</td></tr></table>";
+	}
+				}
+
+
+
+
+else{
+
+	$current_user=$_SESSION['user_id'];
+
+	$potofile="./images/std_pics/".$current_user.".jpg";
+	
+	echo"<table border=0 align=right v align=top><tr><td colspan=2>";
+	//echo '<center><img src=$potofile></center><br>';
+	if(file_exists($potofile)){
+			echo"<center><img src=$potofile></center><br>";
+								}
+		else{
+			echo "<center><img src=images/std_pics/SCI_Fac_no_picture.png class='stretch' alt='' width=100px height=110px></center><br>";
+								}
+	
+	echo"</td></tr>";
+	
+	
+	
+	echo '<tr class="trbgc"><td align=left><font color=#800000>';
+	
+	echo '&nbsp;Name<td align=left> '.ucfirst($_SESSION['last_name']).' '.strtoupper($_SESSION['initials']);
+	
+	echo '<tr class="trbgc"><td align=left><font color=#800000>&nbsp;Role<td align=left> '.ucfirst($_SESSION['role_name']);
+	
+	echo '<tr class="trbgc"><td align=left><font color=#800000>&nbsp;Occupation<td> '.ucfirst($_SESSION['occupation']);
+	
+	$ip=$_SERVER['REMOTE_ADDR'];
+	echo '<tr class="trbgc"><td align=left><font color=#800000>&nbsp;Your IP<td> '.$ip;
+	
+	$browser=$_SERVER['HTTP_USER_AGENT'];
+	//echo 'Your Browser : '.$browser;
+
+	echo '</font></table>';
+}
+
+
+
+
+
+?>

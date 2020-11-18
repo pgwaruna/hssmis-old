@@ -1,0 +1,13 @@
+<?php
+include 'admin/config.php';
+mysql_connect($host,$user,$pass)or die("Unable to connect Database");
+mysql_select_db($db);
+
+$part="select * from participation where student='ps368'";
+$pa=mysql_query($part);
+while($p=mysql_fetch_array($pa)){
+$l=$p['lect_id'];
+
+
+echo " ".$p['student']." |".$l." |".$p['status']."****"; 
+

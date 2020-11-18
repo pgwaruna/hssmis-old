@@ -1,0 +1,62 @@
+<?php
+	include_once("connect.php");
+			
+	class pastpapers
+	{
+			
+			////////////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////////////////////
+		
+			public function __construct()
+			{
+				Connect::getConnect();
+				
+			}
+			
+			
+			////////////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////////////////////
+/*
+			
+			public function getName($student)
+			{
+					
+			$query23="SELECT concat(l_name,' ',initials) as name from student where id = '$student'";
+			$data223=mysql_query($query23);
+			while($predata=mysql_fetch_array($data223)){
+			return $predata['name'];
+
+			}		
+			}
+
+	
+			
+		*/	
+			////////////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////////////////////
+
+			
+			public function addPaper($file, $year, $course)
+			{
+					
+			$query23="insert into pastpapers (id,year,course,file)values(NULL,'$year', '$course','$file')";
+			$data223=mysql_query($query23);
+			if($data223){
+				echo "<font color=red>Pastpaper Added Success</font>";
+				echo  '<br><br>[ <a href="index.php?view=admin&admin=38">Back to Uploader View</a> ]<br />';
+				
+			}
+			
+			}
+			
+			
+
+			
+			
+			
+			
+	}
+?>

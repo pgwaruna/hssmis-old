@@ -1,0 +1,58 @@
+<?php
+// Test CVS
+$docRoot = getenv("DOCUMENT_ROOT");
+ 
+include  $docRoot.'/fos/admin/config.php';
+
+//$host="localhost";  $db="sathiska";  $user="sathiska";  $pass="sathiska852"; 
+mysql_connect($host,$user,$pass)or die("Unable to connect Database");
+mysql_select_db($db);
+
+
+
+require_once 'Excel/reader.php';
+
+// ExcelFile($filename, $encoding);
+$data = new Spreadsheet_Excel_Reader();
+
+// Set output Encoding.
+$data->setOutputEncoding('CP1251');
+
+$data->read($target_path);
+//$data->read($_FILES['uploadedfile']['name']);
+
+error_reporting(E_ALL ^ E_NOTICE);
+
+for ($i = 7; $i <= $data->sheets[0]['numRows']; $i++) 
+{
+	$index=$data->sheets[0]['cells'][$i][3];
+	$str_exp = explode("/", $index);
+	//$acadamicyear1="2010_2011";
+	
+
+	for ($j = 4; $j <= $data->sheets[0]['numCols']; $j++)
+	{
+		
+		//$degree_nonDegree=$data->sheets[0]['cells'][$i][$j];
+		if($data->sheets[0]['cells'][$i][$j]!=null)
+		{
+			if($j>=4)
+			{
+				$sub=$data->sheets[0]['cells'][6][$j];
+							
+				$sql="insert into results(index_number,subject,grade) values ('".$str_exp[2]."','".$sub."','".$data->sheets[0]['cells'][$i][$j]."')";
+				//echo $sql;
+
+				mysql_query($sql);
+
+			}			
+								
+				
+		continue;
+		}		
+	}
+
+
+}
+
+?>

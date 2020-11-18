@@ -1,0 +1,41 @@
+
+<head>
+<meta http-equiv="Content-Language" content>
+</head>
+
+<?php
+
+echo "View Students Results<hr color=#E1E1F4 width=95%><br>";
+						include 'forms/form_11.php';
+						
+						echo "<hr color=#E1E1F4 width=95%><br>";
+						?>
+						<p>&#3476;&#3510;&#3484;&#3546; &#3520;&#3538;&#3511;&#3535;&#3484; &#3508;&#3530;&#8205;&#3515;&#3501;&#3538;&#3509;&#3517; &#3520;&#3517; &#3514;&#3512;&#3530; &#3482;&#3538;&#3523;&#3538; &#3520;&#3515;&#3503;&#3482;&#3530; &#3463;&#3501;&#3530;&#3505;&#3512;&#3530; &#3476;&#3510;&#3484;&#3546; 
+						&#3520;&#3538;&#3511;&#3535;&#3484; &#3461;&#3458;&#3482;&#3514; &#3523;&#3524; &#3520;&#3536;&#3515;&#3536;&#3503;&#3530;&#3503; &#3523;&#3503;&#3524;&#3505;&#3530; &#3482;&#3515; <span lang="en-us">
+						<a href="mailto:janak@maths.ruh.ac.lk">janak@maths.ruh.ac.lk</a>
+						</span>&#3520;&#3545;&#3501; &#3466; &#3512;&#3546;&#3517;&#3530; &#3482;&#3515;&#3505;&#3530;&#3505;.</p>
+<p><span lang="en-us">If Any error in your Results. Please send error report to
+<a href="mailto:janak@maths.ruh.ac.lk">janak@maths.ruh.ac.lk</a></span></p>
+<br /><br />
+						<?php
+						if(($task=='vwrslt')&&(isset($_POST['submit']))){
+						$level_11=$_POST['level_11'];
+						$semister_11=$_POST['semister_11'];
+						$id_11=$_SESSION['user_id'];
+
+						
+						$con11_2=mysql_connect($host,$user,$pass)or die("Unable to connect Database");
+						mysql_select_db($db);
+						
+						// view Results
+						echo "Results of ".$id_11." in Level ".$level_11." and Semester ".$semister_11."<br>";
+						$query_11_2="select r.subject, c.name, r.grade from results r, courseunit c where r.index_number='$id_11' and c.level='$level_11' and c.semister='$semister_11' and r.subject=c.code";
+						echo '<table border="1"  bordercolor="#993366"><tr><th>Subject<th>Subject Name<th>Grade</tr>';
+						$res_vw=mysql_query($query_11_2);
+						while($data=mysql_fetch_array($res_vw)){
+						echo "<tr><td>".$data['subject']."<td>".$data['name']."<td>".$data['grade']."</tr>";
+						}
+						echo "</table>";
+						}
+
+?>

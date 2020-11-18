@@ -1,0 +1,60 @@
+version: "3"
+services:
+    xampp-apache:
+        build:
+          context: ./apache/
+        container_name: xampp-apache
+        restart: always
+        ports:
+            - 4000:80
+        volumes:
+          - ./apache/apache.conf:/usr/local/apache2/conf/apache.conf
+          - ./log/apache2:/var/log/apache2
+          - ../src/:/usr/local/apache2/html
+        networks:
+          - xampp-net
+    
+    xampp-pma:
+        image: phpmyadmin/phpmyadmin:latest
+        container_name: xampp-pma
+        environment:
+            PMA_HOST:
+            PMA_ABSOLUTE_URI:
+        restart: always
+        volumes:
+            - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+        depends_on:
+            - xampp-db
+        networks:
+            - xampp-net
+        ports:
+         - 4001:80
+         
+    xampp-db:
+        build:
+            context: ./db/
+        container_name: xampp-db
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD:
+        volumes:
+            - ./db/data/:/var/lib/mysql/
+        networks:
+            - xampp-net
+          
+    xampp-php:
+        build:
+            context: ./php/
+        container_name: xampp-php
+        restart: always
+        volumes:
+            - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+            - ../src/:/var/www/html/
+        depends_on:
+            - xampp-db
+        networks:
+            - xampp-net
+
+networks:
+    xampp-net:
+        driver: bridge

@@ -1,0 +1,48 @@
+<?php
+// Test CVS
+//include 'admin/config.php';
+ $host="localhost";  $db="sathiska";  $user="sathiska";  $pass="sathiska852"; 
+mysql_connect($host,$user,$pass)or die("Unable to connect Database");
+//echo $user;
+mysql_select_db($db);
+require_once 'Excel/reader.php';
+
+// ExcelFile($filename, $encoding);
+$data = new Spreadsheet_Excel_Reader();
+// Set output Encoding.
+$data->setOutputEncoding('CP1251');
+
+$data->read($_FILES['uploadedfile']['name']);
+//$data->read('Level III Semester II.xls');
+error_reporting(E_ALL ^ E_NOTICE);
+for ($i = 3; $i <= $data->sheets[0]['numRows']; $i++) {
+	$index=$data->sheets[0]['cells'][$i][3];
+	list($fac,$acadamicyear,$indexy) =split("/", $index,3);
+	$acadamicyear="2010_2011";
+	$course=$data->sheets[0]['cells'][$i][4];
+	$medium=$data->sheets[0]['cells'][$i][5];
+	for ($j = 6; $j <= $data->sheets[0]['numCols']; $j++)
+	{
+		$degree_nonDegree=$data->sheets[0]['cells'][$i][$j];
+		if($data->sheets[0]['cells'][$i][$j]!="")
+		{
+		if($j>=6)
+{
+			$sql="insert into registration(student,course,acedemic_year,semister,degree,confirm) values ('".$indexy."','".$data->sheets[0]['cells'][2][$j]."','".$acadamicyear."','2','".$degree_nonDegree."','1')";
+}			
+			/*else
+{
+			$sql="insert into registration(student,course,acedemic_year,semister,degree,confirm) values ('".$indexy."','".$data->sheets[0]['cells'][$i][$j]."','".$acadamicyear."','2','".$degree_nonDegree."','1')"."<br>";
+}*/
+			//echo 	$sql."<br>";
+			
+			$aa=mysql_query($sql);
+			//if($aa=true)
+			//echo "ok";
+				
+		continue;
+		}		
+	}
+	echo "<br>";
+}
+?>
