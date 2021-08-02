@@ -208,26 +208,18 @@ $regst2=$qregst2['status'];
 				// Chek student already registered to subject before update assignment marks
 				$examQry = "select count(std_id) as total from exam_registration where std_id='$getasnelist' and course_code='$getasnelics' and academic_year='$acy' and semester=1";
 				$result = mysql_query($examQry);
-				$row = mysqli_num_rows($result);
+				$row = mysql_fetch_array($result);
 
-				if (mysqli_num_rows($result) != 0)
-				{
-					var_dump('1 row');
-				} else {
-					var_dump('no rows');
+				if($row['total'] != 0){
+					$queinsnotelyrcd = "insert into assignment_eligibility(stu_no,course,medium,ac_year,status) values ('$getasnelist','$getasnelics','$getasnelicsmdm','$acy','NE')";
+					$quinsnotelyrcd = mysql_query($queinsnotelyrcd);
+
+					// Need to change semester for next semester
+					$qryExamRegister = "update exam_registration set status=2 where std_id='$getasnelist' and course_code='$getasnelics' and academic_year='$acy' and semester=1";
+					$qryExamRegisterRes = mysql_query($qryExamRegister);
+				}else{
+					echo "<script>alert('Error, Student not registered to course unit for examination');</script>";
 				}
-
-
-//				if($row['total'] != 0){
-//					$queinsnotelyrcd = "insert into assignment_eligibility(stu_no,course,medium,ac_year,status) values ('$getasnelist','$getasnelics','$getasnelicsmdm','$acy','NE')";
-//					$quinsnotelyrcd = mysql_query($queinsnotelyrcd);
-//
-//					// Need to change semester for next semester
-//					$qryExamRegister = "update exam_registration set status=2 where std_id='$getasnelist' and course_code='$getasnelics' and academic_year='$acy' and semester=1";
-//					$qryExamRegisterRes = mysql_query($qryExamRegister);
-//				}else{
-//					echo "<script>alert('Error, Student not registered to course unit for examination');</script>";
-//				}
 
 			} catch (Exception $e){
 				echo "<script>alert('Update Error');</script>";
