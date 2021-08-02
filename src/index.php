@@ -99,6 +99,8 @@ if($uid === "" || $uid === null){
         //do nothing
     }elseif($uid === 'hs16222'){
         //do nothing
+    }elseif($uid === 'hs16191'){
+        //do nothing
     }
     else{
         echo"<br>System update in progress, check back later !";
@@ -557,16 +559,16 @@ if($role !=="6") {
 $stuId = $_SESSION['user_id'];
 
 if($role=="6") {
-//    $curriculum_qry = mysql_query("select * from student where id='$stuId'");
-//    while($row=mysql_fetch_array($curriculum_qry)) {
-//        $curriculum = $row['curriculum'];
-//    }
-//    $_SESSION['curriculum'] = $curriculum;
-//    $userId =  substr($_SESSION['user_id'],2);
-//
-//    echo "<form method=POST action='./forms/form_47.php?task=oneadd'>";
-//    echo "<input type='hidden' name='exstno' size='6' value=".$userId.">";
-//    echo"<input type=submit value='View & Print Admission'></form>";
+    $curriculum_qry = mysql_query("select * from student where id='$stuId'");
+    while($row=mysql_fetch_array($curriculum_qry)) {
+        $curriculum = $row['curriculum'];
+    }
+    $_SESSION['curriculum'] = $curriculum;
+    $userId =  substr($_SESSION['user_id'],2);
+
+    echo "<form method=POST action='./forms/form_47.php?task=oneadd'>";
+    echo "<input type='hidden' name='exstno' size='6' value=".$userId.">";
+    echo"<input type=submit value='View & Print Admission'></form>";
 }
 ///////////////////////////////////end mentor process//////////////////////////////////////////////////////	
 	
