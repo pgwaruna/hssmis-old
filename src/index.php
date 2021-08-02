@@ -80,33 +80,38 @@ document.getElementById(ele).style.visibility="hidden"
 //////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////set var for dis rumis dont edit///////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
-$uid=$_SESSION['user_id'];
-echo "<br>Hello - ".$uid;
-if($uid === "" || $uid === null){
-    //do nothing
-} else {
-    if($uid === 'hssmis'){
-        //do nothing
-    }elseif ($uid === 'hs17620'){
-        //do nothing
-    }elseif($uid === 'hs17141'){
-        //do nothing
-    }elseif($uid === 'hs16989'){
-        //do nothing
-    }elseif($uid === 'hs16587'){
-        //do nothing
-    }elseif($uid === 'sarhss'){
-        //do nothing
-    }elseif($uid === 'hs16222'){
-        //do nothing
-    }elseif($uid === 'hs16191'){
-        //do nothing
-    }
-    else{
-        echo"<br>System update in progress, check back later !";
-        exit();
-    }
-}
+// Block Students for checking the system
+//$uid=$_SESSION['user_id'];
+//echo "<br>Hello - ".$uid;
+//if($uid === "" || $uid === null){
+//    //do nothing
+//} else {
+//    if($uid === 'hssmis'){
+//        //do nothing
+//    }elseif ($uid === 'hs17620'){
+//        //do nothing
+//    }elseif($uid === 'hs17141'){
+//        //do nothing
+//    }elseif($uid === 'hs16989'){
+//        //do nothing
+//    }elseif($uid === 'hs16587'){
+//        //do nothing
+//    }elseif($uid === 'sarhss'){
+//        //do nothing
+//    }elseif($uid === 'hs16222'){
+//        //do nothing
+//    }elseif($uid === 'hs16191'){
+//        //do nothing
+//    }elseif($uid === 'hs17137'){
+//        //do nothing
+//    }elseif($uid === 'hs16746'){
+//        //do nothing
+//    }
+//    else{
+//        echo"<br>System update in progress, check back later !";
+//        exit();
+//    }
+//}
 
   if($view=="admin"){
         if(isset($_SESSION['login'])&&($_SESSION['remtgt']!="cntctorumis")){
@@ -559,16 +564,16 @@ if($role !=="6") {
 $stuId = $_SESSION['user_id'];
 
 if($role=="6") {
-    $curriculum_qry = mysql_query("select * from student where id='$stuId'");
-    while($row=mysql_fetch_array($curriculum_qry)) {
-        $curriculum = $row['curriculum'];
-    }
-    $_SESSION['curriculum'] = $curriculum;
-    $userId =  substr($_SESSION['user_id'],2);
-
-    echo "<form method=POST action='./forms/form_47.php?task=oneadd'>";
-    echo "<input type='hidden' name='exstno' size='6' value=".$userId.">";
-    echo"<input type=submit value='View & Print Admission'></form>";
+//    $curriculum_qry = mysql_query("select * from student where id='$stuId'");
+//    while($row=mysql_fetch_array($curriculum_qry)) {
+//        $curriculum = $row['curriculum'];
+//    }
+//    $_SESSION['curriculum'] = $curriculum;
+//    $userId =  substr($_SESSION['user_id'],2);
+//
+//    echo "<form method=POST action='./forms/form_47.php?task=oneadd'>";
+//    echo "<input type='hidden' name='exstno' size='6' value=".$userId.">";
+//    echo"<input type=submit value='View & Print Admission'></form>";
 }
 ///////////////////////////////////end mentor process//////////////////////////////////////////////////////	
 	
