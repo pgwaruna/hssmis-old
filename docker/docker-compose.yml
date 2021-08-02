@@ -4,7 +4,6 @@ services:
         build:
           context: ./apache/
         container_name: xampp-apache
-        restart: always
         ports:
             - 4000:80
         volumes:
@@ -20,7 +19,6 @@ services:
         environment:
             PMA_HOST:
             PMA_ABSOLUTE_URI:
-        restart: always
         volumes:
             - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
         depends_on:
@@ -34,7 +32,6 @@ services:
         build:
             context: ./db/
         container_name: xampp-db
-        restart: always
         environment:
             MYSQL_ROOT_PASSWORD:
         volumes:
@@ -46,7 +43,6 @@ services:
         build:
             context: ./php/
         container_name: xampp-php
-        restart: always
         volumes:
             - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
             - ../src/:/var/www/html/

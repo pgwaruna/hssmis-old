@@ -80,6 +80,32 @@ document.getElementById(ele).style.visibility="hidden"
 //////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////set var for dis rumis dont edit///////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
+$uid=$_SESSION['user_id'];
+echo "<br>Hello - ".$uid;
+if($uid === "" || $uid === null){
+    //do nothing
+} else {
+    if($uid === 'hssmis'){
+        //do nothing
+    }elseif ($uid === 'hs17620'){
+        //do nothing
+    }elseif($uid === 'hs17141'){
+        //do nothing
+    }elseif($uid === 'hs16989'){
+        //do nothing
+    }elseif($uid === 'hs16587'){
+        //do nothing
+    }elseif($uid === 'sarhss'){
+        //do nothing
+    }elseif($uid === 'hs16222'){
+        //do nothing
+    }
+    else{
+        echo"<br>System update in progress, check back later !";
+        exit();
+    }
+}
+
   if($view=="admin"){
         if(isset($_SESSION['login'])&&($_SESSION['remtgt']!="cntctorumis")){
 		
@@ -171,7 +197,7 @@ if(mysql_num_rows($qugtmntid)!=0){
 	echo"</form></td></tr></table><br>";
 }
 
-}	
+}
 /////////////////////////////////////end mentor view////////////////////////////////////////////////////////////////	
 
 echo"<td align=center>";
@@ -451,7 +477,7 @@ if((($_SESSION['login'])=="truefohssmis")&&(($_SESSION['userhost'])!="rumis")){
 
 echo"<tr><td align='center' colspan=3 >";
 //echo$_SESSION['user_id'].$_SESSION['last_name'].$_SESSION['initials'].$_SESSION['occupation'].$_SESSION['section'].$_SESSION['email'].$_SESSION['role_id'];
-echo"<hr class='bar'>Welcome! ".strtoupper($_SESSION['last_name'])." ".strtoupper($_SESSION['initials']). "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <a href=index.php?view=admin&task=edit>Change My Password</a> ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <a href='logoff.php'>Log Out</a> ]<hr class='bar'>";
+echo"<hr class='bar'>Welcome! ".strtoupper($_SESSION['last_name'])." ".strtoupper($_SESSION['initials']). " | ".$_SESSION['user_id'] ."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <a href=index.php?view=admin&task=edit>Change My Password</a> ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <a href='logoff.php'>Log Out</a> ]<hr class='bar'>";
 $role=$_SESSION['role_id'];
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -492,13 +518,60 @@ if(mysql_num_rows($qugtmntid)!=0){
 }
 
 }
-//////////////////////////////////////////////////////////	
-	
-	
+// On select
+
+if($role !=="6") {
+
+    if (!empty($_POST['curriculum'])) {
+        $_SESSION['curriculum'] = $_POST['curriculum'];
+    }
+
+// Select curriculum
+    echo "<table><tr><td>
+    <form action='' method='post'>
+    <select size='1' name='curriculum' id='curriculum'>
+    <option selected>Select curriculum</option>";
+
+    $curriculum_qry = "select * from curriculum order by cr_name";
+    $curriculum_res = mysql_query($curriculum_qry);
+
+    while ($row = mysql_fetch_array($curriculum_res)) {
+        $cr_value = $row['cr_value'];
+        $cr_name = $row['cr_name'];
+        echo "<option value=" . $cr_value . ">" . $cr_name . "</option>";
+    }
+    echo "</select><input type='submit' value='submit' name='submit'></form>";
+
+    echo "<script>document.getElementById('curriculum').value=" . $_SESSION['curriculum'] . "</script></td><td>";
+
+    if (!empty($_SESSION['curriculum'])) {
+        echo "Active curriculum " . $_SESSION['curriculum'];
+    } else {
+        echo "<span style='color: red; font-weight: bold'>Please select curriculum first.</span>";
+    }
+
+    echo "</td></tr></table>";
+}
+//////////////////////////////////////////////////////////
+// Print student admission
+$stuId = $_SESSION['user_id'];
+
+if($role=="6") {
+//    $curriculum_qry = mysql_query("select * from student where id='$stuId'");
+//    while($row=mysql_fetch_array($curriculum_qry)) {
+//        $curriculum = $row['curriculum'];
+//    }
+//    $_SESSION['curriculum'] = $curriculum;
+//    $userId =  substr($_SESSION['user_id'],2);
+//
+//    echo "<form method=POST action='./forms/form_47.php?task=oneadd'>";
+//    echo "<input type='hidden' name='exstno' size='6' value=".$userId.">";
+//    echo"<input type=submit value='View & Print Admission'></form>";
+}
 ///////////////////////////////////end mentor process//////////////////////////////////////////////////////	
 	
     //////event calencer////////
-  //if($role=="3"){ 
+  //if($role=="3"){
    //   echo"<table width='100%'><tr><td align=right colspan=6>&nbsp;";
    // echo"<a href='./forms/form_75.php' ><font size=2px><b><i>EVENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>CALENDER</b></i></font></a>";
   //  echo"</td></tr></table>";

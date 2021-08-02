@@ -14,8 +14,8 @@ if(mysql_num_rows($qugetexmregst)==0){
 else{
 	while($qgetexmregst=mysql_fetch_array($qugetexmregst)){
 		$getexmregst=$qgetexmregst['std_id'];
-		//echo"$getexmregst<br>";
-		$queckexreg="select ex.course_code,ex.status,ex.Last_update, c.level from exam_registration ex , courseunit c where ex.academic_year='$crtacyr' and ex.semester=$exmseme and ex.std_id='$getexmregst' and ex.course_code=c.code";
+//		echo"---$getexmregst<br>";
+		$queckexreg="select ex.course_code,ex.status,ex.Last_update, c.level from exam_registration ex , courseunit c where ex.academic_year='$crtacyr' and ex.semester=$exmseme and ex.std_id='$getexmregst' and ex.course_code=c.code and c.by_low_version=3";
 		//echo$queckexreg;
 		$quckexreg=mysql_query($queckexreg);
 		if(mysql_num_rows($quckexreg)!=0){
@@ -31,7 +31,7 @@ else{
 				
 				if($ckexreglvl<$atcllvl){
 					$queupdtrptsub="update exam_registration set status=1 where std_id='$getexmregst' and course_code='$ckexreg' and academic_year='$crtacyr' and semester=$exmseme";
-					//echo"<br>$queupdtrptsub";
+//					echo "1.qry - 34 - ".$queupdtrptsub."<br><br>";
 					$quupdtrptsub=mysql_query($queupdtrptsub);////////uncomnt B4 upld script
 				}
 				else{
@@ -42,9 +42,10 @@ else{
 					
 					///////////////mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm/////////////
 				$quegtlecids="select distinct(type) from lecture where course='$ckexreg' and acc_year='$crtacyr'";
-				//echo$quegtlecids;
+//				echo "lecture - ".$quegtlecids."<br><br>";
 				$qugtlecids=mysql_query($quegtlecids);
 				if(mysql_num_rows($qugtlecids)!=0){
+//				if(true){
 				$type="nil";
 					$totalall=$vratt47->getTotalAll($ckexreg, $getexmregst, $crtacyr);/////////no of total participation lecture hourse/////////////////
 					$alllechs=$vratt47->getSubTotalAll($ckexreg, $crtacyr,$practgp);/////////no of total lecture hourse/////////////////
@@ -103,36 +104,38 @@ else{
 											}
 												}
 						if(($qulisub==$ckexreg)&&($qulisub!=$ntelisub)&&($fulpermi!="no")){
-							
+//						if(($qulisub==$ckexreg)&&($fulpermi!="no")){
+
 							$quechkassely="select status from  assignment_eligibility where stu_no='$getexmregst' and course='$ckexreg' and ac_year='$crtacyr'";
 							$quchkassely=mysql_query($quechkassely);
-							
+
 							if(mysql_num_rows($quchkassely)==0){
-								//echo"<font color=blue>{---------Qulified ".$qulisub."------$ntelisub---}</font>";
+//								echo"<font color=blue>{---------Qulified ".$qulisub."------$ntelisub---}</font>";
 								$queupexcm1="update exam_registration set status=1 where std_id='$getexmregst' and course_code='$qulisub' and academic_year='$crtacyr' and semester=$exmseme";
-								//echo$queupexcm1;
-								mysql_query($queupexcm1);								
+//								echo "2.qry - 114 - ".$queupexcm1."<br><br>";
+								mysql_query($queupexcm1);
 								}
 							else{
-								//echo"<font color=red>{---------Not Qulified ".$ntelisub."---------}</font>";
+//								echo"<font color=red>{---------Not Qulified ".$ntelisub."---------}</font>";
 								if(($ckexregstatus==0)||($ckexregupdt==null)){
 									$queupexcm2="update exam_registration set status=2 where std_id='$getexmregst' and course_code='$ckexreg' and academic_year='$crtacyr' and semester=$exmseme";
-									//echo$queupexcm2;
+//									echo "3.qry - 121 - ".$queupexcm2."<br><br>";
 									mysql_query($queupexcm2);
 								}
-								
-																
+
+
 							}
 
 									}
 						else{
-							//echo"<font color=red>{---------Not Qulified ".$ntelisub."---------}</font>";
-							
+//							echo"<font color=red>{---------Not Qulified ".$ntelisub."---------}</font>";
+
 							if(($ckexregstatus==0)||($ckexregupdt==null)){
 							$queupexcm2="update exam_registration set status=2 where std_id='$getexmregst' and course_code='$ntelisub' and academic_year='$crtacyr' and semester=$exmseme";
-							//echo$queupexcm2;
+//							echo "4.qry - 134 - ".$queupexcm2."<br><br>";
 							mysql_query($queupexcm2);
 							}
+
 							}
 							//echo$queupexcm2
 				}

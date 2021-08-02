@@ -109,15 +109,16 @@ $find_L=$find_semiL['semister'];
 }
 
 //////////////------------------------------------------------------------------------------------------------------------------------/////////////////
+$curriculum=intval($_SESSION['curriculum']);
 
 if(($role=="administrator")||($role=="topadmin")||($role=="sar")){
-$query_21_1="select code, name from courseunit where availability=1 and (semister=$find_L or semister=3) order by code,name";
+$query_21_1="select code, name from courseunit where availability=1 and (semister=$find_L or semister=3) and by_low_version=$curriculum order by code,name";
                                                                     }
 elseif(($role=="general")||($role=="office")){
-$query_21_1="select code, name from courseunit where department='$dept_id'  and availability=1 and (semister=$find_L or semister=3)  order by code,name";
+$query_21_1="select code, name from courseunit where department='$dept_id'  and availability=1 and (semister=$find_L or semister=3) and by_low_version=$curriculum  order by code,name";
 }
 else{
-$query_21_1="select code, name from courseunit where (coordinator='$rltduser' or lecturers LIKE '%[$rltduser]%')   and availability=1 and (semister=$find_L or semister=3)  order by code,name";	
+$query_21_1="select code, name from courseunit where (coordinator='$rltduser' or lecturers LIKE '%[$rltduser]%')   and availability=1 and (semister=$find_L or semister=3) and by_low_version=$curriculum order by code,name";
 }
 
 //////////////------------------------------------------------------------------------------------------------------------------------/////////////////

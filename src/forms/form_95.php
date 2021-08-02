@@ -125,6 +125,9 @@ $prtconame=$_POST['prtconame'];
 $prtcolvl=$_POST['prtcolvl'];
 $prtcosem=$_POST['prtcosem'];
 $getprtcomdm=$_POST['prtcomdm'];
+$curriculum=$_POST['curriculum'];
+
+
 if($getprtcomdm=="SI"){
 	$getcsmdmshw="Sinhala";
 }
@@ -217,20 +220,20 @@ $regst=$qregst['register'];
 
 			if($cmbregst==1){
                  $jonque="$rmsdb.fohssmis u";
-                $queprtatn="select distinct r.student, u.l_name, u.initials from registration r, $jonque, $fmviweque where u.user=r.student and r.course ='$prtcode' and r.acedemic_year='$prtcrtacy' and r.student=fs.user_name order by u.user";
+                $queprtatn="select distinct r.student, u.l_name, u.initials from student s, registration r, $jonque, $fmviweque where u.user=r.student and r.course ='$prtcode' and r.acedemic_year='$prtcrtacy' and r.student=fs.user_name and s.curriculum='$curriculum' and s.medium='$getprtcomdm' order by u.user";
                 
 				$newst="yes";
 				}
 			else{
-			$queprtatn="select distinct r.student, s.l_name, s.initials, s.batch from registration r, student s, $fmviweque  where s.id=r.student and r.course = '$prtcode' and r.acedemic_year='$prtcrtacy' and r.student=fs.user_name and r.confirm=1 order by r.student";
+			$queprtatn="select distinct r.student, s.l_name, s.initials, s.batch from registration r, student s, $fmviweque  where s.id=r.student and r.course = '$prtcode' and r.acedemic_year='$prtcrtacy' and r.student=fs.user_name and s.curriculum='$curriculum' and s.medium='$getprtcomdm' and r.confirm=1 order by r.student";
 			       }
 				}
 		else{
 			if($regst==1){
-			$queprtatn="select distinct r.student, s.l_name, s.initials, s.batch from registration r, student s, $fmviweque where s.id=r.student and r.course = '$prtcode' and r.acedemic_year='$prtcrtacy' and r.student=fs.user_name and s.medium='$getprtcomdm' order by r.student";
+			$queprtatn="select distinct r.student, s.l_name, s.initials, s.batch from registration r, student s, $fmviweque where s.id=r.student and r.course = '$prtcode' and r.acedemic_year='$prtcrtacy' and r.student=fs.user_name and s.curriculum='$curriculum' and s.medium='$getprtcomdm' order by r.student";
 				}
 			else{
-			$queprtatn="select distinct r.student, s.l_name, s.initials, s.batch from registration r, student s, $fmviweque where s.id=r.student and r.course = '$prtcode' and r.acedemic_year='$prtcrtacy' and r.student=fs.user_name and r.confirm=1 and s.medium='$getprtcomdm'  order by r.student";
+			$queprtatn="select distinct r.student, s.l_name, s.initials, s.batch from registration r, student s, $fmviweque where s.id=r.student and r.course = '$prtcode' and r.acedemic_year='$prtcrtacy' and r.student=fs.user_name and r.confirm=1 and s.curriculum='$curriculum' and s.medium='$getprtcomdm'  order by r.student";
 			}
 
 			}

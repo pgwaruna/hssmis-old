@@ -66,13 +66,13 @@ $find_L=$find_semiL['semister'];
 //////////////------------------------------------------------------------------------------------------------------------------------/////////////////
 
 if(($role=="administrator")||($role=="topadmin")||($role=="sar")){
-$queprtatt="select code, name,department,level,medium,stream from courseunit where availability=1 and (semister=$find_L or semister=3) order by code,name";
+$queprtatt="select code, name,department,level,medium,stream,by_low_version from courseunit where availability=1 and (semister=$find_L or semister=3) order by code,name";
                                                                     }
 elseif(($role=="general")||($role=="office")){
-$queprtatt="select code, name,department,level,medium,stream from courseunit where department='$dept_id'  and availability=1 and (semister=$find_L or semister=3)  order by code,name";
+$queprtatt="select code, name,department,level,medium,stream,by_low_version from courseunit where department='$dept_id'  and availability=1 and (semister=$find_L or semister=3)  order by code,name";
 }
 else{
-$queprtatt="select code, name,department,level,medium,stream from courseunit where (coordinator='$rltduser' or lecturers LIKE '%[$rltduser]%')   and availability=1 and (semister=$find_L or semister=3)  order by code,name";	
+$queprtatt="select code, name,department,level,medium,stream,by_low_version from courseunit where (coordinator='$rltduser' or lecturers LIKE '%[$rltduser]%')   and availability=1 and (semister=$find_L or semister=3)  order by code,name";
 }
 
 //////////////------------------------------------------------------------------------------------------------------------------------/////////////////
@@ -96,12 +96,14 @@ while($qprtatt=mysql_fetch_array($quprtatt)){
 	$colvl=$qprtatt['level'];
 	$stream=$qprtatt['stream'];
 	$medium=$qprtatt['medium'];
-	
+	$curriculum=$qprtatt['by_low_version'];
+
 		echo"<tr class=trbgc><form method=POST action='./forms/form_95.php'><td align='center'>$pntatst<td align='center'>".$fulcode;
 			echo"<input type='hidden' name='prtcode' value=$code ></td>";
 			echo"<input type='hidden' name='prtcolvl' value=$colvl ></td>";
 			echo"<input type='hidden' name='prtcosem' value=$crrseme ></td>";
 			echo"<input type='hidden' name='prtcrtacy' value=$acyart ></td>";
+			echo"<input type='hidden' name='curriculum' value=$curriculum ></td>";
 
 		echo"<td>&nbsp;&nbsp; $coname<input type='hidden' name='prtconame' value='$coname'></td>";
 		echo"<td align='center'>$stream";

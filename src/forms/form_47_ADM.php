@@ -1,4 +1,18 @@
 <?php
+$curriculum=intval($_SESSION['curriculum']);
+
+$role = $_SESSION['role'];
+$querole = "select role_id from $rmsdb.role where role='$role'";
+$qurole = mysql_query($querole);
+while ($qrole = mysql_fetch_array($qurole)) {
+	$roleid = $qrole['role_id'];
+}
+
+if($roleid === 6){
+	$studentNumber = $admisid;
+}else{
+	$studentNumber = "hs".$admisid;
+}
 ///////////////////START ADMISSION///////////////////////////////
 echo"<table border='0' align='center' width='100%' cellspacing='0' cellpadding='0'>";
 			/////////////////////////////////////////////admission header////////////////////////////////////////////////
@@ -8,7 +22,7 @@ echo"<table border='0' align='center' width='100%' cellspacing='0' cellpadding='
 			echo"<tr><td align='left' width='45%' >EXAMINATION ADMISSION CARD - S7 Form</td>";
 
 
-			echo"<td  width='80%' align=right><table border='1' cellspacing='0' cellpadding='0'><tr height='30px' ><td><font size='3px'>Index No : HS/$batch/$admisid</table> </td></tr>";
+			echo"<td  width='80%' align=right><table border='1' cellspacing='0' cellpadding='0'><tr height='30px' ><td><font size='3px'>Index No : HS/$batch/$studentNumber</table> </td></tr>";
 
 			echo"<tr><td colspan=2 height='30px' >&nbsp;</td></tr>";
 			echo"<tr><td colspan=2 height='50px' align='center' valign='middel'><font size='4px'>UNIVERSITY OF RUHUNA<br>FACULTY OF HUMANITIES AND SOCIAL SCIENCES</font></td></tr>";
@@ -62,8 +76,8 @@ echo"<table border='0' align='center' width='100%' cellspacing='0' cellpadding='
 			echo"<table border='1' align='center'  cellspacing='0' cellpadding='0' width=100%>";
 			echo"<tr height='30px' align='center'  ><td width='3%'>#</td><td width='10%'>Course Unit</td><td width='17%' >Course Unit Type<td width='20%' align='center'>Course Name</td><td width='10%' align='center'>Date</td><td width='16%' align='center'>Signature of Candidate</td><td width='16%' align='center'>Signature of Invigilator</td><td width='8%' align='center'>Status</td></tr>";
 
-
-			$queprtadm="select er.course_code, er.course_type, er.status, c.name from exam_registration er, courseunit c  where er.academic_year='$acy' and er.semester=$cseme and er.std_id='hs$admisid' and er.course_code=c.code  order by er.course_code";
+			$queprtadm="select er.course_code, er.course_type, er.status, c.name from exam_registration er, courseunit c  where er.academic_year='$acy' and er.semester=$cseme and er.std_id='$studentNumber' and er.course_code=c.code and c.by_low_version=$curriculum order by er.course_code";
+//			echo $queprtadm;
 			$quprtadm=mysql_query($queprtadm);
 			$rows=0;
 			$xidx=0;
@@ -126,7 +140,7 @@ echo"<table border='0' align='center' width='100%' cellspacing='0' cellpadding='
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////check cos reg//////////////////////////////////
 
-			$quechkcsregfoadm="select r.course, c.name,r.degree from registration r, courseunit c where r.acedemic_year='$acy' and (r.semister=$cseme or r.semister=3) and r.student='hs$admisid' and r.confirm=1 and r.course=c.code order by r.course";
+			$quechkcsregfoadm="select r.course, c.name,r.degree from registration r, courseunit c where r.acedemic_year='$acy' and (r.semister=$cseme or r.semister=3) and r.student='hs$admisid' and r.confirm=1 and r.course=c.code and c.by_low_version=$curriculum order by r.course";
 
 			$quchkcsregfoadm=mysql_query($quechkcsregfoadm);
 			if(mysql_num_rows($quchkcsregfoadm)!=0){

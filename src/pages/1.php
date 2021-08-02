@@ -475,687 +475,627 @@ else{
 
 
 
-else{
-$qstcmbi=mysql_fetch_array($qustcmbi);
-	$combination=$qstcmbi['combination'];
-	$curriculum=$qstcmbi['curriculum'];
-	$stream=$qstcmbi['stream'];	
+else {
+    $qstcmbi = mysql_fetch_array($qustcmbi);
+    $combination = $qstcmbi['combination'];
+    $curriculum = $qstcmbi['curriculum'];
+    $stream = $qstcmbi['stream'];
 ///////////////////////check student passout or not/////////////////////////////////
 //............get st level...........................
-$stlvl=$l->getLevel($stno);
+    $stlvl = $l->getLevel($stno);
 //..................................................
-echo "Course Registration Unit <hr class=bar>";
-if($stlvl!=0){
-						$query1_1="select * from call_registration where  level=$stlvl";
-						$prev=mysql_query($query1_1);
-						while($predata=mysql_fetch_array($prev)){
-						$reg_check=$predata['register'];
-						$ac_1=$predata['acedemic_year'];
-						$semi_1=$predata['semister'];
-						$close_1=$predata['closing_date'];
-						
+    echo "Course Registration Unit <hr class=bar>";
+    if ($stlvl != 0) {
+        $query1_1 = "select * from call_registration where  level=$stlvl";
+        $prev = mysql_query($query1_1);
+        while ($predata = mysql_fetch_array($prev)) {
+            $reg_check = $predata['register'];
+            $ac_1 = $predata['acedemic_year'];
+            $semi_1 = $predata['semister'];
+            $close_1 = $predata['closing_date'];
 
-						}
 
-if($task=="regmdl"){
-	$getsubcdid=$_POST['subcdid'];
-	$getdgsts=$_POST['dgsts'];
-	$getsuvmtbtn=$_POST['suvmtbtn'];
-		$dvdsuvmtbtn=explode("-",$getsuvmtbtn);
-			$dvdbtnvle=$dvdsuvmtbtn[0];
-			
-	$getotrsubcd=$_SESSION['otrsubssn'];
+        }
 
-	//echo$getsubcdid.$getdgsts.$dvdbtnvle;
-	
-	
-	if($dvdbtnvle=="Register"){
-		$queregeditqary="insert into registration(student,course,acedemic_year,semister,degree,confirm) values ('$stno','$getsubcdid','$ac_1',$semi_1,'$getdgsts',0)";
-					
-	}
-	
-	if($dvdbtnvle=="Cancel"){
-		$queregeditqary="delete from registration where id=$getsubcdid";		
-	}	
-	$quregeditqary=mysql_query($queregeditqary);
-	//echo$queregeditqary;
-	
-}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+        if ($task == "regmdl") {
+            $getsubcdid = $_POST['subcdid'];
+            $getdgsts = $_POST['dgsts'];
+            $getsuvmtbtn = $_POST['suvmtbtn'];
+            $dvdsuvmtbtn = explode("-", $getsuvmtbtn);
+            $dvdbtnvle = $dvdsuvmtbtn[0];
+
+            $getotrsubcd = $_SESSION['otrsubssn'];
+
+            //echo$getsubcdid.$getdgsts.$dvdbtnvle;
+
+
+            if ($dvdbtnvle == "Register") {
+                $queregeditqary = "insert into registration(student,course,acedemic_year,semister,degree,confirm) values ('$stno','$getsubcdid','$ac_1',$semi_1,'$getdgsts',0)";
+
+            }
+
+            if ($dvdbtnvle == "Cancel") {
+                $queregeditqary = "delete from registration where id=$getsubcdid";
+            }
+            $quregeditqary = mysql_query($queregeditqary);
+            //echo$queregeditqary;
+
+        }
+
+
 ////////////////////////////////////////////////////////////////////////////////////
-
-
 
 
 //......................course unit registration prosses..........................
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-$getsubjctcd=explode("+",$combination);
-	$sub1=$getsubjctcd[0];
-	$sub2=$getsubjctcd[1];
-	$sub3=$getsubjctcd[2];
+        $getsubjctcd = explode("+", $combination);
+        $sub1 = $getsubjctcd[0];
+        $sub2 = $getsubjctcd[1];
+        $sub3 = $getsubjctcd[2];
 
-	$rmopbckt=explode("[",$getsubjctcd[0]);
-		$rmclbkt=explode("]",$rmopbckt[1]);
-	$puresubid1=$rmclbkt[0];
+        $rmopbckt = explode("[", $getsubjctcd[0]);
+        $rmclbkt = explode("]", $rmopbckt[1]);
+        $puresubid1 = $rmclbkt[0];
 
-	$rmopbckt2=explode("[",$getsubjctcd[1]);
-		$rmclbkt2=explode("]",$rmopbckt2[1]);
-	$puresubid2=$rmclbkt2[0];	
-	
-	$rmopbckt3=explode("[",$getsubjctcd[2]);
-		$rmclbkt3=explode("]",$rmopbckt3[1]);
-	$puresubid3=$rmclbkt3[0];		
-	
-	$prntsub1=$l->getmainsubject($puresubid1);	
-	$prntsub2=$l->getmainsubject($puresubid2);	
-	$prntsub3=$l->getmainsubject($puresubid3);		
-	
-echo"<table width=60%><tr align=center class=selectbg>";
+        $rmopbckt2 = explode("[", $getsubjctcd[1]);
+        $rmclbkt2 = explode("]", $rmopbckt2[1]);
+        $puresubid2 = $rmclbkt2[0];
 
-if($stream=="Special"){
-	echo"<td width=20%><b>".strtoupper($prntsub1)."</b>";
-}
-else{
-	echo"<td width=20%><b>".strtoupper($prntsub1)."<td width=20%><b>".strtoupper($prntsub2)."<td width=20%><b>".strtoupper($prntsub3)."</b>";
-}
-echo"</table><br>";
-echo '<b>Course Unit Registration for '.$ac_1.' Academic year and Semester	'.$semi_1.'  in '.$stmdm.' Medium</b><br>';	
+        $rmopbckt3 = explode("[", $getsubjctcd[2]);
+        $rmclbkt3 = explode("]", $rmopbckt3[1]);
+        $puresubid3 = $rmclbkt3[0];
 
-$quegettosum="select sum(c.credits)from registration r, courseunit c, student s  where r.acedemic_year='$ac_1' and (r.semister=$semi_1 or r.semister='3') and r.degree='Degree' and r.course=c.code and r.student='$stno' and r.student=s.id and s.curriculum=c.by_low_version";
+        $prntsub1 = $l->getmainsubject($puresubid1);
+        $prntsub2 = $l->getmainsubject($puresubid2);
+        $prntsub3 = $l->getmainsubject($puresubid3);
+
+        echo "<table width=60%><tr align=center class=selectbg>";
+
+        if ($stream == "Special") {
+            echo "<td width=20%><b>" . strtoupper($prntsub1) . "</b>";
+        } else {
+            echo "<td width=20%><b>" . strtoupper($prntsub1) . "<td width=20%><b>" . strtoupper($prntsub2) . "<td width=20%><b>" . strtoupper($prntsub3) . "</b>";
+        }
+        echo "</table><br>";
+        echo '<b>Course Unit Registration for ' . $ac_1 . ' Academic year and Semester	' . $semi_1 . '  in ' . $stmdm . ' Medium</b><br>';
+
+        $quegettosum = "select sum(c.credits)from registration r, courseunit c, student s  where r.acedemic_year='$ac_1' and (r.semister=$semi_1 or r.semister='3') and r.degree='Degree' and r.course=c.code and r.student='$stno' and r.student=s.id and s.curriculum=c.by_low_version";
 //echo$quegettosum;
-$qugettosum=mysql_query($quegettosum);
-$qgettosum=mysql_fetch_array($qugettosum);
-$gettosum=$qgettosum['sum(c.credits)'];				
-if($gettosum>0){						
-echo "<br><b><font color=blue> You have register for ".$gettosum." credits , for this semester</font></b><br><br>";
-}
+        $qugettosum = mysql_query($quegettosum);
+        $qgettosum = mysql_fetch_array($qugettosum);
+        $gettosum = $qgettosum['sum(c.credits)'];
+        if ($gettosum > 0) {
+            echo "<br><b><font color=blue> You have register for " . $gettosum . " credits , for this semester</font></b><br><br>";
+        }
 
 
-if($reg_check==1){
+        if ($reg_check == 1) {
 
-echo "Closing Date for Registration : <font color=red>".$close_1."</font><br>";
-echo "<font color=red><center>( Do Modification of Registration On or Before Closing Date )</center></font><br>";
-
+            echo "Closing Date for Registration : <font color=red>" . $close_1 . "</font><br>";
+            echo "<font color=red><center>( Do Modification of Registration On or Before Closing Date )</center></font><br>";
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////// co course/////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-if($stream=="Special"){
-	$quegetstblesubj="select c.* from courseunit c where c.availability=1 and c.by_low_version=$curriculum and (c.core='co' or c.core='nd') and ( c.target_group LIKE '%All%' or  c.target_group LIKE '%$sub1%' ) and c.level=$stlvl and c.semister=$semi_1 and c.stream='$stream' order by c.code";
-}
-else{
-	$quegetstblesubj="select c.* from courseunit c where c.availability=1 and c.by_low_version=$curriculum and (c.core='co' or c.core='nd') and ( c.target_group LIKE '%All%' or c.target_group LIKE '%$sub1%' or  c.target_group LIKE '%$sub2%' or  c.target_group LIKE '%$sub3%') and c.level=$stlvl and c.semister=$semi_1 and c.stream='$stream' order by c.code";
-}
-
+            if ($stream == "Special") {
+                $quegetstblesubj = "select c.* from courseunit c where c.availability=1 and c.by_low_version=$curriculum and (c.core='co' or c.core='nd') and ( c.target_group LIKE '%All%' or  c.target_group LIKE '%$sub1%' ) and c.level=$stlvl and c.semister=$semi_1 and c.stream='$stream' order by c.code";
+            } else {
+                $quegetstblesubj = "select c.* from courseunit c where c.availability=1 and c.by_low_version=$curriculum and (c.core='co' or c.core='nd') and ( c.target_group LIKE '%All%' or c.target_group LIKE '%$sub1%' or  c.target_group LIKE '%$sub2%' or  c.target_group LIKE '%$sub3%') and c.level=$stlvl and c.semister=$semi_1 and c.stream='$stream' order by c.code";
+            }
 
 
 //echo$quegetstblesubj;
-$qugetstblesubj=mysql_query($quegetstblesubj);
-if(mysql_num_rows($qugetstblesubj)!=0){
-	$cutblrw=1;
-	
-	$totcocdtcunt=0;
-	echo"";
-	echo"<table width=70%><tr><th colspan=5>Compulsory Course Units";
-	echo"<tr><th>#<th>Course Unit<th>Course Name<th>Credits<th>Current Status ";
-	while($qgetstblesubj=mysql_fetch_array($qugetstblesubj)){	
-				$code=trim($qgetstblesubj['code']);
-					$fifx3=substr("$code",0,3);
-				$name=$qgetstblesubj['name'];
-				$department=$qgetstblesubj['department'];
-				$credits=$qgetstblesubj['credits'];
-					$totcocdtcunt=$totcocdtcunt+$credits;
-				$coordinator=$qgetstblesubj['coordinator'];
-				
-				$quechkinscocu="select id from  registration where student='$stno' and acedemic_year='$ac_1' and course='$code' and semister=$semi_1";
-				//echo$quechkinscocu;
-				$quchkinscocu=mysql_query($quechkinscocu);
-				if(mysql_num_rows($quchkinscocu)==0){
-					$queinscocu="insert into registration(student,course,acedemic_year,semister,degree,confirm) values ('$stno','$code','$ac_1',$semi_1,'Degree',1)";
-					mysql_query($queinscocu);
-				}
-		////////////////////////////////////////////////////////////////////////////////
-		echo"<tr align=center class=trbgc>";
-		echo"<td>$cutblrw";
-		echo"<td>".strtoupper($code);
-		echo"<td align=left> &nbsp;".ucfirst($name);
-		echo"<td>".$credits;
-		/*echo"<td>".$coordinator;
-		echo"<td align=left> &nbsp;";
-			$department_name=$l->getdeptname($department);
-			echo ucfirst($department_name);
-		*/
-		echo"<td>";
-			echo"<img src='./images/r.png'> <font color=blue>[ Rigistered ]</font>";
-		///////////////////////////////////////////////////////////////////////////////	
+            $qugetstblesubj = mysql_query($quegetstblesubj);
+            if (mysql_num_rows($qugetstblesubj) != 0) {
+                $cutblrw = 1;
 
-	$cutblrw++;
-	}
-	echo"<tr height=25px><td colspan=3  align=right><b>TOTAL</b><td align=center class=tdbgc><font color=blue><b>".number_format("$totcocdtcunt",2)."</b></font>";
-	echo"</table>";
-}
+                $totcocdtcunt = 0;
+                echo "";
+                echo "<table width=70%><tr><th colspan=5>Compulsory Course Units";
+                echo "<tr><th>#<th>Course Unit<th>Course Name<th>Credits<th>Current Status ";
+                while ($qgetstblesubj = mysql_fetch_array($qugetstblesubj)) {
+                    $code = trim($qgetstblesubj['code']);
+                    $fifx3 = substr("$code", 0, 3);
+                    $name = $qgetstblesubj['name'];
+                    $department = $qgetstblesubj['department'];
+                    $credits = $qgetstblesubj['credits'];
+                    $totcocdtcunt = $totcocdtcunt + $credits;
+                    $coordinator = $qgetstblesubj['coordinator'];
+
+                    $quechkinscocu = "select id from  registration where student='$stno' and acedemic_year='$ac_1' and course='$code' and semister=$semi_1";
+                    //echo$quechkinscocu;
+                    $quchkinscocu = mysql_query($quechkinscocu);
+                    if (mysql_num_rows($quchkinscocu) == 0) {
+                        $queinscocu = "insert into registration(student,course,acedemic_year,semister,degree,confirm) values ('$stno','$code','$ac_1',$semi_1,'Degree',1)";
+                        mysql_query($queinscocu);
+                    }
+                    ////////////////////////////////////////////////////////////////////////////////
+                    echo "<tr align=center class=trbgc>";
+                    echo "<td>$cutblrw";
+                    echo "<td>" . strtoupper($code);
+                    echo "<td align=left> &nbsp;" . ucfirst($name);
+                    echo "<td>" . $credits;
+                    /*echo"<td>".$coordinator;
+                    echo"<td align=left> &nbsp;";
+                        $department_name=$l->getdeptname($department);
+                        echo ucfirst($department_name);
+                    */
+                    echo "<td>";
+                    echo "<img src='./images/r.png'> <font color=blue>[ Rigistered ]</font>";
+                    ///////////////////////////////////////////////////////////////////////////////
+
+                    $cutblrw++;
+                }
+                echo "<tr height=25px><td colspan=3  align=right><b>TOTAL</b><td align=center class=tdbgc><font color=blue><b>" . number_format("$totcocdtcunt", 2) . "</b></font>";
+                echo "</table>";
+            }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////// sup course/////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-if($stream=="Special"){
-$quegetstblesubj="select c.* from courseunit c, where c.code LIKE 'sup%' and c.availability=1 and c.by_low_version=$curriculum and (c.core='op' or c.core='nn') and ( c.target_group LIKE '%All%' or c.target_group LIKE '%$sub1%' ) and c.level=$stlvl and c.semister=$semi_1 and c.stream='$stream' order by c.code";
-}
-else{
-$quegetstblesubj="select c.* from courseunit c, where c.code LIKE 'sup%' and c.availability=1 and c.by_low_version=$curriculum and (c.core='op' or c.core='nn') and ( c.target_group LIKE '%All%' or c.target_group LIKE '%$sub1%' or  c.target_group LIKE '%$sub2%' or  c.target_group LIKE '%$sub3%') and c.level=$stlvl and c.semister=$semi_1 and c.stream='$stream' order by c.code";
-}
+            if ($stream == "Special") {
+                $quegetstblesubj = "select c.* from courseunit c where c.code LIKE 'sup%' and c.availability=1 and c.by_low_version=$curriculum and (c.core='op' or c.core='nn') and ( c.target_group LIKE '%All%' or c.target_group LIKE '%$sub1%' ) and c.level=$stlvl and c.semister=$semi_1 and c.stream='$stream' order by c.code";
+            } else {
+                $quegetstblesubj = "select c.* from courseunit c where c.code LIKE 'sup%' and c.availability=1 and c.by_low_version=$curriculum and (c.core='op' or c.core='nn') and ( c.target_group LIKE '%All%' or c.target_group LIKE '%$sub1%' or  c.target_group LIKE '%$sub2%' or  c.target_group LIKE '%$sub3%') and c.level=$stlvl and c.semister=$semi_1 and c.stream='$stream' order by c.code";
+            }
 //echo$quegetstblesubj;
-$qugetstblesubj=mysql_query($quegetstblesubj);
-if(mysql_num_rows($qugetstblesubj)!=0){
-	$cutblrw=1;
-	
-	$totcocdtcunt=0;
-	echo"";
-	echo"<br><br><table width=70%><tr><th colspan=7><br>Supplementary  Course Units<br><font size=2px>( Compulsory to select either one course unit )<br><br>";
-	echo"<tr><th>#<th>Course Unit<th>Course Name<th>Credits<th>Current Status <th>Submission";
-	while($qgetstblesubj=mysql_fetch_array($qugetstblesubj)){	
-				$code=trim($qgetstblesubj['code']);
-					$fifx3=substr("$code",0,3);
-				$name=$qgetstblesubj['name'];
-				$core=$qgetstblesubj['core'];
-				$department=$qgetstblesubj['department'];
-				$credits=$qgetstblesubj['credits'];
-					$totcocdtcunt=$totcocdtcunt+$credits;
-				$coordinator=$qgetstblesubj['coordinator'];
-				
-				$quechkinscocu="select id,degree from  registration where student='$stno' and acedemic_year='$ac_1' and course='$code' and semister=$semi_1";
-				//echo$quechkinscocu;
-				$quchkinscocu=mysql_query($quechkinscocu);
-				if(mysql_num_rows($quchkinscocu)==0){
-					$curegchk="No";
-				}
-				else{
-					$qchkinscocu=mysql_fetch_array($quchkinscocu);
-						$chkinscocu=$qchkinscocu['id'];
-						$chkinscocudegree=$qchkinscocu['degree'];
-					$curegchk="Yes";
-				}
-		////////////////////////////////////////////////////////////////////////////////
-		if($curegchk=="Yes"){
-			echo"<tr align=center class=selectbg>";
-		}
-		else{
-			echo"<tr align=center class=trbgc>";	
-		}
-		echo"<form method=post action='./?view=admin&admin=1&task=regmdl'><td>$cutblrw";
-		echo"<td>".strtoupper($code);
-				if($curegchk=="No"){
-					echo"<input type=hidden name=subcdid value='$code'>";
-				}
-				else{
-					echo"<input type=hidden name=subcdid value='$chkinscocu'>";
-				}
-		echo"<td align=left> &nbsp;".ucfirst($name);
-		echo"<td>".$credits;
-		/*echo"<td>".$coordinator;
-		echo"<td align=left> &nbsp;";
-			$department_name=$l->getdeptname($department);
-			echo ucfirst($department_name);
-		*/
-		//echo"<td>";
-			echo"<select name=dgsts hidden>";
-			if($curegchk=="No"){
-				if($core=="co"){
-					echo"<option value='Degree'>Degree</option>";
-				}
-				elseif($core=="op"){
-					echo"<option value='Degree' selected>Degree</option>";
-					echo"<option value='Non Degree'>Non Degree</option>";				
-				}			
-				elseif($core=="nd"){
-					echo"<option value='Non Degree'>Non Degree</option>";					
-				}		
-				elseif($core=="nn"){
-					echo"<option value='Non Degree'>Non Degree</option>";					
-				}
-				else{
-					echo"<option value='Degree' selected>Degree</option>";
-					echo"<option value='Non Degree'>Non Degree</option>";				
-				}
-			}
-			else{
-				echo"<option value='$chkinscocudegree'>$chkinscocudegree</option>";
-			}
-			echo"</select>";
-		
-		echo"<td>";
-		if($curegchk=="Yes"){
-			echo"<img src='./images/r.png'> <font color=blue>[ Registered ! ]</font>";
-		}
-		else{
-			echo"<font color=red>[ Not Registered ! ]</font>";
-		}
-		
-		echo"<td>";
-		if($curegchk=="No"){	
-			echo"<input type=submit name=suvmtbtn value='Register-".$code."'>";
-		}
-		else{
-			echo"<input type=submit  name=suvmtbtn  value='Cancel-".$code."'>";
-		}
-		
-		
-			echo"</form>";
-		///////////////////////////////////////////////////////////////////////////////	
-		
-	$cutblrw++;
-	}
+            $qugetstblesubj = mysql_query($quegetstblesubj);
+            if (mysql_num_rows($qugetstblesubj) != 0) {
+                $cutblrw = 1;
+
+                $totcocdtcunt = 0;
+                echo "";
+                echo "<br><br><table width=70%><tr><th colspan=7><br>Supplementary  Course Units<br><font size=2px>( Compulsory to select either one course unit )<br><br>";
+                echo "<tr><th>#<th>Course Unit<th>Course Name<th>Credits<th>Current Status <th>Submission";
+                while ($qgetstblesubj = mysql_fetch_array($qugetstblesubj)) {
+                    $code = trim($qgetstblesubj['code']);
+                    $fifx3 = substr("$code", 0, 3);
+                    $name = $qgetstblesubj['name'];
+                    $core = $qgetstblesubj['core'];
+                    $department = $qgetstblesubj['department'];
+                    $credits = $qgetstblesubj['credits'];
+                    $totcocdtcunt = $totcocdtcunt + $credits;
+                    $coordinator = $qgetstblesubj['coordinator'];
+
+                    $quechkinscocu = "select id,degree from  registration where student='$stno' and acedemic_year='$ac_1' and course='$code' and semister=$semi_1";
+                    //echo$quechkinscocu;
+                    $quchkinscocu = mysql_query($quechkinscocu);
+                    if (mysql_num_rows($quchkinscocu) == 0) {
+                        $curegchk = "No";
+                    } else {
+                        $qchkinscocu = mysql_fetch_array($quchkinscocu);
+                        $chkinscocu = $qchkinscocu['id'];
+                        $chkinscocudegree = $qchkinscocu['degree'];
+                        $curegchk = "Yes";
+                    }
+                    ////////////////////////////////////////////////////////////////////////////////
+                    if ($curegchk == "Yes") {
+                        echo "<tr align=center class=selectbg>";
+                    } else {
+                        echo "<tr align=center class=trbgc>";
+                    }
+                    echo "<form method=post action='./?view=admin&admin=1&task=regmdl'><td>$cutblrw";
+                    echo "<td>" . strtoupper($code);
+                    if ($curegchk == "No") {
+                        echo "<input type=hidden name=subcdid value='$code'>";
+                    } else {
+                        echo "<input type=hidden name=subcdid value='$chkinscocu'>";
+                    }
+                    echo "<td align=left> &nbsp;" . ucfirst($name);
+                    echo "<td>" . $credits;
+                    /*echo"<td>".$coordinator;
+                    echo"<td align=left> &nbsp;";
+                        $department_name=$l->getdeptname($department);
+                        echo ucfirst($department_name);
+                    */
+                    //echo"<td>";
+                    echo "<select name=dgsts hidden>";
+                    if ($curegchk == "No") {
+                        if ($core == "co") {
+                            echo "<option value='Degree'>Degree</option>";
+                        } elseif ($core == "op") {
+                            echo "<option value='Degree' selected>Degree</option>";
+                            echo "<option value='Non Degree'>Non Degree</option>";
+                        } elseif ($core == "nd") {
+                            echo "<option value='Non Degree'>Non Degree</option>";
+                        } elseif ($core == "nn") {
+                            echo "<option value='Non Degree'>Non Degree</option>";
+                        } else {
+                            echo "<option value='Degree' selected>Degree</option>";
+                            echo "<option value='Non Degree'>Non Degree</option>";
+                        }
+                    } else {
+                        echo "<option value='$chkinscocudegree'>$chkinscocudegree</option>";
+                    }
+                    echo "</select>";
+
+                    echo "<td>";
+                    if ($curegchk == "Yes") {
+                        echo "<img src='./images/r.png'> <font color=blue>[ Registered ! ]</font>";
+                    } else {
+                        echo "<font color=red>[ Not Registered ! ]</font>";
+                    }
+
+                    echo "<td>";
+                    if ($curegchk == "No") {
+                        echo "<input type=submit name=suvmtbtn value='Register-" . $code . "'>";
+                    } else {
+                        echo "<input type=submit  name=suvmtbtn  value='Cancel-" . $code . "'>";
+                    }
+
+
+                    echo "</form>";
+                    ///////////////////////////////////////////////////////////////////////////////
+
+                    $cutblrw++;
+                }
 //	echo"<tr height=25px><td colspan=3  align=right><b>TOTAL</b><td align=center class=tdbgc><font color=blue><b>".number_format("$totcocdtcunt",2)."</b></font>";
-	echo"</table>";
-}
+                echo "</table>";
+            }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////// op course/////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//if((($stlvl!=2)&&($stlvl!=3))||($stream=="Special")){
-if($stream=="Special"){
-$quegetstblesubj2="select c.* from courseunit c where c.code NOT LIKE'sup%' and  c.availability=1 and c.by_low_version=$curriculum and (c.core='op' or c.core='nn') and (c.target_group LIKE '%$sub1%' ) and c.level=$stlvl and c.semister=$semi_1 and c.stream='$stream' order by c.code";
-}
-else{
-$quegetstblesubj2="select c.* from courseunit c where c.code NOT LIKE'sup%' and  c.availability=1 and c.by_low_version=$curriculum and (c.core='op' or c.core='nn') and ( c.target_group LIKE '%$sub1%' or  c.target_group LIKE '%$sub2%' or  c.target_group LIKE '%$sub3%') and c.level=$stlvl and c.semister=$semi_1 and c.stream='$stream' order by c.code";
-	
-}
+//if((($stlvl!=2)&&($stlvl==3))||($stream=="Special")){
+            if ($stream == "Special") {
+                $quegetstblesubj2 = "select c.* from courseunit c where c.code NOT LIKE'sup%' and  c.availability=1 and c.by_low_version=$curriculum and (c.core='op' or c.core='nn') and (c.target_group LIKE '%$sub1%' ) and c.level=$stlvl and c.semister=$semi_1 and c.stream='$stream' order by c.code";
+            } else {
+                $quegetstblesubj2 = "select c.* from courseunit c where c.code NOT LIKE'sup%' and  c.availability=1 and c.by_low_version=$curriculum and (c.core='op' or c.core='nn') and ( c.target_group LIKE '%$sub1%' or  c.target_group LIKE '%$sub2%' or  c.target_group LIKE '%$sub3%') and c.level=$stlvl and c.semister=$semi_1 and c.stream='$stream' order by c.code";
+
+            }
 //echo$quegetstblesubj2; 
-$qugetstblesubj2=mysql_query($quegetstblesubj2);
-if(mysql_num_rows($qugetstblesubj2)!=0){
-	$cutblrw2=1;
-	
-	$totcocdtcunt2=0;
-	echo"";
-	if($stream=="Special"){
-			echo"<br><br><table width=70%><tr><th colspan=7><br>Core Optional  Course Units<br><font size=2px>( Only one subject should be selected )<br><br>";
-		}
-	else{
-			echo"<br><br><table width=70%><tr><th colspan=7><br>Core Optional  Course Units<br><font size=2px>( Only one subject should be selected within either semester I or semester II )<br><br>";
-		}
-	echo"<tr><th>#<th>Course Unit<th>Course Name<th>Credits<th>Current Status <th>Submission";
-	while($qgetstblesubj2=mysql_fetch_array($qugetstblesubj2)){	
-				$code2=trim($qgetstblesubj2['code']);
-					$fifx32=substr("$code",0,3);
-				$name2=$qgetstblesubj2['name'];
-				$core2=$qgetstblesubj2['core'];
-				$department2=$qgetstblesubj2['department'];
-				$credits2=$qgetstblesubj2['credits'];
-					$totcocdtcunt2=$totcocdtcunt2+$credits2;
-				$coordinator2=$qgetstblesubj2['coordinator'];
-				
-				$quechkinscocu2="select id,degree from  registration where student='$stno' and acedemic_year='$ac_1' and course='$code2' and semister=$semi_1";
-				//echo$quechkinscocu2;
-				$quchkinscocu2=mysql_query($quechkinscocu2);
-				if(mysql_num_rows($quchkinscocu2)==0){
-					$curegchk2="No";
-				}
-				else{
-					$qchkinscocu2=mysql_fetch_array($quchkinscocu2);
-						$chkinscocu2=$qchkinscocu2['id'];
-						$chkinscocudegree2=$qchkinscocu2['degree'];
-					$curegchk2="Yes";
-				}
-		////////////////////////////////////////////////////////////////////////////////
-		if($curegchk2=="Yes"){
-			echo"<tr align=center class=selectbg>";
-		}
-		else{
-			echo"<tr align=center class=trbgc>";	
-		}
-		echo"<form method=post action='./?view=admin&admin=1&task=regmdl'><td>$cutblrw2";
-		echo"<td>".strtoupper($code2);
-				if($curegchk2=="No"){
-					echo"<input type=hidden name=subcdid value='$code2'>";
-				}
-				else{
-					echo"<input type=hidden name=subcdid value='$chkinscocu2'>";
-				}
-		echo"<td align=left> &nbsp;".ucfirst($name2);
-		echo"<td>".$credits2;
-		/*echo"<td>".$coordinator;
-		echo"<td align=left> &nbsp;";
-			$department_name=$l->getdeptname($department);
-			echo ucfirst($department_name);
-		*/
-		//echo"<td>";
-			echo"<select name=dgsts hidden>";
-			if($curegchk2=="No"){
-				if($core2=="co"){
-					echo"<option value='Degree'>Degree</option>";
-				}
-				elseif($core2=="op"){
-					echo"<option value='Degree' selected>Degree</option>";
-					echo"<option value='Non Degree'>Non Degree</option>";				
-				}			
-				elseif($core2=="nd"){
-					echo"<option value='Non Degree'>Non Degree</option>";					
-				}		
-				elseif($core2=="nn"){
-					echo"<option value='Non Degree'>Non Degree</option>";					
-				}
-				else{
-					echo"<option value='Degree' selected>Degree</option>";
-					echo"<option value='Non Degree'>Non Degree</option>";				
-				}
-			}
-			else{
-				echo"<option value='$chkinscocudegree2'>$chkinscocudegree2</option>";
-			}
-			echo"</select>";
-		
-		echo"<td>";
-		if($curegchk2=="Yes"){
-			echo"<img src='./images/r.png'> <font color=blue>[ Registered ! ]</font>";
-		}
-		else{
-			echo"<font color=red>[ Not Registered ! ]</font>";
-		}
-		
-		echo"<td>";
-		if($curegchk2=="No"){	
-			echo"<input type=submit name=suvmtbtn value='Register-".$code2."'>";
-		}
-		else{
-			echo"<input type=submit  name=suvmtbtn  value='Cancel-".$code2."'>";
-		}
-		
-		
-			echo"</form>";
-		///////////////////////////////////////////////////////////////////////////////	
-		
-	$cutblrw2++;
-	}
+            $qugetstblesubj2 = mysql_query($quegetstblesubj2);
+            if (mysql_num_rows($qugetstblesubj2) != 0) {
+                $cutblrw2 = 1;
+
+                $totcocdtcunt2 = 0;
+                echo "";
+                if ($stream == "Special") {
+                    echo "<br><br><table width=70%><tr><th colspan=7><br>Core Optional  Course Units<br><font size=2px>( Only one subject should be selected )<br><br>";
+                } else {
+                    echo "<br><br><table width=70%><tr><th colspan=7><br>Core Optional  Course Units<br><font size=2px>( Only one subject should be selected within either semester I or semester II )<br><br>";
+                }
+                echo "<tr><th>#<th>Course Unit<th>Course Name<th>Credits<th>Current Status <th>Submission";
+                while ($qgetstblesubj2 = mysql_fetch_array($qugetstblesubj2)) {
+                    $code2 = trim($qgetstblesubj2['code']);
+                    $fifx32 = substr("$code", 0, 3);
+                    $name2 = $qgetstblesubj2['name'];
+                    $core2 = $qgetstblesubj2['core'];
+                    $department2 = $qgetstblesubj2['department'];
+                    $credits2 = $qgetstblesubj2['credits'];
+                    $totcocdtcunt2 = $totcocdtcunt2 + $credits2;
+                    $coordinator2 = $qgetstblesubj2['coordinator'];
+
+                    $quechkinscocu2 = "select id,degree from  registration where student='$stno' and acedemic_year='$ac_1' and course='$code2' and semister=$semi_1";
+                    //echo$quechkinscocu2;
+                    $quchkinscocu2 = mysql_query($quechkinscocu2);
+                    if (mysql_num_rows($quchkinscocu2) == 0) {
+                        $curegchk2 = "No";
+                    } else {
+                        $qchkinscocu2 = mysql_fetch_array($quchkinscocu2);
+                        $chkinscocu2 = $qchkinscocu2['id'];
+                        $chkinscocudegree2 = $qchkinscocu2['degree'];
+                        $curegchk2 = "Yes";
+                    }
+                    ////////////////////////////////////////////////////////////////////////////////
+                    if ($curegchk2 == "Yes") {
+                        echo "<tr align=center class=selectbg>";
+                    } else {
+                        echo "<tr align=center class=trbgc>";
+                    }
+                    echo "<form method=post action='./?view=admin&admin=1&task=regmdl'><td>$cutblrw2";
+                    echo "<td>" . strtoupper($code2);
+                    if ($curegchk2 == "No") {
+                        echo "<input type=hidden name=subcdid value='$code2'>";
+                    } else {
+                        echo "<input type=hidden name=subcdid value='$chkinscocu2'>";
+                    }
+                    echo "<td align=left> &nbsp;" . ucfirst($name2);
+                    echo "<td>" . $credits2;
+                    /*echo"<td>".$coordinator;
+                    echo"<td align=left> &nbsp;";
+                        $department_name=$l->getdeptname($department);
+                        echo ucfirst($department_name);
+                    */
+                    //echo"<td>";
+                    echo "<select name=dgsts hidden>";
+                    if ($curegchk2 == "No") {
+                        if ($core2 == "co") {
+                            echo "<option value='Degree'>Degree</option>";
+                        } elseif ($core2 == "op") {
+                            echo "<option value='Degree' selected>Degree</option>";
+                            echo "<option value='Non Degree'>Non Degree</option>";
+                        } elseif ($core2 == "nd") {
+                            echo "<option value='Non Degree'>Non Degree</option>";
+                        } elseif ($core2 == "nn") {
+                            echo "<option value='Non Degree'>Non Degree</option>";
+                        } else {
+                            echo "<option value='Degree' selected>Degree</option>";
+                            echo "<option value='Non Degree'>Non Degree</option>";
+                        }
+                    } else {
+                        echo "<option value='$chkinscocudegree2'>$chkinscocudegree2</option>";
+                    }
+                    echo "</select>";
+
+                    echo "<td>";
+                    if ($curegchk2 == "Yes") {
+                        echo "<img src='./images/r.png'> <font color=blue>[ Registered ! ]</font>";
+                    } else {
+                        echo "<font color=red>[ Not Registered ! ]</font>";
+                    }
+
+                    echo "<td>";
+                    if ($curegchk2 == "No") {
+                        echo "<input type=submit name=suvmtbtn value='Register-" . $code2 . "'>";
+                    } else {
+                        echo "<input type=submit  name=suvmtbtn  value='Cancel-" . $code2 . "'>";
+                    }
+
+
+                    echo "</form>";
+                    ///////////////////////////////////////////////////////////////////////////////
+
+                    $cutblrw2++;
+                }
 //	echo"<tr height=25px><td colspan=3  align=right><b>TOTAL</b><td align=center class=tdbgc><font color=blue><b>".number_format("$totcocdtcunt",2)."</b></font>";
-	echo"</table>";
-}
+                echo "</table>";
+            }
 //}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
-
-
-
-
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////// Other subjet course ////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-if($stlvl!=1){
-echo"<br><br><table width=70%><tr><th colspan=7>Extra Optional Course Units";
-if($stream=="Special"){
-	echo"<br><font size=2px>( Maximum two subject can be selected either semester I or semester II )<br><br></font> ";
-}
-else{
-	echo"<br><font size=2px>( If you wish to register for other subject course units, Please submit the subject name. )<br><br></font> ";
-}
+            if ($stlvl == 1 || $stlvl == 3 || $stlvl == 4) { //extra optional
 
 
-$quegetmnsub="select * from main_subjects where status=1";
-$qugetmnsub=mysql_query($quegetmnsub);
-if(mysql_num_rows($qugetmnsub)==0){
-	echo"Sorry ! No subject Found";
-}
-else{
-	
-echo"<form method=post action='./?view=admin&admin=1&duty=regmdl4otrsub'>";
-	echo"<select name=mnsujct4otrreg>";
-	echo"<option value=0 selected>Select Subject</option>";
-	while($qgetmnsub=mysql_fetch_array($qugetmnsub)){
-		$getmnsub=$qgetmnsub['sub_name'];
-		$getmnsubid=$qgetmnsub['sub_id'];
-		
-		if(($puresubid1!=$getmnsubid)&&($puresubid2!=$getmnsubid)&&($puresubid3!=$getmnsubid)){
-			echo"<option value=$getmnsubid>$getmnsub</option>";
-		}
-	}	
-	echo"</select>";
+//----update by waruna 29/05/2021
+                if ($stlvl != 1) {
+                    echo "<br><br><table width=70%><tr><th colspan=7>Extra Optional Course Units";
+                } else {
+                    echo "<br><br><table width=70%><tr><th colspan=7>Other Core Subject Course Units";
+                }
+//----update end
+
+                if ($stream == "Special" && $stlvl == 1) {
+                        echo "<br><font size=2px>( Two subject need to be selected )<br><br></font> ";
+                } else if ($stream == "Special" && $stlvl != 1){
+                    echo "<br><font size=2px>( Maximum two subject can be selected either semester I or semester II )<br><br></font> ";
+                } else {
+                    echo "<br><font size=2px>( If you wish to register for other subject course units, Please submit the subject name. )<br><br></font> ";
+                }
 
 
-echo"<input type=submit  value='Submit'>";
-echo"</form>";
-}
-if($duty=="regmdl4otrsub"){
-	$getotrsubcd3=$_POST['mnsujct4otrreg'];
-	$getotrsubcd2="[".$getotrsubcd3."]";
-	
-	if($getotrsubcd3!=null){
-		$_SESSION['otrsubssn']=$getotrsubcd2;
-		$_SESSION['otrsubcdssn']=$getotrsubcd3;
+                $quegetmnsub = "select * from main_subjects where status=1";
+                $qugetmnsub = mysql_query($quegetmnsub);
+                if (mysql_num_rows($qugetmnsub) == 0) {
+                    echo "Sorry ! No subject Found";
+                } else {
 
-	}
-	$getotrsubcd=$_SESSION['otrsubssn'];		
-	
+                    echo "<form method=post action='./?view=admin&admin=1&duty=regmdl4otrsub'>";
+                    echo "<select name=mnsujct4otrreg>";
+                    echo "<option value=0 selected>Select Subject</option>";
+                    while ($qgetmnsub = mysql_fetch_array($qugetmnsub)) {
+                        $getmnsub = $qgetmnsub['sub_name'];
+                        $getmnsubid = $qgetmnsub['sub_id'];
+
+                        if (($puresubid1 != $getmnsubid) && ($puresubid2 != $getmnsubid) && ($puresubid3 != $getmnsubid)) {
+                            echo "<option value=$getmnsubid>$getmnsub</option>";
+                        }
+                    }
+                    echo "</select>";
+
+
+                    echo "<input type=submit  value='Submit'>";
+                    echo "</form>";
+                }
+
+                } //extra optional
+
+                if ($duty == "regmdl4otrsub") {
+                    $getotrsubcd3 = $_POST['mnsujct4otrreg'];
+                    $getotrsubcd2 = "[" . $getotrsubcd3 . "]";
+
+                    if ($getotrsubcd3 != null) {
+                        $_SESSION['otrsubssn'] = $getotrsubcd2;
+                        $_SESSION['otrsubcdssn'] = $getotrsubcd3;
+
+                    }
+                    $getotrsubcd = $_SESSION['otrsubssn'];
+
 //echo$getotrsubcd.$_SESSION['otrsubssn'];
 ////////////////8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888///////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////// other course /////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$quegetstblesubj3="select c.* from courseunit c where c.availability=1 and c.by_low_version=$curriculum and  ( c.target_group LIKE '%$getotrsubcd%' ) and c.level=$stlvl and c.semister=$semi_1 and c.stream='$stream' order by c.code";
+                    $quegetstblesubj3 = "select c.* from courseunit c where c.availability=1 and c.by_low_version=$curriculum and  ( c.target_group LIKE '%$getotrsubcd%' ) and c.level=$stlvl and c.semister=$semi_1 and c.stream='$stream' order by c.code";
 //echo$quegetstblesubj3;
-$qugetstblesubj3=mysql_query($quegetstblesubj3);
-if(mysql_num_rows($qugetstblesubj3)!=0){
-	$cutblrw3=1;
-	
-	$totcocdtcunt3=0;
-	
-	$prntothrsub=$l->getmainsubject($_SESSION['otrsubcdssn']);	
-	echo"Course Unit Table for ".$prntothrsub;
-	if(($stlvl==2)||($stlvl==3)){
-	echo"<br><font size=2px>( Only one subject should be selected within either semester I or semester II )</font>";
-	}
-	echo"<tr><th>#<th>Course Unit<th>Course Name<th>Credits<th>Current Status <th>Submission";
-	
-	while($qgetstblesubj3=mysql_fetch_array($qugetstblesubj3)){	
-				$code3=trim($qgetstblesubj3['code']);
-					$fifx33=substr("$code3",0,3);
-				$name3=$qgetstblesubj3['name'];
-				$core3=$qgetstblesubj3['core'];
-				$department3=$qgetstblesubj3['department'];
-				$credits3=$qgetstblesubj3['credits'];
-					$totcocdtcunt3=$totcocdtcunt3+$credits3;
-				$coordinator3=$qgetstblesubj3['coordinator'];
-				
-				$quechkinscocu3="select id from  registration where student='$stno' and acedemic_year='$ac_1' and course='$code3' and semister=$semi_1";
-				//echo$quechkinscocu3;
-				$quchkinscocu3=mysql_query($quechkinscocu3);
-				if(mysql_num_rows($quchkinscocu3)==0){
-					$curegchk3="No";
-				}
-				else{
-					$qchkinscocu3=mysql_fetch_array($quchkinscocu3);
-						$chkinscocu3=$qchkinscocu3['id'];
-					$curegchk3="Yes";
-				}
-		////////////////////////////////////////////////////////////////////////////////
-		if($curegchk3=="Yes"){
-			echo"<tr align=center class=selectbg>";
-		}
-		else{
-			echo"<tr align=center class=trbgc>";	
-		}
-		echo"<form method=post action='./?view=admin&admin=1&task=regmdl&duty=regmdl4otrsub'><td>$cutblrw3";
-		echo"<td>".strtoupper($code3);
-				if($curegchk3=="No"){
-					echo"<input type=hidden name=subcdid value='$code3'>";
-				}
-				else{
-					echo"<input type=hidden name=subcdid value='$chkinscocu3'>";
-				}
-		echo"<td align=left> &nbsp;".ucfirst($name3);
-		echo"<td>".$credits3;
-		/*echo"<td>".$coordinator;
-		echo"<td align=left> &nbsp;";
-			$department_name=$l->getdeptname($department);
-			echo ucfirst($department_name);
-		*/
-		//echo"<td>";
-			echo"<select name=dgsts hidden>";
-			echo"<option value='Degree'>Degree</option>";	
-			//echo"<option value='Non Degree'>Non Degree</option>";
-			/*if($core3=="co"){
-				echo"<option value='Degree'>Degree</option>";
-			}
-			elseif($core3=="op"){
-				echo"<option value='Degree' selected>Degree</option>";
-				echo"<option value='Non Degree'>Non Degree</option>";				
-			}			
-			elseif($core3=="nd"){
-				echo"<option value='Non Degree'>Non Degree</option>";					
-			}		
-			elseif($core3=="nn"){
-				echo"<option value='Non Degree'>Non Degree</option>";					
-			}
-			else{
-				echo"<option value='Degree' selected>Degree</option>";
-				echo"<option value='Non Degree'>Non Degree</option>";				
-			}
-			*/
-			echo"</select>";
-		
-		echo"<td>";
-		if($curegchk3=="Yes"){
-			echo"<img src='./images/r.png'> <font color=blue>[ Registered ! ]</font>";
-		}
-		else{
-			echo"<font color=red>[ Not Registered ! ]</font>";
-		}
-		
-		echo"<td>";
-		if($curegchk3=="No"){	
-			echo"<input type=submit name=suvmtbtn value='Register-".$code3."'>";
-		}
-		else{
-			echo"<input type=submit  name=suvmtbtn  value='Cancel-".$code3."'>";
-		}
-		
-		
-			echo"</form>";
-		///////////////////////////////////////////////////////////////////////////////	
-		
-	$cutblrw3++;
-	}
+                    $qugetstblesubj3 = mysql_query($quegetstblesubj3);
+                    if (mysql_num_rows($qugetstblesubj3) != 0) {
+                        $cutblrw3 = 1;
+
+                        $totcocdtcunt3 = 0;
+
+                        $prntothrsub = $l->getmainsubject($_SESSION['otrsubcdssn']);
+                        echo "Course Unit Table for " . $prntothrsub;
+                        if (($stlvl == 2) || ($stlvl == 3)) {
+                            echo "<br><font size=2px>( Only one subject should be selected within either semester I or semester II )</font>";
+                        }
+                        echo "<tr><th>#<th>Course Unit<th>Course Name<th>Credits<th>Current Status <th>Submission";
+
+                        while ($qgetstblesubj3 = mysql_fetch_array($qugetstblesubj3)) {
+                            $code3 = trim($qgetstblesubj3['code']);
+                            $fifx33 = substr("$code3", 0, 3);
+                            $name3 = $qgetstblesubj3['name'];
+                            $core3 = $qgetstblesubj3['core'];
+                            $department3 = $qgetstblesubj3['department'];
+                            $credits3 = $qgetstblesubj3['credits'];
+                            $totcocdtcunt3 = $totcocdtcunt3 + $credits3;
+                            $coordinator3 = $qgetstblesubj3['coordinator'];
+
+                            $quechkinscocu3 = "select id from  registration where student='$stno' and acedemic_year='$ac_1' and course='$code3' and semister=$semi_1";
+                            //echo$quechkinscocu3;
+                            $quchkinscocu3 = mysql_query($quechkinscocu3);
+                            if (mysql_num_rows($quchkinscocu3) == 0) {
+                                $curegchk3 = "No";
+                            } else {
+                                $qchkinscocu3 = mysql_fetch_array($quchkinscocu3);
+                                $chkinscocu3 = $qchkinscocu3['id'];
+                                $curegchk3 = "Yes";
+                            }
+                            ////////////////////////////////////////////////////////////////////////////////
+                            if ($curegchk3 == "Yes") {
+                                echo "<tr align=center class=selectbg>";
+                            } else {
+                                echo "<tr align=center class=trbgc>";
+                            }
+                            echo "<form method=post action='./?view=admin&admin=1&task=regmdl&duty=regmdl4otrsub'><td>$cutblrw3";
+                            echo "<td>" . strtoupper($code3);
+                            if ($curegchk3 == "No") {
+                                echo "<input type=hidden name=subcdid value='$code3'>";
+                            } else {
+                                echo "<input type=hidden name=subcdid value='$chkinscocu3'>";
+                            }
+                            echo "<td align=left> &nbsp;" . ucfirst($name3);
+                            echo "<td>" . $credits3;
+                            /*echo"<td>".$coordinator;
+                            echo"<td align=left> &nbsp;";
+                                $department_name=$l->getdeptname($department);
+                                echo ucfirst($department_name);
+                            */
+                            //echo"<td>";
+                            echo "<select name=dgsts hidden>";
+                            echo "<option value='Degree'>Degree</option>";
+                            //echo"<option value='Non Degree'>Non Degree</option>";
+                            /*if($core3=="co"){
+                                echo"<option value='Degree'>Degree</option>";
+                            }
+                            elseif($core3=="op"){
+                                echo"<option value='Degree' selected>Degree</option>";
+                                echo"<option value='Non Degree'>Non Degree</option>";
+                            }
+                            elseif($core3=="nd"){
+                                echo"<option value='Non Degree'>Non Degree</option>";
+                            }
+                            elseif($core3=="nn"){
+                                echo"<option value='Non Degree'>Non Degree</option>";
+                            }
+                            else{
+                                echo"<option value='Degree' selected>Degree</option>";
+                                echo"<option value='Non Degree'>Non Degree</option>";
+                            }
+                            */
+                            echo "</select>";
+
+                            echo "<td>";
+                            if ($curegchk3 == "Yes") {
+                                echo "<img src='./images/r.png'> <font color=blue>[ Registered ! ]</font>";
+                            } else {
+                                echo "<font color=red>[ Not Registered ! ]</font>";
+                            }
+
+                            echo "<td>";
+                            if ($curegchk3 == "No") {
+                                echo "<input type=submit name=suvmtbtn value='Register-" . $code3 . "'>";
+                            } else {
+                                echo "<input type=submit  name=suvmtbtn  value='Cancel-" . $code3 . "'>";
+                            }
+
+
+                            echo "</form>";
+                            ///////////////////////////////////////////////////////////////////////////////
+
+                            $cutblrw3++;
+                        }
 //	echo"<tr height=25px><td colspan=3  align=right><b>TOTAL</b><td align=center class=tdbgc><font color=blue><b>".number_format("$totcocdtcunt",2)."</b></font>";
-	
-}
+
+                    }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888////////////////////
-}
-echo"</table>";
-}
+                }
+                echo "</table>";
+//}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-	
-}
-else{
+            } else {
 ////////////////////000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000/////////////////////
-$que_CRS_CU="select r.confirm, r.course, r.degree, c.name,c.credits from registration r, courseunit c where student='$stno'and r.course=c.code and r.acedemic_year='$ac_1' and r.semister=$semi_1 order by r.course";
+                $que_CRS_CU = "select r.confirm, r.course, r.degree, c.name,c.credits from registration r, courseunit c where student='$stno'and r.course=c.code and r.acedemic_year='$ac_1' and r.semister=$semi_1 order by r.course";
 //echo$que_CRS_CU;
-$CRS_course=mysql_query($que_CRS_CU);
-if(mysql_num_rows($CRS_course)!=0){
-$stmnrgrwnm=1;
-echo '<table border="0" width=70%><tr><th>#<th>Course Unit<th>Course Name<th>Credits<th>Degree Status<th>Official Confirmation</tr>';
-while($CRS=mysql_fetch_array($CRS_course)){
-$CRScose=trim($CRS['course']);
+                $CRS_course = mysql_query($que_CRS_CU);
+                if (mysql_num_rows($CRS_course) != 0) {
+                    $stmnrgrwnm = 1;
+                    echo '<table border="0" width=70%><tr><th>#<th>Course Unit<th>Course Name<th>Credits<th>Degree Status<th>Official Confirmation</tr>';
+                    while ($CRS = mysql_fetch_array($CRS_course)) {
+                        $CRScose = trim($CRS['course']);
 
 
+                        echo "<tr class=trbgc><td align='center'>$stmnrgrwnm<td align='center'>" . $CRScose . "<td>" . ucfirst($CRS['name']) . "<td align='center'>" . $CRS['credits'];
 
-echo "<tr class=trbgc><td align='center'>$stmnrgrwnm<td align='center'>".$CRScose."<td>".ucfirst($CRS['name'])."<td align='center'>".$CRS['credits'];
+                        $stregdgstt = $CRS['degree'];
+                        if ($stregdgstt == "Non Degree") {
+                            $stregdgstt2 = "None Degree Course-(6)";
+                        } else {
+                            $stregdgstt2 = $l->getcostype($CRScose, $stno);
+                        }
 
-$stregdgstt=$CRS['degree'];
-if($stregdgstt=="Non Degree"){
-	$stregdgstt2="None Degree Course-(6)";
-}
-else{
-	$stregdgstt2=$l->getcostype($CRScose,$stno);
-}
-
-echo "<td align='center'>$stregdgstt2";
+                        echo "<td align='center'>$stregdgstt2";
 
 
-
-echo"<td align='center'>"; 
-if(($CRS['confirm'])==1){
-echo "Confirmed";
-}
-	elseif(($CRS['confirm'])==0){
-		echo '<font color="red">Not Confirmed</font>';
-				}
-$stmnrgrwnm++;						
-echo "</tr>";
-}
-echo "</table>";
-}
-else{
-		echo '<br><font color="red"> Sorry!  Can not find course unit for this semester.</font>';
-}
+                        echo "<td align='center'>";
+                        if (($CRS['confirm']) == 1) {
+                            echo "Confirmed";
+                        } elseif (($CRS['confirm']) == 0) {
+                            echo '<font color="red">Not Confirmed</font>';
+                        }
+                        $stmnrgrwnm++;
+                        echo "</tr>";
+                    }
+                    echo "</table>";
+                } else {
+                    echo '<br><font color="red"> Sorry!  Can not find course unit for this semester.</font>';
+                }
 ////////////////////000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000/////////////////////	
-}
-
-
-
-
-
-
-
+            }
 
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////	
 //................................................................................
 ////////////////////////////////////////////////////////////////////////////////////
-}	///check level if
+        }    ///check level if
 
-	else{
-		echo '<br><font color="red"> Sorry!  This option is not available for you.</font>';
+        else {
+            echo '<br><font color="red"> Sorry!  This option is not available for you.</font>';
 
-		}
+        }
 ////////////////////////////////////////////////////////////////////////////////////////////////
-}
+    }
 
 //}///////////////chk special student if close bracket////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// if end genaral student/////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
+
 
 
 
@@ -1197,23 +1137,24 @@ if($alstcdt==NULL){
 $alstcdt=0;
 }
 
-echo '<table border=0><tr><td><font color="blue" size="3">You have registered <td><font color="red" size="3">';
-////////////////////////////gen st////////////////////////////////    
-if($stspsub=="General Student"){
-    echo$alstcdt;
-}
-//////////////////////////////sp st///////////////////////////////
-else{
-echo"<div id='allcdcut'>";
-   echo$alstcdt;  
-echo"</div>";    
-}
-//////////////////////////////////////////////////////////////////
-echo '</font></b><td><font color="blue" size="3">(Confirmed) Credits </b></font>';
+if ($stlvl != 1) {
+    echo '<table border=0><tr><td><font color="blue" size="3">You have registered <td><font color="red" size="3">';
+    ////////////////////////////gen st////////////////////////////////
+    if ($stspsub == "General Student") {
+        echo $alstcdt;
+    } //////////////////////////////sp st///////////////////////////////
+    else {
+        echo "<div id='allcdcut'>";
+        echo $alstcdt;
+        echo "</div>";
+    }
+    //////////////////////////////////////////////////////////////////
+    echo '</font></b><td><font color="blue" size="3">(Confirmed) Credits </b></font>';
 
-echo"</tr></table>";
 
-$que_All_CU="select r.confirm, r.course, r.degree, c.name,c.credits from registration r, courseunit c where student='$id_1'and r.course=c.code order by r.acedemic_year,r.semister,r.course";
+    echo "</tr></table>";
+}
+$que_All_CU="select r.confirm, r.course, r.degree, c.name,c.credits from registration r, courseunit c, student s where r.student='$id_1' and s.id='$id_1' and s.curriculum=c.by_low_version and r.course=c.code order by r.acedemic_year,r.semister,r.course";
 $all_course=mysql_query($que_All_CU);
 if(mysql_num_rows($all_course)!=0){
 $alcuid=1;

@@ -204,11 +204,35 @@ $regst2=$qregst2['status'];
 			$getasnelics=$_POST['asnelics'];
 			$getasnelicsmdm=$_POST['asnelicsmdm'];
 
-			$queinsnotelyrcd="insert into assignment_eligibility(stu_no,course,medium,ac_year,status) values ('$getasnelist','$getasnelics','$getasnelicsmdm','$acy','NE')";
-			$quinsnotelyrcd=mysql_query($queinsnotelyrcd);
+			try {
+				// Chek student already registered to subject before update assignment marks
+				$examQry = "select count(std_id) as total from exam_registration where std_id='$getasnelist' and course_code='$getasnelics' and academic_year='$acy' and semester=1";
+				$result = mysql_query($examQry);
+				$row = mysqli_num_rows($result);
 
-			
-		}		
+				if (mysqli_num_rows($result) != 0)
+				{
+					var_dump('1 row');
+				} else {
+					var_dump('no rows');
+				}
+
+
+//				if($row['total'] != 0){
+//					$queinsnotelyrcd = "insert into assignment_eligibility(stu_no,course,medium,ac_year,status) values ('$getasnelist','$getasnelics','$getasnelicsmdm','$acy','NE')";
+//					$quinsnotelyrcd = mysql_query($queinsnotelyrcd);
+//
+//					// Need to change semester for next semester
+//					$qryExamRegister = "update exam_registration set status=2 where std_id='$getasnelist' and course_code='$getasnelics' and academic_year='$acy' and semester=1";
+//					$qryExamRegisterRes = mysql_query($qryExamRegister);
+//				}else{
+//					echo "<script>alert('Error, Student not registered to course unit for examination');</script>";
+//				}
+
+			} catch (Exception $e){
+				echo "<script>alert('Update Error');</script>";
+			}
+		}
 		///////////////////////////////
 	
 	
@@ -302,14 +326,16 @@ echo '<br><hr class=bar>';
 
 
 ////////////////////////////////////////////////////////////////////////////////////
+$curriculum = intval($_SESSION['curriculum']);
+
 if(($role=="administrator")||($role=="topadmin")||($role=="sar")){
-$query_21_1="select code, name,stream,medium from courseunit where availability=1 and (semister=$find_L or semister=3) order by code,name";
+$query_21_1="select code, name,stream,medium from courseunit where availability=1 and (semister=$find_L or semister=3) and by_low_version=$curriculum order by code,name";
                                                                     }
 elseif(($role=="general")||($role=="office")){
-$query_21_1="select code, name,stream,medium from courseunit where department='$dept_id'  and availability=1 and (semister=$find_L or semister=3)  order by code,name";
+$query_21_1="select code, name,stream,medium from courseunit where department='$dept_id'  and availability=1 and (semister=$find_L or semister=3) and by_low_version=$curriculum  order by code,name";
 }
 else{
-$query_21_1="select code, name,stream,medium from courseunit where (coordinator='$rltduser' or lecturers LIKE '%[$rltduser]%')   and availability=1 and (semister=$find_L or semister=3)  order by code,name";	
+$query_21_1="select code, name,stream,medium from courseunit where (coordinator='$rltduser' or lecturers LIKE '%[$rltduser]%') and availability=1 and (semister=$find_L or semister=3) and by_low_version=$curriculum order by code,name";
 }
 
 

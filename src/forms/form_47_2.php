@@ -4,11 +4,10 @@
 	<tr align="center">
 		<td>
 <br><form method="POST" action="./forms/form_47.php?task=gpadd">
-
-	<select size="1" name="stream_8_2">
+                
+                <select size="1" name="stream_8_2">
 <option value="all" selected>All Students</option>	
 <?php
-	
 	$quegetmnsub="select * from main_subjects where status=1 order by sub_name";	
 		if(mysql_num_rows($qugtstcmb)==0){
 
@@ -22,15 +21,9 @@
 					echo"<option value=$getmnsubid01>$getmnsub01 Students</option>";
 				
 				
-			}	
-
-			////////////////////////////////////////////////////////////////////////////////////////////////////	
-	
+			}
+			////////////////////////////////////////////////////////////////////////////////////////////////////
 		}
-	
-	
-	
-	
 ?>	
 </select> <br>
 
