@@ -106,7 +106,7 @@ if (($_SESSION['login']) == "truefohssmis") {
 
 //echo$exccode.$exdgrest."<br>";
             $ye = date('Y');
-            $queinsexreg = "insert into exam_registration(std_id,course_code,academic_year,semester,course_type,status,rqs_exm_medium) values('$stno','$exccode','$exac_year',$exac_seme,'$exdgrest',0,'$exsbmdm2')";
+            $queinsexreg = "insert into exam_registration(std_id,course_code,academic_year,semester,course_type,status,rqs_exm_medium) values('$stno','$exccode','$exac_year',$exac_seme,'$exdgrest',1,'$exsbmdm2')";
 //echo$queinsexreg;
             mysql_query($queinsexreg);
 
@@ -191,12 +191,12 @@ if (($_SESSION['login']) == "truefohssmis") {
                         echo "<form method=POST action='./index.php?view=admin&admin=48&task=exregis'>";
                         echo "<tr class=trbgc><td align='center'>$exmtblrw<td align='center'>$ccode3<input type=hidden name=coscode value=$ccode></td>";
                         echo "<td>" . ucfirst($cname);
-                        if ($stlvl == 1) {
-                            echo " ( In <select name=sbmdm>";
-                            echo "<option value='Sinhala' selected>Sinhala</option>";
-                            echo "<option value='English'>English</option>";
-                            echo "</select> Medium )";
-                        }
+//                        if ($stlvl == 1) {
+//                            echo " ( In <select name=sbmdm>";
+//                            echo "<option value='Sinhala' selected>Sinhala</option>";
+//                            echo "<option value='English'>English</option>";
+//                            echo "</select> Medium )";
+//                        }
 
                         echo "</td><td align='center'>$stexmrgcstyp<input type=hidden name=dgrest value='$stexmrgcstyp'></td></td>";
                         echo "<td align='center'><font color=red>Not Registered !</font></td>";
@@ -234,15 +234,20 @@ if (($_SESSION['login']) == "truefohssmis") {
                 if ($stlvl != 0) {
 
                     if ($seme == 1) {
-                        $quecoreg = "select r.course, r.degree, c.name from registration r,courseunit c where r.student='$stno' and r.semister=1 and r.confirm=1 and r.acedemic_year<>'$acyart' and r.course=c.code order by r.acedemic_year,r.semister,r.course";
+//                        $quecoreg = "select r.course, r.degree, c.name from registration r,courseunit c where r.student='$stno' and r.semister=1 and r.confirm=1 and r.acedemic_year<>'$acyart' and r.course=c.code order by r.acedemic_year,r.semister,r.course";
+                        $quecoreg = "select r.course, r.degree, c.name from registration r,courseunit c,student s where r.student='$stno' and r.student=s.id and r.semister=1 and r.confirm=1 and r.acedemic_year<>'$acyart' and r.course=c.code and c.by_low_version=s.curriculum order by r.acedemic_year,r.semister,r.course";
+//                        echo '1_quecoreg '.$quecoreg;
                     } else {
                         $quecoreg = "select r.course,r.degree,c.name from registration r,courseunit c where r.student='$stno' and (r.semister=2 or r.semister=3) and r.confirm=1 and r.acedemic_year<>'$acyart' and r.course=c.code order by r.acedemic_year,r.semister,r.course";
+//                        echo '2_quecoreg '.$quecoreg;
                     }
                 } else {
                     if ($seme == 1) {
                         $quecoreg = "select r.course, r.degree, c.name from registration r,courseunit c where r.student='$stno' and r.semister=1 and r.confirm=1 and r.course=c.code order by r.acedemic_year,r.semister,r.course";
+//                        echo '3_quecoreg '.$quecoreg;
                     } else {
                         $quecoreg = "select r.course,r.degree,c.name from registration r,courseunit c where r.student='$stno' and (r.semister=2 or r.semister=3) and r.confirm=1 and  r.course=c.code order by r.acedemic_year,r.semister,r.course";
+//                        echo '4_quecoreg '.$quecoreg;
                     }
 
                 }
@@ -255,7 +260,7 @@ if (($_SESSION['login']) == "truefohssmis") {
                 if (mysql_num_rows($qucoreg) != 0) {
 
                     echo "<table border='0' width='90%'><tr>";
-                    echo "<th>#<th>Courses Code</th><th>Courses Name</th><th>Degree Status</th><th>Current Status</th><th>Submit as</th></tr>";
+                    echo "<th>#<th>1Courses Code</th><th>Courses Name</th><th>Degree Status</th><th>Current Status</th><th>Submit as</th></tr>";
                     $colum = 0;
                     $rprexmrgrw = 1;
                     while ($qcoreg = mysql_fetch_array($qucoreg)) {
