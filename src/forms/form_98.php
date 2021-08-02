@@ -198,21 +198,21 @@ $i=1;
 echo"<table border=1 align=center cellspacing=0 cellspadding=0 width=98%><tr height=30px align=center>";
 echo"<td rowspan=2 width=3%>S.NO<br>(1)";
 echo"<td rowspan=2 width=12%>INDEX NO<br>(2)";
-
+echo"<td rowspan=2 width=5% ><div class=upwit>(3)<br>ATTENDANCE</div>";
 echo"<td colspan=3>Semester End";
 
-echo"<td rowspan=2 width=5% ><div  class=upwit> (6)<br>Continous Assignment 1</div>";
-echo"<td rowspan=2 width=5%> <div class=upwit > (7)<br>Continous Assignment 2</div> ";
-echo"<td rowspan=2 width=5%> <div class=upwit > (8)<br>Continous Assignment 3</div> ";
-echo"<td rowspan=2 width=5%> <div class=upwit > (9)<br>Continous Assignment 4</div> ";
-echo"<td rowspan=2 width=8%>Total<br>(10)<br>{(5)+(6)+(7)+(8)+(9)}";
-echo"<td rowspan=2 width=8%>Result / Grade (11)";
-echo"<td rowspan=2 width=8%>G.P.V<br>(12)";
-echo"<td rowspan=2 width=8%>Remarks<br>(13)";
+echo"<td rowspan=2 width=5% ><div  class=upwit> (7)<br>Continous Assignment 1</div>";
+echo"<td rowspan=2 width=5%> <div class=upwit > (8)<br>Continous Assignment 2</div> ";
+echo"<td rowspan=2 width=5%> <div class=upwit > (9)<br>Continous Assignment 3</div> ";
+echo"<td rowspan=2 width=5%> <div class=upwit > (10)<br>Continous Assignment 4</div> ";
+echo"<td rowspan=2 width=8%>Total<br>(11)<br>{(6)+(7)+(8)+(9)+(10)}";
+echo"<td rowspan=2 width=8%>Result / Grade (12)";
+echo"<td rowspan=2 width=8%>G.P.V<br>(13)";
+echo"<td rowspan=2 width=8%>Remarks<br>(14)";
 
-echo"<tr align=center><td width=5%><div class=upwit> (3)<br>1<sup>st</sup> Marking</div>";
-echo"<td width=5%><div class=upwit > (4)<br>2<sup>nd</sup> Marking</div>";
-echo"<td width=5%><div class=upwit > (5)<br>Average Marks</div>";
+echo"<tr align=center><td width=5%><div class=upwit> (4)<br>1<sup>st</sup> Marking</div>";
+echo"<td width=5%><div class=upwit > (5)<br>2<sup>nd</sup> Marking</div>";
+echo"<td width=5%><div class=upwit > (6)<br>Average Marks</div>";
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -233,9 +233,17 @@ while($qgtexreg=mysql_fetch_array($qugtexreg)){
 			}
 			else{
 				$fulstno=$stprmtnum;
-			}		
-		
-		
+			}
+
+
+    $confirm=$qgtexreg['status'];
+
+    if($confirm==2){
+        $confirm2="NE";
+    }
+    else{
+        $confirm2=null;
+    }
 	/*	
 		$degree=$qgtexreg['course_type'];
 
@@ -257,6 +265,7 @@ while($qgtexreg=mysql_fetch_array($qugtexreg)){
 			$name=strtoupper($initials)." ".strtoupper($l_name);
 	*/
 echo"<tr height=25px><td align=center>$i<td align=center>$fulstno";
+echo"<td>&nbsp;&nbsp;$confirm2";
 echo"<td>&nbsp;";
 echo"<td>&nbsp;";
 echo"<td>&nbsp;";
