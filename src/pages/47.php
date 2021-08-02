@@ -1,6 +1,7 @@
 <?php
 //error_reporting(0);
 session_start();
+$curriculum = intval($_SESSION['curriculum']);
 if(($_SESSION['login'])=="truefohssmis"){
 
 $role=$_SESSION['role'];
@@ -518,7 +519,7 @@ mysql_query($queinsexrgnw);
 		
 		
 		
-			$quemdadm1="select r.student,r.course,r.degree,c.name from registration r,courseunit c where r.student='hs$exstno2'and (r.semister=$seme or r.semister=3) and r.course=c.code and r.confirm=1 order by r.id,r.course";
+			$quemdadm1="select r.student,r.course,r.degree,c.name from registration r,courseunit c where r.student='hs$exstno2'and (r.semister=$seme or r.semister=3) and r.course=c.code and r.confirm=1 and c.by_low_version=$curriculum order by r.id,r.course";
 		
 			//echo$quemdadm1;
 			$qumdadm1=mysql_query($quemdadm1);
