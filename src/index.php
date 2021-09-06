@@ -484,7 +484,7 @@ if((($_SESSION['login'])=="truefohssmis")&&(($_SESSION['userhost'])!="rumis")){
 
 echo"<tr><td align='center' colspan=3 >";
 //echo$_SESSION['user_id'].$_SESSION['last_name'].$_SESSION['initials'].$_SESSION['occupation'].$_SESSION['section'].$_SESSION['email'].$_SESSION['role_id'];
-echo"<hr class='bar'>Welcome! ".strtoupper($_SESSION['last_name'])." ".strtoupper($_SESSION['initials']). " | ".$_SESSION['user_id'] ."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <a href=index.php?view=admin&task=edit>Change My Password</a> ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <a href='logoff.php'>Log Out</a> ]<hr class='bar'>";
+echo"<hr class='bar'>Welcome! ".strtoupper($_SESSION['last_name'])." ".strtoupper($_SESSION['initials']). " | ".$_SESSION['user_id'] ." | ". $_SESSION['curriculum']."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <a href=index.php?view=admin&task=edit>Change My Password</a> ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <a href='logoff.php'>Log Out</a> ]<hr class='bar'>";
 $role=$_SESSION['role_id'];
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -823,7 +823,7 @@ echo"</td><td valign=top align=center>";
 echo"<table border=0 width='270px' class=logbox>";
 echo"<form method='POST' action='login.php'>";
 echo"<th colspan=2 height=50px align='center' valign='middle'><font size=4px>Sign In</font></th>";
-echo"<tr><td width=50% align='right'>User Name <td width=50%><input type='text' name='uname'></tr>";
+echo"<tr><td width=50% align='right'>User Name <td width=50%><input type='text' name='uname' placeholder='hs12345'></tr>";
 echo"<tr><td align='right'>Password <td><input type='password' name='upwd'></tr>";
 echo"<tr><td  align='center' colspan=2 ><input type='submit' value='Sign In'><input type=reset value=Clear></tr></form>";
 echo"<tr><td colspan=2 align='center'>";
@@ -853,7 +853,7 @@ echo"</td><td valign=top align=center>";
 echo"<table border=0 width='270px' class=logbox>";
 echo"<form method='POST' action='login.php'>";
 echo"<th colspan=2 height=50px align='center' valign='middle'><font size=4px>Sign In</font></th>";
-echo"<tr><td width=50% align='right'>User Name <td width=50%><input type='text' name='uname'></tr>";
+echo"<tr><td width=50% align='right'>User Name <td width=50%><input type='text' name='uname' placeholder='hs12345'></tr>";
 echo"<tr><td align='right'>Password <td><input type='password' name='upwd'></tr>";
 echo"<tr><td  align='center' colspan=2 ><input type='submit' value='Sign In'><input type=reset value=Clear></tr></form>";
 echo"<tr class=faccolor><td colspan=2>&nbsp;</td></tr></table>";

@@ -363,7 +363,7 @@ if(mysql_num_rows($qugetstblesubj)!=0){
 	$cutblrw=1;
 	$sufex="nil";
 	echo"Recommended course units for this semester, according to your main subjects.";
-	echo"<table><tr><th>#<th>Course Unit<th>Course Name<th>Department<th>Credits";
+	echo"<table><tr><th>#<th>6Course Unit<th>Course Name<th>Department<th>Credits";
 	while($qgetstblesubj=mysql_fetch_array($qugetstblesubj)){	
 				$code=$qgetstblesubj['code'];
 					$fifx3=substr("$code",0,3);
@@ -1039,7 +1039,7 @@ else {
 
             } else {
 ////////////////////000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000/////////////////////
-                $que_CRS_CU = "select r.confirm, r.course, r.degree, c.name,c.credits from registration r, courseunit c where student='$stno'and r.course=c.code and r.acedemic_year='$ac_1' and r.semister=$semi_1 order by r.course";
+                $que_CRS_CU = "select r.confirm, r.course, r.degree, c.name,c.credits from registration r, courseunit c where student='$stno'and r.course=c.code and r.acedemic_year='$ac_1' and r.semister=$semi_1 and c.by_low_version='$curriculum' order by r.course";
 //echo$que_CRS_CU;
                 $CRS_course = mysql_query($que_CRS_CU);
                 if (mysql_num_rows($CRS_course) != 0) {

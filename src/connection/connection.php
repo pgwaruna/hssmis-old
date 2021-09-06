@@ -15,7 +15,4 @@ $rmsdb="rumisdb";////////////////////////rumis database name///////////////
 $fosmisconection=mysql_connect($host,$dbuser,$dbpwd);
 mysql_select_db($db);
 
-
-
-
 ?>

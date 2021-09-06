@@ -1,6 +1,7 @@
 <?php
 //error_reporting(0);
 session_start();
+
 if (($_SESSION['login']) == "truefohssmis") {
     include '../connection/connection.php';
 
@@ -41,7 +42,11 @@ if (($_SESSION['login']) == "truefohssmis") {
 
 
         $stno = $_SESSION['user_id'];
-//$stno="hs15617";
+        $questcmbi="select * from student where id='$stno'";
+        $qustcmbi=mysql_query($questcmbi);
+        $qstcmbi = mysql_fetch_array($qustcmbi);
+        $curriculum = $qstcmbi['curriculum'];
+
         require_once('./classes/globalClass.php');
         $n = new settings();
 
@@ -260,7 +265,7 @@ if (($_SESSION['login']) == "truefohssmis") {
                 if (mysql_num_rows($qucoreg) != 0) {
 
                     echo "<table border='0' width='90%'><tr>";
-                    echo "<th>#<th>1Courses Code</th><th>Courses Name</th><th>Degree Status</th><th>Current Status</th><th>Submit as</th></tr>";
+                    echo "<th>#<th>Courses Code</th><th>Courses Name</th><th>Degree Status</th><th>Current Status</th><th>Submit as</th></tr>";
                     $colum = 0;
                     $rprexmrgrw = 1;
                     while ($qcoreg = mysql_fetch_array($qucoreg)) {
@@ -337,13 +342,13 @@ if (($_SESSION['login']) == "truefohssmis") {
 
 //echo"end closing date";
 
-            $quegtexreg = "select er.* ,c.name,c.level from exam_registration er,courseunit c where er.std_id='$stno' and er.academic_year='$exac_year' and er.semester=$exac_seme and er.course_code=c.code order by c.level, er.course_code,c.level";
+            $quegtexreg = "select er.* ,c.name,c.level from exam_registration er,courseunit c where er.std_id='$stno' and er.academic_year='$exac_year' and er.semester=$exac_seme and er.course_code=c.code and c.by_low_version=$curriculum order by c.level, er.course_code,c.level";
 
             $qugtexreg = mysql_query($quegtexreg);
             if (mysql_num_rows($qugtexreg) != 0) {
                 $exmrptrw = 1;
                 echo "<br><table border='0' width='90%'><tr>";
-                echo "<th>#<th>Courses Code</th><th>Courses Name</th><th>Degree Status</th><th>Eligibility Status</th></tr>";
+                echo "<th># $curriculum<th>Courses Code</th><th>Courses Name</th><th>Degree Status</th><th>Eligibility Status</th></tr>";
                 while ($qgtexreg = mysql_fetch_array($qugtexreg)) {
                     $courseaf = $qgtexreg['course_code'];
                     $coursegetchr = trim($courseaf);
