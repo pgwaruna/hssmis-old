@@ -11,7 +11,7 @@ services:
           - ./log/apache2:/var/log/apache2
           - ../src/:/usr/local/apache2/html
         networks:
-          - xampp-net
+            - fohss_net
     
     xampp-pma:
         image: phpmyadmin/phpmyadmin:latest
@@ -24,7 +24,7 @@ services:
         depends_on:
             - xampp-db
         networks:
-            - xampp-net
+            - fohss_net
         ports:
          - 4001:80
          
@@ -37,7 +37,7 @@ services:
         volumes:
             - ./db/data/:/var/lib/mysql/
         networks:
-            - xampp-net
+            - fohss_net
           
     xampp-php:
         build:
@@ -49,8 +49,9 @@ services:
         depends_on:
             - xampp-db
         networks:
-            - xampp-net
+            - fohss_net
 
 networks:
-    xampp-net:
-        driver: bridge
+    fohss_net:
+        external:
+            name: fohss_net
