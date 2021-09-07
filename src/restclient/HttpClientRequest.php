@@ -23,7 +23,7 @@ class HttpClientRequest
 
         // Post Request
         $data_array =  array(
-            "email" => $email,
+            "username" => $email,
             "password" => $password
         );
 

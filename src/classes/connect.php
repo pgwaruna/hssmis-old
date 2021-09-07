@@ -36,12 +36,12 @@
 				$con=mysql_connect($this->host,$this->dbUser,$this->dbUserPwd);  // MAKE THE CONNECTION WITH MYSQL SERVER 
 				$selection=mysql_select_db($this->dbName,$con);  // SELECT THE DATA BASE
 				
-				if($is_msg_show==true)
-					if($con)
-						echo "Successfuly connected!";
-					else
-						echo "Fail to connect".mysql_error();
-				
+//				if($is_msg_show==true)
+//					if($con)
+//						echo "Successfuly connected!";
+//					else
+//						echo "Fail to connect".mysql_error();
+//
 								
 			}
 			

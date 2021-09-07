@@ -36,6 +36,8 @@ services:
             MYSQL_ROOT_PASSWORD:
         volumes:
             - ./db/data/:/var/lib/mysql/
+        ports:
+            - 3306:3306
         networks:
             - fohss_net
           
