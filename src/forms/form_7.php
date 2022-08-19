@@ -160,7 +160,7 @@ sel.appendChild(opt); // add opt to end of select box (sel)
 
 
 <div align="center"><strong>Introduce New Course Unit</strong><br  />
-
+    <h3><font color="red">Please select the Correct CURRICULUM before adding the New Course UNIT </font></h3><br>
 </div>
 <div align="center">
 <table border="0" width="90%" >

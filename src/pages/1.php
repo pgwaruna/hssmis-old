@@ -762,7 +762,7 @@ else {
                 $totcocdtcunt2 = 0;
                 echo "";
                 if ($stream == "Special") {
-                    echo "<br><br><table width=70%><tr><th colspan=7><br>Core Optional  Course Units<br><font size=2px>( Only one subject should be selected )<br><br>";
+                    echo "<br><br><table width=70%><tr><th colspan=7><br>Core Optional  Course Units<br><font size=2px><br><br>";
                 } else {
                     echo "<br><br><table width=70%><tr><th colspan=7><br>Core Optional  Course Units<br><font size=2px>( Only one subject should be selected within either semester I or semester II )<br><br>";
                 }
@@ -861,7 +861,8 @@ else {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////// Other subjet course ////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            if ($stlvl == 1 || $stlvl == 3 || $stlvl == 4) { //extra optional
+//            if ($stlvl == 1 || $stlvl == 3 || $stlvl == 4) { //extra optional
+            if ($stlvl == 4) { //extra optional
 
 
 //----update by waruna 29/05/2021
@@ -1137,23 +1138,23 @@ if($alstcdt==NULL){
 $alstcdt=0;
 }
 
-if ($stlvl != 1) {
-    echo '<table border=0><tr><td><font color="blue" size="3">You have registered <td><font color="red" size="3">';
-    ////////////////////////////gen st////////////////////////////////
-    if ($stspsub == "General Student") {
-        echo $alstcdt;
-    } //////////////////////////////sp st///////////////////////////////
-    else {
-        echo "<div id='allcdcut'>";
-        echo $alstcdt;
-        echo "</div>";
-    }
-    //////////////////////////////////////////////////////////////////
-    echo '</font></b><td><font color="blue" size="3">(Confirmed) Credits </b></font>';
+//if ($stlvl != 1) {
+//    echo '<table border=0><tr><td><font color="blue" size="3">You have registered <td><font color="red" size="3">';
+//    ////////////////////////////gen st////////////////////////////////
+//    if ($stspsub == "General Student") {
+//        echo $alstcdt;
+//    } //////////////////////////////sp st///////////////////////////////
+//    else {
+//        echo "<div id='allcdcut'>";
+//        echo $alstcdt;
+//        echo "</div>";
+//    }
+//    //////////////////////////////////////////////////////////////////
+//    echo '</font></b><td><font color="blue" size="3">(Confirmed) Credits </b></font>';
+//
+//    echo "</tr></table>";
+//}
 
-
-    echo "</tr></table>";
-}
 $que_All_CU="select r.confirm, r.course, r.degree, c.name,c.credits from registration r, courseunit c, student s where r.student='$id_1' and s.id='$id_1' and s.curriculum=c.by_low_version and r.course=c.code order by r.acedemic_year,r.semister,r.course";
 $all_course=mysql_query($que_All_CU);
 if(mysql_num_rows($all_course)!=0){

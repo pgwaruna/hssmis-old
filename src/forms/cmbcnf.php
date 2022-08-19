@@ -105,7 +105,7 @@ echo"<tr class=trbgc>";//table start
 			echo '<font color="#800000">HS/</font><select size="1" name="year_6_6" id="'.$stno.'year_6_6">';
 			
 			$lvlyer=$acycur;////////remove this cooment after entering all student in HSS-MIS - (Iranga 2019-06-12)
-			//$lvlyer="2016";//////////comment this  after entering all student in HSS-MIS - (Iranga 2019-06-12)
+//			$lvlyer="2021";//////////comment this  after entering all student in HSS-MIS - (Iranga 2019-06-12)
 			for($cnfy=$acynx;$cnfy>=$lstacy;$cnfy--){
 				if($cnfy==$lvlyer){
 					echo "<option value=$cnfy selected>$cnfy</option>";
@@ -146,9 +146,9 @@ echo"<tr class=trbgc>";//table start
 			while($qgetmnsub01=mysql_fetch_array($qugetmnsub01)){
 				$getmnsub01=$qgetmnsub01['sub_name'];
 				$getmnsubid01=$qgetmnsub01['sub_id'];
-				IF(($getmnsubid01!=2)&&($getmnsubid01!=8)){///////EDIT BY IRANGA to hide tis sub to c-20 student
+//				IF(($getmnsubid01!=2)&&($getmnsubid01!=8)){///////EDIT BY IRANGA to hide tis sub to c-20 student
 					echo"<option value=$getmnsubid01>$getmnsub01</option>";
-				}
+//				}
 				
 			}	
 			echo"</select>";
@@ -161,9 +161,9 @@ echo"<tr class=trbgc>";//table start
 			while($qgetmnsub02=mysql_fetch_array($qugetmnsub02)){
 				$getmnsub02=$qgetmnsub02['sub_name'];
 				$getmnsubid02=$qgetmnsub02['sub_id'];
-				IF(($getmnsubid02!=2)&&($getmnsubid02!=8)){///////EDIT BY IRANGA to hide tis sub to c-20 student
+//				IF(($getmnsubid02!=2)&&($getmnsubid02!=8)){///////EDIT BY IRANGA to hide tis sub to c-20 student
 					echo"<option value=$getmnsubid02>$getmnsub02</option>";
-				}
+//				}
 				
 			}	
 			echo"</select>";
@@ -176,9 +176,9 @@ echo"<tr class=trbgc>";//table start
 			while($qgetmnsub03=mysql_fetch_array($qugetmnsub03)){
 				$getmnsub03=$qgetmnsub03['sub_name'];
 				$getmnsubid03=$qgetmnsub03['sub_id'];
-				IF(($getmnsubid03!=2)&&($getmnsubid03!=8)){///////EDIT BY IRANGA to hide tis sub to c-20 student
+//				IF(($getmnsubid03!=2)&&($getmnsubid03!=8)){///////EDIT BY IRANGA to hide tis sub to c-20 student
 					echo"<option value=$getmnsubid03 >$getmnsub03</option>";
-				}
+//				}
 				
 			}	
 			echo"</select>";

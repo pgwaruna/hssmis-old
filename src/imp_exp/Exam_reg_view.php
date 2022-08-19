@@ -1,6 +1,7 @@
 <?php
 //error_reporting(0);
 session_start();
+$curriculum = intval($_SESSION['curriculum']);
 if((isset($_SESSION['login'])=="truefohssmis")&&($_SESSION['role']!="student")){
 
 include'../connection/connection.php';
@@ -93,15 +94,15 @@ echo"<br>[ Foundation Course : 1 ]&nbsp;&nbsp;,&nbsp;&nbsp;";
             }
 /////////////////////////////////////////create table <th>/////////////////////////////////////////////////////////////
     if($level_reg==1){
-    $query1_2="select code,medium from courseunit where (semister=$semister_reg2) and level=1 and availability=1 order by level,code";
+    $query1_2="select code,medium from courseunit c where (semister=$semister_reg2) and level=1 and c.by_low_version='$curriculum' and availability=1 order by level,code";
     
             }
 
     elseif($level_reg==2){
-    $query1_2="select code from courseunit where (semister=$semister_reg2  or code='IMT2b2b') and (level='1' or level='2') and availability=1 order by level,code";
+    $query1_2="select code from courseunit c where (semister=$semister_reg2  or code='IMT2b2b') and (level='1' or level='2') and c.by_low_version='$curriculum' and availability=1 order by level,code";
                 }
     else{
-    $query1_2="select code from courseunit where (semister=$semister_reg2 or code='IMT3b1b') and availability=1 order by level,code";
+    $query1_2="select code from courseunit c where (semister=$semister_reg2 or code='IMT3b1b') and c.by_low_version='$curriculum' and availability=1 order by level,code";
 
         }
 //////////////////////////////////////////////////////////////////////////

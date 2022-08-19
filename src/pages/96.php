@@ -186,18 +186,40 @@ $regst2=$qregst2['status'];
 	/////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////
 	$getvrnebl=$_GET['nebl'];
+
+		// Need to change semester for each semester manually via code
+		$currentSem = 1;
+
 	if($getvrnebl=="set"){
 		$getasssubbtn=$_POST['asssubbtn'];
 		////////////////////////////////
 		if($getasssubbtn=="Cancel"){
+
+			$getasnelist=$_POST['asnelist'];
+			$getasnelics=$_POST['asnelics'];
+			$getasnelicsmdm=$_POST['rmaseliid'];
+
+			// Chek student already registered to subject before update assignment marks
+			$examQry = "select count(std_id) as total from exam_registration where std_id='$getasnelist' and course_code='$getasnelics' and academic_year='$acy' and semester=$currentSem";
+			$result = mysql_query($examQry);
+			$row = mysql_fetch_array($result);
+
 			$getrmaseliid=$_POST['rmaseliid'];
 			
 			$quecnclntely="delete from assignment_eligibility where ass_id=$getrmaseliid";
 			$qucnclntely=mysql_query($quecnclntely);
-			
+
+			if($row['total'] != 0){
+				$qryExamRegister = "update exam_registration set status=1 where std_id='$getasnelist' and course_code='$getasnelics' and academic_year='$acy' and semester=$currentSem";
+				$qryExamRegisterRes = mysql_query($qryExamRegister);
+			}else{
+
+			}
 		}
 		////////////////////////////////
-		
+		///
+
+
 		////////////////////////////////
 		if($getasssubbtn=="Not Eligible"){
 			$getasnelist=$_POST['asnelist'];
@@ -206,7 +228,7 @@ $regst2=$qregst2['status'];
 
 			try {
 				// Chek student already registered to subject before update assignment marks
-				$examQry = "select count(std_id) as total from exam_registration where std_id='$getasnelist' and course_code='$getasnelics' and academic_year='$acy' and semester=1";
+				$examQry = "select count(std_id) as total from exam_registration where std_id='$getasnelist' and course_code='$getasnelics' and academic_year='$acy' and semester=$currentSem";
 				$result = mysql_query($examQry);
 				$row = mysql_fetch_array($result);
 
@@ -214,8 +236,8 @@ $regst2=$qregst2['status'];
 					$queinsnotelyrcd = "insert into assignment_eligibility(stu_no,course,medium,ac_year,status) values ('$getasnelist','$getasnelics','$getasnelicsmdm','$acy','NE')";
 					$quinsnotelyrcd = mysql_query($queinsnotelyrcd);
 
-					// Need to change semester for next semester
-					$qryExamRegister = "update exam_registration set status=2 where std_id='$getasnelist' and course_code='$getasnelics' and academic_year='$acy' and semester=1";
+
+					$qryExamRegister = "update exam_registration set status=2 where std_id='$getasnelist' and course_code='$getasnelics' and academic_year='$acy' and semester=$currentSem";
 					$qryExamRegisterRes = mysql_query($qryExamRegister);
 				}else{
 					echo "<script>alert('Error, Student not registered to course unit for examination');</script>";
@@ -270,6 +292,8 @@ $regst2=$qregst2['status'];
 		echo"<td align=center class=selecttdbg>";
 		echo"<font color=red><b>Not Eligible</b></font>";
 		echo"<td align=center class=selecttdbg>";
+		echo"<input type=hidden name=asnelist value=$tmpstno>";
+		echo"<input type=hidden name=asnelics value=$sub_21>";
 		echo"<input type=hidden name=rmaseliid value=$getasselyst>";
 		echo"<input type=submit name=asssubbtn value='Cancel'>";
 	}

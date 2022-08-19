@@ -393,9 +393,11 @@ else{
 			if($course_medium=="SI+EN"){
 			if($mdm==0){
 				echo"<font size=1px>(SI)</font>";
+				echo "$imgalt";
 			}
 			if($mdm==1){
 				echo"<font size=1px>(EN)</font>";
+                echo "$imgalt";
 			}			
 			
 		 }

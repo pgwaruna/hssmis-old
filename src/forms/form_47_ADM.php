@@ -10,8 +10,10 @@ while ($qrole = mysql_fetch_array($qurole)) {
 
 if($roleid === 6){
 	$studentNumber = $admisid;
+	$stuNoPrint = $admisid;
 }else{
 	$studentNumber = "hs".$admisid;
+	$stuNoPrint = $admisid;
 }
 ///////////////////START ADMISSION///////////////////////////////
 echo"<table border='0' align='center' width='100%' cellspacing='0' cellpadding='0'>";
@@ -22,7 +24,7 @@ echo"<table border='0' align='center' width='100%' cellspacing='0' cellpadding='
 			echo"<tr><td align='left' width='45%' >EXAMINATION ADMISSION CARD - S7 Form</td>";
 
 
-			echo"<td  width='80%' align=right><table border='1' cellspacing='0' cellpadding='0'><tr height='30px' ><td><font size='3px'>Index No : HS/$batch/$studentNumber</table> </td></tr>";
+			echo"<td  width='80%' align=right><table border='1' cellspacing='0' cellpadding='0'><tr height='30px' ><td><font size='3px'>Index No : HS/$batch/$stuNoPrint</table> </td></tr>";
 
 			echo"<tr><td colspan=2 height='30px' >&nbsp;</td></tr>";
 			echo"<tr><td colspan=2 height='50px' align='center' valign='middel'><font size='4px'>UNIVERSITY OF RUHUNA<br>FACULTY OF HUMANITIES AND SOCIAL SCIENCES</font></td></tr>";
@@ -41,10 +43,10 @@ echo"<table border='0' align='center' width='100%' cellspacing='0' cellpadding='
 
 
 			echo"<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-			echo"<img src='../picture/DRs_signr.png' width=80px></td><td>&nbsp;</tr>";
+			echo"<img src='../picture/sar.jpg' width=300px></td><td>&nbsp;</tr>";
 			
 
-			echo"<tr><td colspan=2><font size='3px'>Deputy Registrar, Faculty of Humanities & Social Science </td></tr>";
+			echo"<tr><td colspan=2><font size='3px'>Senior Assistant Registrar, Faculty of Humanities & Social Science </td></tr>";
 
 			echo"<tr><td colspan=2><hr></td></tr>";
 			/////////////////////////////////////////////////////////////////////////////////////////////////

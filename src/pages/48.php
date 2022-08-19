@@ -234,34 +234,58 @@ if (($_SESSION['login']) == "truefohssmis") {
             if ($stlvl != 1) {
 
                 echo "<br><br>*** Incomplete Course Unit Registration *** ";
+                // if the level is 2,3,4 then only there will be repeat subjects
 
 
-                if ($stlvl != 0) {
-
-                    if ($seme == 1) {
-//                        $quecoreg = "select r.course, r.degree, c.name from registration r,courseunit c where r.student='$stno' and r.semister=1 and r.confirm=1 and r.acedemic_year<>'$acyart' and r.course=c.code order by r.acedemic_year,r.semister,r.course";
-                        $quecoreg = "select r.course, r.degree, c.name from registration r,courseunit c,student s where r.student='$stno' and r.student=s.id and r.semister=1 and r.confirm=1 and r.acedemic_year<>'$acyart' and r.course=c.code and c.by_low_version=s.curriculum order by r.acedemic_year,r.semister,r.course";
-//                        echo '1_quecoreg '.$quecoreg;
-                    } else {
-                        $quecoreg = "select r.course,r.degree,c.name from registration r,courseunit c where r.student='$stno' and (r.semister=2 or r.semister=3) and r.confirm=1 and r.acedemic_year<>'$acyart' and r.course=c.code order by r.acedemic_year,r.semister,r.course";
-//                        echo '2_quecoreg '.$quecoreg;
-                    }
-                } else {
-                    if ($seme == 1) {
-                        $quecoreg = "select r.course, r.degree, c.name from registration r,courseunit c where r.student='$stno' and r.semister=1 and r.confirm=1 and r.course=c.code order by r.acedemic_year,r.semister,r.course";
-//                        echo '3_quecoreg '.$quecoreg;
-                    } else {
-                        $quecoreg = "select r.course,r.degree,c.name from registration r,courseunit c where r.student='$stno' and (r.semister=2 or r.semister=3) and r.confirm=1 and  r.course=c.code order by r.acedemic_year,r.semister,r.course";
-//                        echo '4_quecoreg '.$quecoreg;
-                    }
-
+                if($seme == 1){
+                    // Semester 1
+                    $quecoreg = "select distinct(r.course), r.degree, c.name from registration r,courseunit c,student s where r.student='$stno' and r.student=s.id and r.semister=1 and r.confirm=1 and r.acedemic_year<>'$acyart' and r.course=c.code and c.by_low_version=$curriculum order by r.acedemic_year,r.semister,r.course";
+                    echo '1_quecoreg ';
+                }else{
+                    // Semester 2
+                    $quecoreg = "select distinct(r.course), r.degree, c.name from registration r,courseunit c,student s where r.student='$stno' and r.student=s.id and r.semister=2 and r.confirm=1 and r.acedemic_year<>'$acyart' and r.course=c.code and c.by_low_version=$curriculum order by r.acedemic_year,r.semister,r.course";
+                    echo '2_quecoreg ';
                 }
 
-
-
-
-
+ // commented due to not working code to show the repeat students 20/07/2022
+//                if ($stlvl != 0) {
+//
+//                    if ($seme == 1) {
+//                        $quecoreg = "select distinct(r.course), r.degree, c.name from registration r,courseunit c,student s where r.student='$stno' and r.student=s.id and r.semister=1 and r.confirm=1 and r.acedemic_year<>'$acyart' and r.course=c.code and c.by_low_version=1 order by r.acedemic_year,r.semister,r.course";
+////                        $quecoreg = "select r.course, r.degree, c.name from registration r,courseunit c,student s where r.student='$stno' and r.student=s.id and r.semister=1 and r.confirm=1 and r.acedemic_year<>'$acyart' and r.course=c.code order by r.acedemic_year,r.semister,r.course";
+//                        echo '1_quecoreg ';
+//                    }
+//                    else {
+//                        $quecoreg = "select r.course,r.degree,c.name from registration r,courseunit c where r.student='$stno' and (r.semister=2 or r.semister=3) and r.confirm=1 and r.acedemic_year<>'$acyart' and r.course=c.code and (c.by_low_version=1 or c.by_low_version=2) order by r.acedemic_year,r.semister,r.course";
+//                        echo '2_quecoreg ';
+//                    }
+//                }
+//                else {
+//                    if ($seme == 1) {
+//                        $quecoreg = "select r.course, r.degree, c.name from registration r,courseunit c where r.student='$stno' and r.semister=1 and r.confirm=1 and r.course=c.code order by r.acedemic_year,r.semister,r.course";
+//                        echo '3_quecoreg ';
+//                    } else {
+//                        $quecoreg = "select r.course,r.degree,c.name from registration r,courseunit c where r.student='$stno' and (r.semister=2 or r.semister=3) and r.confirm=1 and  r.course=c.code order by r.acedemic_year,r.semister,r.course";
+//                        echo '4_quecoreg ';
+//                    }
+//
+//                }
+//
+//                if($stlvl == 1){
+////                    $quecoreg = "select r.course,r.degree,c.name from registration r,courseunit c where r.student='$stno' and r.semister=1 and r.confirm=1 and r.acedemic_year<>'$acyart' and r.course=c.code and (c.by_low_version=1 or c.by_low_version=$curriculum) order by r.acedemic_year,r.semister,r.course";
+//                    $quecoreg = "select r.course,r.degree,c.name from registration r,courseunit c where r.student='$stno' and r.semister=1 and r.confirm=1 and r.acedemic_year<>'$acyart' and r.course=c.code and (c.by_low_version=1 or c.by_low_version=2) order by r.acedemic_year,r.semister,r.course";
+//                    echo '5_quecoreg ';
+//                }
+//                else{
+//                    $quecoreg = "select r.course,r.degree,c.name from registration r,courseunit c where r.student='$stno' and (r.semister=2 or r.semister=3) and r.confirm=1 and r.acedemic_year<>'$acyart' and r.course=c.code and (c.by_low_version=1 or c.by_low_version=$curriculum) order by r.acedemic_year,r.semister,r.course";
+//                    echo '6_quecoreg ';
+//                }
+//                if($stlvl == 3){
+//                    $quecoreg = "select r.course,r.degree,c.name from registration r,courseunit c where r.student='$stno' and (r.semister=2 or r.semister=3) and r.confirm=1 and r.acedemic_year<>'$acyart' and r.course=c.code and (c.by_low_version=1 or c.by_low_version=$curriculum) order by r.acedemic_year,r.semister,r.course";
+//                    echo '7_quecoreg ';
+//                }
                 $qucoreg = mysql_query($quecoreg);
+
                 if (mysql_num_rows($qucoreg) != 0) {
 
                     echo "<table border='0' width='90%'><tr>";
@@ -277,8 +301,8 @@ if (($_SESSION['login']) == "truefohssmis") {
                         $rptcname = $qcoreg['name'];
                         $rgdgstatus = $qcoreg['degree'];
 
-
                         $stexmrgcstyp = $n->checkrepeat($stno, $rptcoursegetchr);
+//                        echo '#'.$rptcoursegetchr.' - '.$stexmrgcstyp.',<br> ';
 
                         if ($stexmrgcstyp == "yes") {
                             if ($rgdgstatus == "Non Degree") {
@@ -288,7 +312,7 @@ if (($_SESSION['login']) == "truefohssmis") {
                             }
                             $rept = "yes";
                             $colum = $colum + 1;
-                            //echo$coreg."---".$dgstas."...".$gtreslt."==".$gpavl."<br>";
+//                            echo$coreg."---".$dgstas."...".$gtreslt."==".$gpavl."<br>";
                             $quechkexregi = "select * from exam_registration where std_id='$stno' and course_code='$rptcoursegetchr'and academic_year='$acyart' and semester=$seme and course_type='$rptstexmrgcstyp'";
                             //echo$quechkexregi;
                             $quchkexregi = mysql_query($quechkexregi);

@@ -220,20 +220,24 @@ $regst=$qregst['register'];
 
 			if($cmbregst==1){
                  $jonque="$rmsdb.fohssmis u";
-                $queprtatn="select distinct r.student, u.l_name, u.initials from student s, registration r, $jonque, $fmviweque where u.user=r.student and r.course ='$prtcode' and r.acedemic_year='$prtcrtacy' and r.student=fs.user_name and s.curriculum='$curriculum' and s.medium='$getprtcomdm' order by u.user";
+                $queprtatn="select distinct r.student, u.l_name, u.initials from student s, registration r, $jonque, $fmviweque where u.user=r.student and r.course ='$prtcode' and r.acedemic_year='$prtcrtacy' and s.curriculum='$curriculum' and s.medium='$getprtcomdm' order by u.user";
                 
 				$newst="yes";
+				echo 'test 1';
 				}
 			else{
-			$queprtatn="select distinct r.student, s.l_name, s.initials, s.batch from registration r, student s, $fmviweque  where s.id=r.student and r.course = '$prtcode' and r.acedemic_year='$prtcrtacy' and r.student=fs.user_name and s.curriculum='$curriculum' and s.medium='$getprtcomdm' and r.confirm=1 order by r.student";
+			$queprtatn="select distinct r.student, s.l_name, s.initials, s.batch from registration r, student s, $fmviweque  where s.id=r.student and r.course = '$prtcode' and r.acedemic_year='$prtcrtacy' and s.curriculum='$curriculum' and s.medium='$getprtcomdm' and r.confirm=1 order by r.student";
+                echo 'test 2';
 			       }
 				}
 		else{
 			if($regst==1){
-			$queprtatn="select distinct r.student, s.l_name, s.initials, s.batch from registration r, student s, $fmviweque where s.id=r.student and r.course = '$prtcode' and r.acedemic_year='$prtcrtacy' and r.student=fs.user_name and s.curriculum='$curriculum' and s.medium='$getprtcomdm' order by r.student";
+			$queprtatn="select distinct r.student, s.l_name, s.initials, s.batch from registration r, student s, $fmviweque where s.id=r.student and r.course = '$prtcode' and r.acedemic_year='$prtcrtacy' and s.curriculum='$curriculum' and s.medium='$getprtcomdm' order by r.student";
+                echo 'test 3';
 				}
 			else{
-			$queprtatn="select distinct r.student, s.l_name, s.initials, s.batch from registration r, student s, $fmviweque where s.id=r.student and r.course = '$prtcode' and r.acedemic_year='$prtcrtacy' and r.student=fs.user_name and r.confirm=1 and s.curriculum='$curriculum' and s.medium='$getprtcomdm'  order by r.student";
+			$queprtatn="select distinct r.student, s.l_name, s.initials, s.batch from registration r, student s, $fmviweque where s.id=r.student and r.course = '$prtcode' and r.acedemic_year='$prtcrtacy' and r.confirm=1 and s.curriculum='$curriculum' and s.medium='$getprtcomdm'  order by r.student";
+                echo 'test 4';
 			}
 
 			}
@@ -245,13 +249,15 @@ $regst=$qregst['register'];
 		$i=1;
 		while($qprtatn=mysql_fetch_array($quprtatn)){
 			$student=$qprtatn['student'];
-			
 			$stprmtnum=$vr52f->getStudentNumber($student); 
 			if($stprmtnum==null){
-				$fulstno="HS/$batch/$student";
+                $deacStudent = substr($student, 2);
+				$fulstno="HS/$batch/$deacStudent";
+                $stuStatus = "Deactivated";
 			}
 			else{
 				$fulstno=$stprmtnum;
+                $stuStatus = "";
 			}
 			
 			$batch=$qprtatn['batch'];
@@ -260,7 +266,7 @@ $regst=$qregst['register'];
 
 
 				echo"<tr height=30px><td align='center'>$i<td align='center'>$fulstno<td><font size=1px>&nbsp;&nbsp;$l_name<br>&nbsp;$initials</font>";
-				echo"<td>&nbsp;";
+				echo"<td>&nbsp;$stuStatus";
 				echo"<td>&nbsp;";				
 				echo"<td>&nbsp;";				
 				echo"<td>&nbsp;";				

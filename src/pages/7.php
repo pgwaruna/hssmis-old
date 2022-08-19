@@ -1217,7 +1217,7 @@ echo '<br><b><center>Summery of Level '.$shwlvl2.'000 and Semester '.$shwsem2.'<
 	$cuno=1;
 //echo$query7_2;	
 	if($dept!="all"){
-echo '<table border="0" align="center" ><tr><th>No<th>Course Unit<th>Medium<th>Course Unit Name<th>Coordinator<th>Core<th>Level<th>Semester<th>Credits <th>Registration Type <th>Target Group <th>Curriculum <th>Availability ';
+echo '<table border="0" align="center" ><tr><th>No<th>Course Unit<th>Medium<th>Course Unit Name<th>Course Unit Name<th>Core<th>Level<th>Semester<th>Credits <th>Registration Type <th>Target Group <th>Curriculum <th>Availability ';
 		if($mdlregofftoup=="on"){
 			echo"<th>Modify";
 					}
@@ -1231,7 +1231,7 @@ echo"</tr>";
 				$mldrwid=$data['id'];
 				$disaltemdiscos=$data['code'];
 				$disalfulcode=strtoupper(trim($disaltemdiscos));
-				
+                $disalname=$data['name']; // course unit name
 				$disalmdum=$data['medium'];
 				$disaldept=$data['department'];
 				$disallect=$data['lecture'];
@@ -1270,7 +1270,8 @@ echo"</tr>";
 	echo "<tr class=trbgc><td align=center>$cuno<td align=center><a href=?view=admin&admin=7&task=chngoption&due=vw&id=".$disaltemdiscos."&dept=".$disaldept."&rwid=".$mldrwid.">".$disalfulcode."</a>";
 	echo "<td align=center>".strtoupper($disalmdum);
 	echo "<td align=center>".strtoupper($disaldept);
-	echo "<td align=center><a href=?view=admin&admin=7&task=modifycourse&id=".$disaltemdiscos."&codept=$disaldept>".$disallect."</a>";
+//	echo "<td align=center><a href=?view=admin&admin=7&task=modifycourse&id=".$disaltemdiscos."&codept=$disaldept>".$disallect."</a>";
+    echo "<td align=center>$disalname";
 	echo "<td align=center>$disalcore";
 	echo "<td align=center>$disalcotype";
 	
@@ -1300,7 +1301,7 @@ echo"</tr>";
 	else{
 
 
-echo '<table border="0" align="center" ><tr><th>#<th>Course Unit<th>Medium<th>Department<th>Coordinator<th>Core <th>Registration Type <th>Level<th>Semester<th>Credits  <th>Target Group<th>Curriculum <th>Availability ';
+echo '<table border="0" align="center" ><tr><th>#<th>Course Unit<th>Medium<th>Department<th>Course Unit Name<th>Core <th>Registration Type <th>Level<th>Semester<th>Credits  <th>Target Group<th>Curriculum <th>Availability ';
 	//if($mdlregofftoup=="on"){
 			echo"<th>Modify";
 	//				}
@@ -1309,7 +1310,7 @@ echo"</tr>";
 				$mldrwid=$data['id'];
 				$disaltemdiscos=$data['code'];
 				$disalfulcode=strtoupper(trim($disaltemdiscos));
-				
+                $disalname=$data['name']; // course unit name
 				$disalmdum=$data['medium'];
 				$disaldept=$data['department'];
 				$disallect=$data['lecture'];
@@ -1350,7 +1351,8 @@ echo"</tr>";
 	echo "<td align=center>".strtoupper($disalmdum);
 	
 	echo "<td align=center>".strtoupper($disaldept);
-	echo "<td align=center><a href=?view=admin&admin=7&task=modifycourse&id=".$disaltemdiscos."&codept=$disaldept>".$disallect."</a>";
+//	echo "<td align=center><a href=?view=admin&admin=7&task=modifycourse&id=".$disaltemdiscos."&codept=$disaldept>".$disallect."</a>";
+	echo "<td align=center>$disalname";
 	echo "<td align=center>$disalcore";
 	echo "<td align=center>$disalcotype";
 	
@@ -1372,9 +1374,6 @@ echo"</tr>";
 	$cuno++;
 	}
 	echo "</table>";
-
-
-
 
 		}
 }

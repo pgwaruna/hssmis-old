@@ -1,6 +1,7 @@
 <?php
 //error_reporting(0);
 session_start();
+$curriculum = intval($_SESSION['curriculum']);
 if(($_SESSION['login'])=="truefohssmis"){
 
 $role=$_SESSION['role'];
@@ -66,13 +67,13 @@ $find_L=$find_semiL['semister'];
 //////////////------------------------------------------------------------------------------------------------------------------------/////////////////
 
 if(($role=="administrator")||($role=="topadmin")||($role=="sar")){
-$queprtatt="select code, name,department,level,medium,stream,by_low_version from courseunit where availability=1 and (semister=$find_L or semister=3) order by code,name";
+$queprtatt="select code, name,department,level,medium,stream,by_low_version from courseunit where availability=1 and (semister=$find_L or semister=3) and by_low_version=$curriculum order by code,name";
                                                                     }
 elseif(($role=="general")||($role=="office")){
-$queprtatt="select code, name,department,level,medium,stream,by_low_version from courseunit where department='$dept_id'  and availability=1 and (semister=$find_L or semister=3)  order by code,name";
+$queprtatt="select code, name,department,level,medium,stream,by_low_version from courseunit where department='$dept_id'  and availability=1 and (semister=$find_L or semister=3) and by_low_version=$curriculum order by code,name";
 }
 else{
-$queprtatt="select code, name,department,level,medium,stream,by_low_version from courseunit where (coordinator='$rltduser' or lecturers LIKE '%[$rltduser]%')   and availability=1 and (semister=$find_L or semister=3)  order by code,name";
+$queprtatt="select code, name,department,level,medium,stream,by_low_version from courseunit where (coordinator='$rltduser' or lecturers LIKE '%[$rltduser]%')   and availability=1 and (semister=$find_L or semister=3) and by_low_version=$curriculum order by code,name";
 }
 
 //////////////------------------------------------------------------------------------------------------------------------------------/////////////////

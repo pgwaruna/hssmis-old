@@ -1,6 +1,7 @@
 <?php
 //error_reporting(0);
 session_start();
+$curriculum = intval($_SESSION['curriculum']);
 if((isset($_SESSION['login'])=="truefohssmis")&&($_SESSION['role']!="student")){
 
 include'../connection/connection.php';
@@ -181,7 +182,7 @@ $quegtexreg="select e.std_id,e.course_type,e.status,s.l_name, s.initials,s.batch
 	
 }*/
 
-$quegtexreg="select e.std_id,e.course_type,e.status,s.l_name, s.initials,s.batch from exam_registration e, student s where e.std_id=s.id and e.course_code='$prtcode' and e.academic_year='$prtcrtacy' and e.semester=$prtcosem and s.medium='$prtcomdm' order by e.std_id ";
+$quegtexreg="select e.std_id,e.course_type,e.status,s.l_name, s.initials,s.batch from exam_registration e, student s where e.std_id=s.id and e.course_code='$prtcode' and e.academic_year='$prtcrtacy' and e.semester=$prtcosem and s.medium='$prtcomdm' and s.curriculum='$curriculum' order by e.std_id ";
 
 //echo$quegtexreg;
 $qugtexreg=mysql_query($quegtexreg);
@@ -229,10 +230,13 @@ while($qgtexreg=mysql_fetch_array($qugtexreg)){
 		$batch=$qgtexreg['batch'];
 			$stprmtnum=$vr98f->getStudentNumber($student); 
 			if($stprmtnum==null){
-				$fulstno="HS/$batch/$student";
+                $deacStudent = substr($student, 2);
+				$fulstno="HS/$batch/$deacStudent";
+                $stuStatus = "Deactivated";
 			}
 			else{
 				$fulstno=$stprmtnum;
+                $stuStatus ="";
 			}
 
 
@@ -265,7 +269,7 @@ while($qgtexreg=mysql_fetch_array($qugtexreg)){
 			$name=strtoupper($initials)." ".strtoupper($l_name);
 	*/
 echo"<tr height=25px><td align=center>$i<td align=center>$fulstno";
-echo"<td>&nbsp;&nbsp;$confirm2";
+echo"<td>&nbsp;&nbsp;$confirm2$stuStatus";
 echo"<td>&nbsp;";
 echo"<td>&nbsp;";
 echo"<td>&nbsp;";

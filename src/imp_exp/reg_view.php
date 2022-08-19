@@ -1,6 +1,8 @@
 <?php
 session_start();
 $curriculum = intval($_SESSION['curriculum']);
+require_once('../classes/globalClass.php');
+$vr52f=new settings();
 if (isset($_SESSION['login']) == "turefohssmis") {
     ?>
 
@@ -85,9 +87,9 @@ if (isset($_SESSION['login']) == "turefohssmis") {
 
     $fmviweque = "rumisdb.fohssmisStudents fs";
     if ($stream_reg == "All") {
-        $query1_3 = "select distinct(r.student), s.batch from registration r, level l, student s, $fmviweque where r.acedemic_year='$acedemic_reg' and (r.semister='$semister_reg' or r.semister=3) and r.student=s.id and s.year=l.year and l.level='$level_reg' and r.student=fs.user_name and s.curriculum='$curriculum' order by r.student";
+        $query1_3 = "select distinct(r.student), s.batch from registration r, level l, student s, $fmviweque where r.acedemic_year='$acedemic_reg' and (r.semister='$semister_reg' or r.semister=3) and r.student=s.id and s.year=l.year and l.level='$level_reg' and s.curriculum='$curriculum' order by r.student";
     } else {
-        $query1_3 = "select distinct(r.student), s.batch from registration r, level l, student s, $fmviweque where r.acedemic_year='$acedemic_reg' and (r.semister='$semister_reg' or r.semister=3) and r.student=s.id and s.year=l.year and l.level='$level_reg' and r.student=fs.user_name and s.stream='$stream_reg' and s.curriculum='$curriculum' order by r.student";
+        $query1_3 = "select distinct(r.student), s.batch from registration r, level l, student s, $fmviweque where r.acedemic_year='$acedemic_reg' and (r.semister='$semister_reg' or r.semister=3) and r.student=s.id and s.year=l.year and l.level='$level_reg' and s.stream='$stream_reg' and s.curriculum='$curriculum' order by r.student";
     }
     $reg_two = mysql_query($query1_3);
     $rst = 1;
@@ -98,7 +100,14 @@ if (isset($_SESSION['login']) == "turefohssmis") {
         $lstdigts = substr("$regstlstnunm", 2);
         //////////////////////////////////////////////////////
 
-        echo "<td align=center width=120px>HS/" . $data2['batch'] . "/" . $lstdigts;
+        $stprmtnum=$vr52f->getStudentNumber($regstlstnunm);
+        if($stprmtnum==null){
+            echo "<td align=center width=120px>HS/" . $data2['batch'] . "/" . $lstdigts ."<br>Deactivated";
+        } else {
+            echo "<td align=center width=120px>HS/" . $data2['batch'] . "/" . $lstdigts;
+        }
+
+
 
         $student_select = $data2['student'];
         /// Student Registration Information
