@@ -1,6 +1,7 @@
 <?php
 //error_reporting(0);
 session_start();
+$curriculum = intval($_SESSION['curriculum']);
 if(($_SESSION['login'])=="truefohssmis"){
 
 
@@ -42,14 +43,14 @@ if($pem=="TRUE")
 
 <?php
 echo "Assignment Eligibility Status<hr class=bar><br>";
-		
+
 //////////////edit by iranga ////////////////////////////////////////////////////
 require_once('./classes/globalClass.php');
 $vr96=new settings();
 /////////////////////////////////////////////////////////////////////////////////
 
-		
-$role=$_SESSION['role'];									
+
+$role=$_SESSION['role'];
 $dept_id=$_SESSION['section'];
 $rltduser=$_SESSION['user_id'];
 //...............edit by iranga....................
@@ -58,9 +59,9 @@ $ac_year=mysql_query($acc_year);
 while($a_y=mysql_fetch_array($ac_year)){
 $acy=$a_y['acedemic_year'];
 }
-//.................................................			
+//.................................................
 
-///////////////////////////check reg on/off/////////////////////////////////			
+///////////////////////////check reg on/off/////////////////////////////////
 $queregst="select register from call_registration";
 $quregst=mysql_query($queregst);
 $qregst=mysql_fetch_array($quregst);
@@ -79,7 +80,7 @@ $task8=$_GET['task8'];
 $getcsmdm=$_GET['mdm'];
 if($getcsmdm==null){
 	$getcsmdm="SI";
-}	
+}
 
 // View attendences Available
 
@@ -111,11 +112,11 @@ if($getcsmdm!=null){
 echo"<br>";
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //...............insert accyear validation..by iranga........
-if($regst==0){	
-    $query_21_9="select count(distinct r.student) from registration r, student s, $fmviweque where s.id=r.student and r.course = '$sub_21' and r.acedemic_year='$acy' and r.student=fs.user_name and r.confirm='1' and s.medium='$getcsmdm'";
+if($regst==0){
+    $query_21_9="select count(distinct r.student) from registration r, student s, $fmviweque where s.id=r.student and r.course = '$sub_21' and r.acedemic_year='$acy' and r.student=fs.user_name and r.confirm='1' and s.medium='$getcsmdm' and s.curriculum=$curriculum";
 		}
 else{
-$query_21_9="select count(distinct r.student) from registration r, student s, $fmviweque where s.id=r.student and r.course = '$sub_21' and r.acedemic_year='$acy' and r.student=fs.user_name and s.medium='$getcsmdm' ";
+$query_21_9="select count(distinct r.student) from registration r, student s, $fmviweque where s.id=r.student and r.course = '$sub_21' and r.acedemic_year='$acy' and r.student=fs.user_name and s.medium='$getcsmdm' and s.curriculum=$curriculum";
 	}
 
   	$oce2=mysql_query($query_21_9);
@@ -143,7 +144,7 @@ while($qhtl1ns1=mysql_fetch_array($quhtl1ns1)){
     $cossem=$qhtl1ns1['semister'];
                         }
 if(($coslvl==1)&&(($cossem==1)||($cossem==3))){
-///////////////////////////check reg on/off/////////////////////////////////            
+///////////////////////////check reg on/off/////////////////////////////////
 $queregst2="select status from  call_combination";
 $quregst2=mysql_query($queregst2);
 $qregst2=mysql_fetch_array($quregst2);
@@ -153,11 +154,11 @@ $regst2=$qregst2['status'];
     if($regst2==1){
         $jonque="$rmsdb.fohssmis u";
         $query_21_8="select distinct r.student, u.l_name, u.initials from registration r, $jonque, $fmviweque where u.user=r.student and r.course ='$sub_21' and r.acedemic_year='$acy' and r.student=fs.user_name  order by u.user";
-  
+
     $newst="yes";
             }
     else{
-    $query_21_8="select distinct r.student, s.l_name, s.initials, s.year from registration r, student s, $fmviweque where s.id=r.student and r.course = '$sub_21' and r.acedemic_year='$acy' and r.student=fs.user_name  and r.confirm='1' and s.medium='$getcsmdm' order by r.student";
+    $query_21_8="select distinct r.student, s.l_name, s.initials, s.year from registration r, student s, $fmviweque where s.id=r.student and r.course = '$sub_21' and r.acedemic_year='$acy' and r.student=fs.user_name  and r.confirm='1' and s.medium='$getcsmdm' and s.curriculum=$curriculum order by r.student";
 
         }
 
@@ -166,11 +167,11 @@ $regst2=$qregst2['status'];
     else{
     //...............insert accyear validation..by iranga........
 
-    if($regst==0){  
-    $query_21_8="select distinct r.student, s.l_name, s.initials, s.year from registration r, student s, $fmviweque where s.id=r.student and r.course = '$sub_21' and r.acedemic_year='$acy' and r.student=fs.user_name  and r.confirm='1'  and s.medium='$getcsmdm'order by r.student";
+    if($regst==0){
+    $query_21_8="select distinct r.student, s.l_name, s.initials, s.year from registration r, student s, $fmviweque where s.id=r.student and r.course = '$sub_21' and r.acedemic_year='$acy' and r.student=fs.user_name  and r.confirm='1' and s.medium='$getcsmdm' and s.curriculum=$curriculum order by r.student";
             }
     else{
-    $query_21_8="select distinct r.student, s.l_name, s.initials, s.year from registration r, student s, $fmviweque where s.id=r.student and r.course = '$sub_21' and r.acedemic_year='$acy' and r.student=fs.user_name and s.medium='$getcsmdm'  order by r.student";
+    $query_21_8="select distinct r.student, s.l_name, s.initials, s.year from registration r, student s, $fmviweque where s.id=r.student and r.course = '$sub_21' and r.acedemic_year='$acy' and r.student=fs.user_name and s.medium='$getcsmdm' and s.curriculum=$curriculum order by r.student";
         }
 /////////////////////////////////////////////////////////////
         }
@@ -182,13 +183,13 @@ $regst2=$qregst2['status'];
   	$oce=mysql_query($query_21_8);
     if(mysql_num_rows($oce)!=0){
 		echo"<b><font color=blue size=3px>-- Please consider to submit Not Eligible student only ! --</font></b>";
-		
+
 	/////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////
 	$getvrnebl=$_GET['nebl'];
 
 		// Need to change semester for each semester manually via code
-		$currentSem = 1;
+		$currentSem = 2;
 
 	if($getvrnebl=="set"){
 		$getasssubbtn=$_POST['asssubbtn'];
@@ -205,7 +206,7 @@ $regst2=$qregst2['status'];
 			$row = mysql_fetch_array($result);
 
 			$getrmaseliid=$_POST['rmaseliid'];
-			
+
 			$quecnclntely="delete from assignment_eligibility where ass_id=$getrmaseliid";
 			$qucnclntely=mysql_query($quecnclntely);
 
@@ -248,13 +249,13 @@ $regst2=$qregst2['status'];
 			}
 		}
 		///////////////////////////////
-	
-	
+
+
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////////////////		
-		
-	
+	/////////////////////////////////////////////////////////////////////////////////////////////
+
+
         echo '<table>';
 	echo"<tr><th>#<th>Name with Initials<th>Student Number";
 	//echo"<th>Assignment 1<th>Assignment 2<th>Assignment 3<th>Assignment 4";
@@ -262,29 +263,29 @@ $regst2=$qregst2['status'];
 	while($data2=mysql_fetch_array($oce)){
 	    $stcnt++;
 
-	echo '<tr class="trbgc" height=25px>';		
-	
+	echo '<tr class="trbgc" height=25px>';
+
 	echo"<form method=post action='./index.php?view=admin&admin=96&sub=$sub_21&task8=attendence&mdm=$getcsmdm&nebl=set'>";
 	echo "<td align=center>$stcnt<td>".$data2['l_name']." ".$data2['initials']."<td align='center'>";
 	$tmpstno=$data2['student'];
-	$stprmtnum=$vr96->getStudentNumber($tmpstno); 
-	
+	$stprmtnum=$vr96->getStudentNumber($tmpstno);
+
 		echo$stprmtnum;
-	
-	
+
+
 	$student_select=$data2['student'];
 	/// Student Registration Information
-	
+
 	//echo"<td>&nbsp;";
 	//echo"<td>&nbsp;";
 	//echo"<td>&nbsp;";
 	//echo"<td>&nbsp;";
-	
+
 
 	$quegetasselyst="select ass_id from assignment_eligibility where stu_no='$tmpstno' and course='$sub_21' and medium='$getcsmdm' and ac_year='$acy'";
 	//echo$quegetasselyst;
 	$qugetasselyst=mysql_query($quegetasselyst);
-	
+
 	if(mysql_num_rows($qugetasselyst)!=0){
 		while($qgetasselyst=mysql_fetch_array($qugetasselyst)){
 			$getasselyst=$qgetasselyst['ass_id'];
@@ -299,7 +300,7 @@ $regst2=$qregst2['status'];
 	}
 	else{
 		echo"<td align=center>&nbsp;";
-		
+
 		echo"<td align=center>";
 		echo"<input type=hidden name=asnelist value=$tmpstno>";
 		echo"<input type=hidden name=asnelics value=$sub_21>";
@@ -308,12 +309,12 @@ $regst2=$qregst2['status'];
 	}
 
 	echo"</form>";
-	
-	// End Student Registration Information	
-	
+
+	// End Student Registration Information
+
 	}
-	
-	
+
+
 	echo "</table>";
     }
     else{
@@ -321,7 +322,7 @@ $regst2=$qregst2['status'];
 }
 
 
-echo '<br><hr class=bar>';		
+echo '<br><hr class=bar>';
 
 ////////////////////////////
 ////////////////////////////
@@ -363,13 +364,13 @@ echo "You have following course units to set assignment eligibility status <tabl
 while($attdata=mysql_fetch_array($att)){
         $allcose=$attdata['code'];
 		$coursegetchr=trim($allcose);
-                 
-  $fulcode3=strtoupper($coursegetchr);     
+
+  $fulcode3=strtoupper($coursegetchr);
 
 $stream=$attdata['stream'];
-$medium=$attdata['medium'];  
+$medium=$attdata['medium'];
 
- //////////////////////.............................////////////////////////////// 
+ //////////////////////.............................//////////////////////////////
 echo '<tr  align=center  class="trbgc" height=25px><td>'.$cutbl.'<td>';
 
 $swcd=$attdata['code'];
@@ -392,14 +393,14 @@ echo "</table>";
 else{
 	echo"Sorry! Can not find course unit to view registration for you<br>";
 }
-		
-echo '<br><hr class=bar>';	
-///////////////////////////////////////////////////////////////////////////////////////						
+
+echo '<br><hr class=bar>';
+///////////////////////////////////////////////////////////////////////////////////////
 
 
-						
-						
-						
+
+
+
 
 ?>
 
@@ -424,7 +425,7 @@ else{
 echo "You Have Not Permission To Access This Area!";}
 
 
-}   
+}
 else{
 
 echo "You Have Not Permission To Access This Area!";}

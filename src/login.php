@@ -35,7 +35,6 @@ if ($username != null) {
 
         include './connection/connection.php';
 
-
         ////////////////////////////////user in local system///////////////////////////////
         if ($faculty != null) {
             $quecheckpwd = "select AES_DECRYPT(password,1000) as upwd, user, l_name, initials, occupation, section, email, role from $rmsdb.$faculty where user='$username'";
@@ -61,9 +60,8 @@ if ($username != null) {
             } else {
                 header('Location: index.php');
             }
-
-
         } else {
+            $statusMsg=null;
             while ($qcheckpwd = mysql_fetch_array($qucheckpwd)) {
                 $getpwd = $qcheckpwd['upwd'];
                 //echo$getpwd;
@@ -74,9 +72,23 @@ if ($username != null) {
                     if ($_SESSION['role'] == "student") {
                         $stview = $faculty . "Students";
                         //echo$stview;
-                        $quegetssid = "select SSID from $rmsdb.$stview where user_name='$username'";
-
+                        $quegetssid = "select SSID from $rmsdb.$stview where user_name='$username' AND Active='Yes'";
                         $qugetssid = mysql_query($quegetssid);
+
+                        // Check student status
+//                        $qryActStudents = mysql_query("select 'Active' from $rmsdb.'fohssStudents' where user_name='$username'");
+//                        echo $qryActStudents;
+//
+//                        if (mysql_num_rows($qryActStudents) != 0) {
+//                            while ($row = mysql_fetch_array($qryActStudents)) {
+//
+//                                if($row['Active'] === 'Yes'){
+//                                    $statusMsg = $row['Active'];
+//                                    $activate = "ok";
+//                                }
+//                            }
+//                        }
+
                         if (mysql_num_rows($qugetssid) != 0) {
                             while ($qgetssid = mysql_fetch_array($qugetssid)) {
                                 $_SESSION['ssid'] = $qgetssid['SSID'];
@@ -91,7 +103,9 @@ if ($username != null) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     if ($activate != "ok") {
 
-                        $_SESSION['ermsg'] = "Your Account Deactivated !";
+
+
+                        $_SESSION['ermsg'] = "Your Account Deactivated ! ";
                         $_SESSION['login'] = "false";
 
                         if ($_SESSION['host'] == "remot") {
@@ -186,7 +200,7 @@ if ($username != null) {
 
     }//charactor check if close
 
-}// check user name not null	
+}// check user name not null
 else {
     $_SESSION['ermsg'] = "Please Enter Your Username !";
     $_SESSION['login'] = "false";

@@ -128,8 +128,9 @@ echo"<br>[ Foundation Course : 1 ]&nbsp;&nbsp;,&nbsp;&nbsp;";
                                 
                                 ////////////////////////////////////////////////////
 			$course=$fulcode;
+
 		////////////////////////////////////////////////////////////////////
-		$quegetmdm="select medium from courseunit where code='$coursegetchr'";
+		$quegetmdm="select medium from courseunit where code='$coursegetchr' and by_low_version='$curriculum'";
 		$qugetmdm=mysql_query($quegetmdm);
 		if(mysql_num_rows($qugetmdm)!=0){
 			$qgetmdm=mysql_fetch_array($qugetmdm);
@@ -164,7 +165,7 @@ $tclm++;
     $fmviweque="$rmsdb.fohssmisStudents fs";
     
     if($level_reg!=0){
-        $query1_3="select distinct(e.std_id),s.batch,s.medium from exam_registration e, level l, student s, $fmviweque where e.std_id=s.id and e.academic_year='$acedemic_reg' and (e.semester='$semister_reg' or e.semester=3) and s.year=l.year and l.level='$level_reg' and e.std_id=fs.user_name order by e.std_id";
+        $query1_3="select distinct(e.std_id),s.batch,s.medium from exam_registration e, level l, student s, $fmviweque where e.std_id=s.id and e.academic_year='$acedemic_reg' and (e.semester='$semister_reg' or e.semester=3) and s.year=l.year and l.level='$level_reg' and e.std_id=fs.user_name  order by e.std_id";
     }
     else{
                 $quegetintenallvl="select year from level where level<>0 order by year";

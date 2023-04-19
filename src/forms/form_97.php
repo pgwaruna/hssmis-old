@@ -137,7 +137,7 @@ if ((isset($_SESSION['login']) == "truefohssmis") && ($_SESSION['role'] != "stud
         echo "<table border=0 width=98%  align=center>";
         echo "<tr height=30px><td width=50%><font size=3px>Part :<td><font size=3px>Date : $getshtdate";
         echo "<tr height=30px><td width=20%><font size=3px>Centre : $getshtcntr<td><font size=3px>Time : $getshttme";
-        echo "<tr height=40px><td colspan=2 align=justify>The Supervisor is kindly requested to mark absentees clearly as ''ABSENT'' and ''√'' for those who are present in two copies. A separate copy should include signatures of students. The copy with signatures of students should be returned in a separate cover to the Senior Assistant Registrar of the faculty and the other two copies need to be enclosed in the relevant packet of answer scripts..";
+        echo "<tr height=40px><td colspan=2 align=justify>The Supervisor is kindly requested to mark absentees clearly as ''ABSENT'' and put a tick ''√'' for those who are present in two copies. A separate copy should include signatures of students. The copy with signatures of students should be returned in a separate cover to the Senior Assistant Registrar of the faculty and the other two copies need to be enclosed in the relevant packet of answer scripts..";
         echo "</table>";
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -115,10 +115,10 @@ document.getElementById(ele).style.visibility="hidden"
 
   if($view=="admin"){
         if(isset($_SESSION['login'])&&($_SESSION['remtgt']!="cntctorumis")){
-		
+
            	$_SESSION['login']="true".$_SESSION['faculty'];
 	  	$_SESSION['userhost']=$_SESSION['faculty'];
-		
+
 				if($_SESSION['role_id']==1){
 					$_SESSION['role_id']=3;
 					$_SESSION['role']="administrator";
@@ -126,14 +126,14 @@ document.getElementById(ele).style.visibility="hidden"
 
 
 
-                                         }        
+                                         }
                                }
 
 
 
 if($task=="leaverms"){
 header('Location: ../rumis/index.php?task=leaverms');
-//echo "<meta http-equiv='refresh' content='0;URL=../rumis/index.php?task=leaverms'>"; 
+//echo "<meta http-equiv='refresh' content='0;URL=../rumis/index.php?task=leaverms'>";
 			}
 ///////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////// end set var for dis rumis dont edit //////////////////////////
@@ -145,7 +145,7 @@ echo"<div id=a>";
 
 
 include'connection/connection.php';
-////////////////////// validate date from all registration on/off///////////////////////// 
+////////////////////// validate date from all registration on/off/////////////////////////
 include 'datevalidation.php';
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -174,8 +174,8 @@ if($_SESSION['role_id']==1){
 	$_SESSION['role']="administrator";
 	$_SESSION['admswich']="yes";
 								}
-								
-								
+
+
 $role=$_SESSION['role_id'];
 echo"<table border=0 width=95%>";
 echo"<tr class=newsbar><td align='center' colspan=2>";
@@ -185,7 +185,7 @@ echo'</marquee>';
 echo"</td></tr>";
 echo"<tr><td align='center' width=90%>&nbsp;";
 
-/////////////////////////////////////// mentor view /////////////////////////////////////////////////////////////	
+/////////////////////////////////////// mentor view /////////////////////////////////////////////////////////////
 if($role!="6"){
 $abc=$_SESSION['user_id'];
 
@@ -194,7 +194,7 @@ $qugtmntid=mysql_query($quegtmntid);
 if(mysql_num_rows($qugtmntid)!=0){
   while($qgtmntid=mysql_fetch_array($qugtmntid)){
 	$_SESSION['Smntid']=$qgtmntid['mentor_id'];
-		
+
 						}
 	$mntid=$_SESSION['Smntid'];
 	echo"<table border='0' width='95%'><tr>";
@@ -205,12 +205,12 @@ if(mysql_num_rows($qugtmntid)!=0){
 }
 
 }
-/////////////////////////////////////end mentor view////////////////////////////////////////////////////////////////	
+/////////////////////////////////////end mentor view////////////////////////////////////////////////////////////////
 
 echo"<td align=center>";
 //////////////////////////////////// view Special notice //////////////////////////////////////////
 		$quechknt="select Notice_ID,date_time from notice where Status<>0 order by Notice_ID";
-		
+
 		$quchknt=mysql_query($quechknt);
 		if(mysql_num_rows($quchknt)!=0){
 			$newnot=array();
@@ -225,7 +225,7 @@ echo"<td align=center>";
 					$gtdatetm=explode("/",$date_time);
 						$gtdate=$gtdatetm[0];
 						$diff = abs(strtotime($today) - strtotime($gtdate));
-			
+
 							$years = floor($diff / (365*60*60*24));
 							$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
 							$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
@@ -236,8 +236,8 @@ echo"<td align=center>";
 								if($months>=1){
 									$days=($months*30)+$days;
 										}
-								
-									if($days<=7){										
+
+									if($days<=7){
 										$newnot[$nnot]="new";
 											}
 									else{
@@ -245,12 +245,12 @@ echo"<td align=center>";
 											$queupaslod="update notice set Status='2' where Notice_ID='$Notice_ID'";
 											mysql_query($queupaslod);
 										}
-														
+
 						$nnot=$nnot+1;
 
 									}// while loop close brec
 					//////////////////////////////////////////////////////////////////////////////////////////
-												
+
 
 					if (in_array("new", $newnot)) {
 						echo"<a href='./forms/form_53_a.php'><img src='./images/newnote.gif'><br><font size=2px><b>NOTICE</b></font></a>";
@@ -260,22 +260,22 @@ echo"<td align=center>";
 						}
 	echo"</td></tr>";
 						}
-	
+
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////// end view specails notice//////////////////////////////////////
 
 //////event calencer////////
     //echo"<tr><td>";
-    
+
     echo"<tr><td colspan=2 align=center><a href='./pages/75.php'><font size=2px><b>Events</b></font></a>";
-    
-    
+
+
     echo"</td></tr>";
 ////////////////end event calender///////
 
-	
-//////////////////////////////////////// main menu//////////////////////////////////////////////////	
+
+//////////////////////////////////////// main menu//////////////////////////////////////////////////
 echo"<tr><td colspan=2 align=center>";
 
 $quegetmmenu="select distinct(permi_group) from permission where role_id=".$_SESSION['role_id'];
@@ -307,7 +307,7 @@ echo"</table></div></td>";
 
 echo"</tr></table>";
 
-////////////////////////////// end main menu/////////////////////////////////////////////////////////	
+////////////////////////////// end main menu/////////////////////////////////////////////////////////
 	echo"</td></tr></table>";
 		////////////////////////// include page/////////////////////////////////////////////////////////////////////////////////
 	if(isset($admin)){
@@ -318,7 +318,7 @@ echo"</tr></table>";
 				if(mysql_num_rows($quchkpermi)!=0){
 						$getfile=$admin.".php";
 						//echo$getfile;
-						
+
 						////////////////////////////// include permission pages//////////////////////////
 						include "pages/$getfile";
 						/////////////////////////////////////////////////////////////////////////////////
@@ -381,14 +381,14 @@ echo"<div align='center'>";
 ////////////////////////// include page/////////////////////////////////////////////////////////////////////////////////
 	if(isset($admin)){
 			echo '<h class="bar">';
-		
+
 			$quechkpermi="select id from permission where role_id=".$_SESSION['role_id']." and id=$admin";
 			//echo$quechkpermi;
 			$quchkpermi=mysql_query($quechkpermi);
 				if(mysql_num_rows($quchkpermi)!=0){
 						$getfile=$admin.".php";
 						//echo$getfile;
-						
+
 						////////////////////////////// include permission pages//////////////////////////
 						include "pages/$getfile";
 						/////////////////////////////////////////////////////////////////////////////////
@@ -426,7 +426,7 @@ echo"</td><td align='center' width=150px>&nbsp;";
 if((($_SESSION['login'])=="truefohssmis")&&(($_SESSION['userhost'])!="rumis")){
 if(($_SESSION['role'])=="student"){
 $picname="../rumis/picture/user_pictures/student_std_pics/".$_SESSION['userhost']."_pic/".$_SESSION['ru_st_user_id'].".jpg";
-	
+
 		if(file_exists($picname)){
 			//echo"<img src='$picname' class='stretch' alt='' width=100px height=110px border=3>";
 								}
@@ -502,7 +502,7 @@ echo"<table border=0 align='center' width=99% ><tr valign='top'>";
 
 echo"<td align='left' height=50px width=50% valign='top' >";
 
-//////////////////////////////////// mentor prosses////////////////////////////////////////////////////////	
+//////////////////////////////////// mentor prosses////////////////////////////////////////////////////////
 
 
 //...........role check menteor or not..................
@@ -514,7 +514,7 @@ $qugtmntid=mysql_query($quegtmntid);
 if(mysql_num_rows($qugtmntid)!=0){
   while($qgtmntid=mysql_fetch_array($qugtmntid)){
 	$_SESSION['Smntid']=$qgtmntid['mentor_id'];
-		
+
 						}
 	$mntid=$_SESSION['Smntid'];
 	echo"<table border='0' width='80%'><tr>";
@@ -562,21 +562,25 @@ if($role !=="6") {
 //////////////////////////////////////////////////////////
 // Print student admission
 $stuId = $_SESSION['user_id'];
+$year=null;
 
 if($role=="6") {
-//    $curriculum_qry = mysql_query("select * from student where id='$stuId'");
-//    while($row=mysql_fetch_array($curriculum_qry)) {
-//        $curriculum = $row['curriculum'];
-//    }
-//    $_SESSION['curriculum'] = $curriculum;
-//    $userId =  substr($_SESSION['user_id'],2);
-//
-//    echo "<form method=POST action='./forms/form_47.php?task=oneadd'>";
-//    echo "<input type='hidden' name='exstno' size='6' value=".$userId.">";
-//    echo"<input type=submit value='View & Print Admission'></form>";
+    $curriculum_qry = mysql_query("select * from student where id='$stuId'");
+    while($row=mysql_fetch_array($curriculum_qry)) {
+        $curriculum = $row['curriculum'];
+        $year = $row['year'];
+    }
+    $_SESSION['curriculum'] = $curriculum;
+    $userId =  substr($_SESSION['user_id'],2);
+
+    if($year !== "2021"){
+        echo "<form method=POST action='./forms/form_47.php?task=oneadd'>";
+        echo "<input type='hidden' name='exstno' size='6' value=".$userId.">";
+        echo"<input type=submit value='View & Print Admission'></form>";
+    }
 }
-///////////////////////////////////end mentor process//////////////////////////////////////////////////////	
-	
+///////////////////////////////////end mentor process//////////////////////////////////////////////////////
+
     //////event calencer////////
   //if($role=="3"){
    //   echo"<table width='100%'><tr><td align=right colspan=6>&nbsp;";
@@ -584,8 +588,8 @@ if($role=="6") {
   //  echo"</td></tr></table>";
  // }
 ////////////////end event calender///////
-    
-    
+
+
 //.........edit by iranga ..fill personal data of student's........................
 /*
 if($role=="6"){
@@ -600,7 +604,7 @@ echo"</form></td></tr></table><br>";
 */
 //................................................
 
-	
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -609,14 +613,14 @@ echo"</form></td></tr></table><br>";
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	
+
 echo"<td align='center' width=10%>&nbsp;";
 
 
 
 
 		$quechknt="select Notice_ID,date_time from notice where Status<>0 order by Notice_ID";
-		
+
 		$quchknt=mysql_query($quechknt);
 		if(mysql_num_rows($quchknt)!=0){
 			$newnot=array();
@@ -631,7 +635,7 @@ echo"<td align='center' width=10%>&nbsp;";
 					$gtdatetm=explode("/",$date_time);
 						$gtdate=$gtdatetm[0];
 						$diff = abs(strtotime($today) - strtotime($gtdate));
-			
+
 							$years = floor($diff / (365*60*60*24));
 							$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
 							$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
@@ -642,8 +646,8 @@ echo"<td align='center' width=10%>&nbsp;";
 								if($months>=1){
 									$days=($months*30)+$days;
 										}
-								
-									if($days<=7){										
+
+									if($days<=7){
 										$newnot[$nnot]="new";
 											}
 									else{
@@ -651,12 +655,12 @@ echo"<td align='center' width=10%>&nbsp;";
 											$queupaslod="update notice set Status='2' where Notice_ID='$Notice_ID'";
 											mysql_query($queupaslod);
 										}
-														
+
 						$nnot=$nnot+1;
 
 									}// while loop close brec
 					//////////////////////////////////////////////////////////////////////////////////////////
-												
+
 
 					if (in_array("new", $newnot)) {
 						echo"<a href='./forms/form_53_a.php'><img src='./images/newnote.gif'><br><font size=2px> <b>NOTICE</b></font></a>";
@@ -675,14 +679,14 @@ echo"<td align='center' width=10%>&nbsp;";
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////// end view specails notice//////////////////////////////////////
 
-	
-	
-	
-echo"<tr><td width=70% align='center' valign='top' colspan=2>";	
-//////////////////////////////////////// main menu//////////////////////////////////////////////////	
-	
+
+
+
+echo"<tr><td width=70% align='center' valign='top' colspan=2>";
+//////////////////////////////////////// main menu//////////////////////////////////////////////////
+
 //echo "<img id=cnf".$sndgetrepcos."img".$getrepstid." src=../images/ntcnf.png onload=change('$sndgetrepcos','$getrepstid','$rpsubcnf',$rpsubid)>";
-                                    
+
 
 
 $quegetmmenu="select distinct(permi_group) from permission where role_id=".$_SESSION['role_id']." order by id";
@@ -718,8 +722,8 @@ echo"</tr></table>";
 
 ////////////////////////////// end main menu/////////////////////////////////////////////////////////
 	echo"</td><tr></table>";
-	
-	
+
+
 				///////////////////////////////////////// change my passowrd//////////////////////////////////////
 				if($task=="edit"){
 					echo "<hr class='bar'>";
@@ -728,22 +732,22 @@ echo"</tr></table>";
 					include 'pages/profile.php';
 									}
 				/////////////////////////////////////////end change password//////////////////////////////////////
-	
-	
-	
+
+
+
 	////////////////////////// include page/////////////////////////////////////////////////////////////////////////////////
 	if($_SESSION['adpdcngperm']!="yes"){
 	if(isset($admin)){
 			echo '<hr class="bar">';
-			
-			
+
+
 			$quechkpermi="select id from permission where role_id=".$_SESSION['role_id']." and id=$admin";
 			//echo$quechkpermi;
 			$quchkpermi=mysql_query($quechkpermi);
 				if(mysql_num_rows($quchkpermi)!=0){
 						$getfile=$admin.".php";
 						//echo$getfile;
-						
+
 						////////////////////////////// include permission pages//////////////////////////
 						include "pages/$getfile";
 						/////////////////////////////////////////////////////////////////////////////////
@@ -751,28 +755,28 @@ echo"</tr></table>";
 				else{
 					echo"<font color='red'>You have no permission to access this area!</font>";
 					}
-						
+
 						}
 	}
 	else{
-		echo "<meta http-equiv='refresh' content='0;URL=index.php?view=admin'>"; 
+		echo "<meta http-equiv='refresh' content='0;URL=index.php?view=admin'>";
 		}
 	////////////////////////// end include page/////////////////////////////////////////////////////////////////////////////////
-		
+
 	/////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////// password change/////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////
     	/////////////////////////////////////////////////////////////////////////////////////
-	
+
 		$unamecng=$_SESSION['user_id'];
 			$reason="pird_pwd_cng_secu_1";
-		
+
 			include'connection/connection.php';
 
 			$quegecngpwd18="select id from chngpwd where uname='$unamecng' and reason='$reason'";
 			//echo$quegecngpwd18;
-			
+
 			$qugecngpwd18=mysql_query($quegecngpwd18);
 				if(mysql_num_rows($qugecngpwd18)==0){
 
@@ -783,10 +787,10 @@ echo"</tr></table>";
         /////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////// end password change ///////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////////	
-		
+        /////////////////////////////////////////////////////////////////////////////////////
+
 															}///////////////end login true if
-															
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// end login true if//////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -801,11 +805,11 @@ header('Location: ../rumis/index.php');
 
 
 
-																			
+
 //////////////////////////////// login false if ///////////////////////////////////////////////////////////////////////////
 elseif(($_SESSION['login'])=="false"){
 	//echo"<font color='red'>".$_SESSION['ermsg']."</font>";
-	
+
 echo"<tr><td align='center' colspan=2 ><br><br><h3>University of Ruhuna<br>Matara-Sri Lanka</h3>For Support<br>E-Mail:  itu@hss.ruh.ac.lk";
 
 
@@ -887,8 +891,8 @@ echo"</td></tr>";
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 echo"</td></tr>";
 
-echo"<tr><td align='center' colspan=3><br>&#169 Faculty of Humanities and Social Sciences, University of Ruhuna.  </td></tr>"; 
-//echo"<tr><td align='center' colspan=3><br>&#169 Faculty of Humanities and Social Sciences, University of Ruhuna. [ <a href='index.php?view=admin&task=showprof'>About FOSMIS</a> ] </td></tr>"; 
+echo"<tr><td align='center' colspan=3><br>&#169 Faculty of Humanities and Social Sciences, University of Ruhuna.  </td></tr>";
+//echo"<tr><td align='center' colspan=3><br>&#169 Faculty of Humanities and Social Sciences, University of Ruhuna. [ <a href='index.php?view=admin&task=showprof'>About FOSMIS</a> ] </td></tr>";
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////end footer //////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////

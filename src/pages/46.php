@@ -99,7 +99,7 @@ $spdept=$getstem[1];
 
 
 
-$fmviweque="$rmsdb.fohssmisStudents fs";  
+$fmviweque="$rmsdb.fohssmisStudents fs";
 //echo$spstream_3.$splevel_3.$spdept;
 echo "<font size=3px><b><center>  Student List of ".ucfirst($spdept)." Special Degree $levl </center></b></font>";
 
@@ -125,7 +125,7 @@ if(mysql_num_rows($std_detailssp)!=0){
 						}
 						echo "</table>";
 						}
-											
+
 						else{
 						echo"<tr class=trbgc><td colspan='4' align='center'>Sorry! No Student Found</td></tr></table>";
 							}
@@ -155,7 +155,7 @@ if($task=='viewsum'){
 						$_SESSION['genstream']=$stream_8_22;
 						$_SESSION['genlevel']=$level_8_22;
 						$_SESSION['gendegre']=$degree_8_2;
-						
+
 												}
 
 							$stream_8_2=$_SESSION['genstream'];
@@ -166,18 +166,18 @@ if($task=='viewsum'){
 							 }
 							 else{
 								  $degrevar="s.stream='$degree_8_2'";
-							 }							
-							
-							
-							
-							
-							
+							 }
+
+
+
+
+
 						if($stream_8_2=="all"){
 							$getmnsunm4pnt="All Student ";
 						}
 						else{
 							$quesubvr="[".$stream_8_2."]";
-							$getmnsunm4pnt=$vr46->getmainsubject($stream_8_2);		
+							$getmnsunm4pnt=$vr46->getmainsubject($stream_8_2);
 						}
 						if($level_8_2==0){
 							$genlvl="Recently Passout";
@@ -187,20 +187,21 @@ if($task=='viewsum'){
 							}
 
 
-						 $fmviweque="$rmsdb.fohssmis fs";  
-                         
+						$fmviweque="$rmsdb.fohssmis fs";
+
 						echo "<font size=3px><b><center>Student List of ".ucfirst($getmnsunm4pnt)." at $genlvl in $degree_8_2 Stream</center></b></font>";
-	
+
 						if($stream_8_2=="all"){
 							$query8_3="select s.id, s.l_name, s.batch, s.initials, s.stream,s.combination,s.mentor_id, l.level from student s, level l, $fmviweque where l.level='$level_8_2' and l.year=s.year and s.id=fs.user and $degrevar order by s.id";
+							//echo 'all'.$query8_3;
 						}
 						else{
 							$query8_3="select s.id, s.l_name, s.batch, s.initials, s.stream,s.combination,s.mentor_id, l.level from student s, level l, $fmviweque where l.level='$level_8_2' and l.year=s.year and s.combination LIKE '%$quesubvr%'  and $degrevar and s.id=fs.user order by s.id";
+							//echo 'not all'.$query8_3;
 						}
 						//echo$query8_3;
-						
-						
-						
+
+
 						$std_details=mysql_query($query8_3);
 						echo '<table border="0"  align="center" width=98%><tr><th>#<th>Photo<th  width=15%>Index No<th width=20%>Name with Initials<th>Stream<th>Medium<th  width=35%>Subject Combinations<th width=20%>Name of the Mentor<th>Details</tr>';
 						if(mysql_num_rows($std_details)!=0){
@@ -215,22 +216,23 @@ if($task=='viewsum'){
 						echo "<td align='center'>$i<td align='center'>";
 						////////////////////////////////////////////////////////////////////////////////////////////////////////////
 						$infostpicnm=$sid.".jpg";
-					
+
 						$picname="./../rumis/picture/user_pictures/student_std_pics/fohssmis_pic/$infostpicnm";
 						//echo$picname;
 						 if(file_exists($picname)){
-							echo"<img src='$picname' class='stretch' alt='' width=60px border=1>";
+//							echo"<img src='$picname' class='stretch' alt='' width=60px border=1>";
                                 }
 						else{
-							echo "<img src=../../rumis/picture/user_pictures/student_std_pics/SCI_Fac_no_picture.png class='stretch' alt='No Picture' width=60px border=1>";
+//							echo "<img src=../../rumis/picture/user_pictures/student_std_pics/SCI_Fac_no_picture.png class='stretch' alt='No Picture' width=60px border=1>";
 												}
-										
+
 						////////////////////////////////////////////////////////////////////////////////////////////////////////////
-						
+
 						echo"<td><input type='hidden' name='index_8_5' value='$sid'>";
-						
-							$stprmtnum=$vr46->getStudentNumber($sid); 
-							
+
+							$stprmtnum=$vr46->getStudentNumber($sid);
+
+
 							if($stprmtnum==null){
 								$lstdigts= substr("$sid",2);
 								$pntstprmtnum="HS/$syr/$lstdigts<br><font color=red>( Temporary Deactivated ! )</font>";
@@ -240,7 +242,7 @@ if($task=='viewsum'){
 							}
 							echo$pntstprmtnum;
 						echo"<input type='hidden' name='year_8_5' value='$syr'><td align=left> &nbsp;".strtoupper($data['initials'])." ".strtoupper($data['l_name']);
-						
+
 						echo"<td>$stm Degree";
 						echo"<td>";
 							$stdgmedim=$vr46->getmedium($sid);
@@ -256,20 +258,20 @@ if($task=='viewsum'){
 
 							$rmopbckt2=explode("[",$getsubjct[1]);
 								$rmclbkt2=explode("]",$rmopbckt2[1]);
-							$puresubid2=$rmclbkt2[0];	
-							
+							$puresubid2=$rmclbkt2[0];
+
 							$rmopbckt3=explode("[",$getsubjct[2]);
 								$rmclbkt3=explode("]",$rmopbckt3[1]);
-							$puresubid3=$rmclbkt3[0];	
-							
+							$puresubid3=$rmclbkt3[0];
 
-							
+
+
 								$subone=$vr46->getmainsubject($puresubid1);
 
-							
+
 								$subtwo=$vr46->getmainsubject($puresubid2);
 
-							
+
 								$subthree=$vr46->getmainsubject($puresubid3);
 
 							echo"<b>$subone";
@@ -280,22 +282,66 @@ if($task=='viewsum'){
 									echo" + $subthree";
 								}
 							echo"</b>";
-							
-						////////////////////////////////////////////////////////////////							
-						
-						
+
+							// Get other subjects of the students
+							$queryOtherSub="select sub_combination from pre_sub_combination where st_num='$sid'";
+							$subjectsRes=mysql_query($queryOtherSub);
+
+							while($subrow=mysql_fetch_array($subjectsRes)){
+
+								$combination=$subrow['sub_combination'];
+								$subjects=explode("+",$combination);
+
+								$sub0=$vr46->getmainsubject(removeBrackets($subjects[0]));
+								$sub1=$vr46->getmainsubject(removeBrackets($subjects[1]));
+								$sub2=$vr46->getmainsubject(removeBrackets($subjects[2]));
+
+								echo '<br>';
+
+								if($subone !== $sub0){
+									echo $sub0.', ';
+								}
+								if($subone !== $sub1){
+									echo $sub1.', ';
+								}
+								if($subone !== $sub2){
+									echo $sub2.', ';
+								}
+								// Get the 2nd year 1st Sem course units
+								echo '<br>';
+								echo 'SEM 1 - ';
+								$sem1CuQry="select student,course from registration where student='$sid' AND acedemic_year='2021_2022' AND semister=1";
+								$sem1CuRes=mysql_query($sem1CuQry);
+								while($row1=mysql_fetch_array($sem1CuRes)){
+									$course1=$row1['course'];
+									echo $course1.', ';
+								}
+								echo '<br>';
+								// Get the 2nd year 2nd Sem course units
+								echo 'SEM 2 - ';
+								$sem2CuQry="select student,course from registration where student='$sid' AND acedemic_year='2021_2022' AND semister=2";
+								$sem2CuRes=mysql_query($sem2CuQry);
+								while($row2=mysql_fetch_array($sem2CuRes)){
+									$course2=$row2['course'];
+									echo $course2.', ';
+								}
+							}
+
+						////////////////////////////////////////////////////////////////
+
+
 						echo"<td align='center'>";
 						$gtmentor_id=$data['mentor_id'];
-						
+
 						$nameofmntr=$vr46->getmenorsname($gtmentor_id);
 						 echo "<b>".strtoupper($nameofmntr)."</b>";
-						
-						
-						echo"<td align='center'><input type='submit' value='Show'></form></tr>";
+
+
+//						echo"<td align='center'><input type='submit' value='Show'></form></tr>";
 						}
 						echo "</table>";
 						}
-											
+
 						else{
 						echo"<tr class=trbgc><td colspan='9' align='center'>Sorry! No Student Found</td></tr></table>";
 							}
@@ -303,7 +349,7 @@ if($task=='viewsum'){
 
 
 										}
-echo"</div>";						
+echo"</div>";
 ?>
 
 
@@ -317,9 +363,13 @@ else{
 echo "You Have Not Permission To Access This Area!";}
 
 
-}   
+}
 else{
 
 echo "You Have Not Permission To Access This Area!";}
+
+function removeBrackets($value){
+	return substr($value, 1, -1);
+}
 ?>
 
